@@ -9,11 +9,11 @@ import './common/directive'; // 自定义的指令
 import './common/filter'; // 自定义的过滤器
 
 if (process.env.NODE_ENV === 'production') {
-  // let targetProtocol = 'https:';
-  // if (window.location.protocol !== targetProtocol) {
-  //   window.location.href = targetProtocol +
-  //     window.location.href.substring(window.location.protocol.length);
-  // }
+  let targetProtocol = 'https:';
+  if (window.location.protocol !== targetProtocol) {
+    window.location.href = targetProtocol +
+      window.location.href.substring(window.location.protocol.length);
+  }
 }
 
 Vue.config.productionTip = false

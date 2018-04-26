@@ -15,11 +15,11 @@
           <div class="module3" style="font-size: 0.36rem;font-weight: 600;width: 64%;">
             <div class="item">
               <span class="score1 color4a4a4a">-</span>
-              <span class="name maxWidth62">{{ propsData.home }}</span>
+              <span class="name maxWidth62">{{ propsData.guest }}</span>
             </div>
             <div class="item">
               <span class="score1 color4a4a4a">-</span>
-              <span class="name maxWidth62">{{ propsData.guest }}</span>
+              <span class="name maxWidth62">{{ propsData.home }}</span>
             </div>
           </div>
         </div>

@@ -21,15 +21,6 @@
         <div @click="$emit('go',propsData.third_party_schedule_id)" style="width: 67%">
           <div class="module3" style="font-size: 0.36rem;font-weight: 600;width:64%">
             <div class="item">
-              <span class="score1 color734f40">{{ scoreArray(0) }}</span>
-              <span class="name maxWidth62"
-                    :class="propsData.home_info.red_card>0&&propsData.home_info.yellow_card ?'maxWidth62':'maxWidth80'">{{ propsData.home }}</span>
-              <span v-if="propsData.home_info.red_card>0"
-                    class="placard back-red">{{ propsData.home_info.red_card }}</span>
-              <span v-if="propsData.home_info.yellow_card>0"
-                    class="placard back-yellow">{{ propsData.home_info.yellow_card }}</span>
-            </div>
-            <div class="item">
               <span class="score1 color734f40">{{ scoreArray(1) }}</span>
               <span class="name maxWidth62"
                     :class="propsData.guest_info.red_card>0&&propsData.guest_info.yellow_card ?'maxWidth62':'maxWidth80'">{{ propsData.guest }}</span>
@@ -37,6 +28,15 @@
                     class="placard back-red">{{ propsData.guest_info.red_card }}</span>
               <span v-if="propsData.guest_info.yellow_card>0"
                     class="placard back-yellow">{{ propsData.guest_info.yellow_card }}</span>
+            </div>
+            <div class="item">
+              <span class="score1 color734f40">{{ scoreArray(0) }}</span>
+              <span class="name maxWidth62"
+                    :class="propsData.home_info.red_card>0&&propsData.home_info.yellow_card ?'maxWidth62':'maxWidth80'">{{ propsData.home }}</span>
+              <span v-if="propsData.home_info.red_card>0"
+                    class="placard back-red">{{ propsData.home_info.red_card }}</span>
+              <span v-if="propsData.home_info.yellow_card>0"
+                    class="placard back-yellow">{{ propsData.home_info.yellow_card }}</span>
             </div>
           </div>
         </div>

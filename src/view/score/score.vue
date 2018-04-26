@@ -412,7 +412,7 @@
           item.groups.forEach(inx => {
             i += inx.list.length
           });
-          if (i >= 10) {
+          if (i >= 5) {
             this.getMineData([this.lotteryType, this.lotteryState, i])
           }
         }

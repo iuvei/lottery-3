@@ -13,12 +13,12 @@
         <!---->
         <div class="module3" style="font-size: 0.36rem;font-weight: 600;width: 34%">
           <div class="item">
-            <span class="score1 color734f40">{{ scoreArray(0) }}</span>
-            <span class="name maxWidth62">{{ propsData.home }}</span>
-          </div>
-          <div class="item">
             <span class="score1 color734f40">{{ scoreArray(1) }}</span>
             <span class="name maxWidth62">{{ propsData.guest }}</span>
+          </div>
+          <div class="item">
+            <span class="score1 color734f40">{{ scoreArray(0) }}</span>
+            <span class="name maxWidth62">{{ propsData.home }}</span>
           </div>
         </div>
         <!---->

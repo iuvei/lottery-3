@@ -22,9 +22,8 @@ export default class compute {
     return item
   }
 
-  isWinning (betting, value) {
-    const a = betting.find(item => item.checked && item.text === value)
-    return a
+  isWinning (betting, value, con) {
+    return betting.find(item => item && item.con === con && item.text === value)
   }
 
   basketballFootball (scheduleList, jcInfo, data) {
@@ -44,12 +43,11 @@ export default class compute {
 
               if (Util.isFootball(Info.lottery_id)) {
                 newOdds.text = ResolveFootball(key, odds, Info)
-                checked = this.isWinning(Info.betting, ResolveFootball(key, odds, Info, 1))
+                checked = this.isWinning(Info.betting, ResolveFootball(key, odds, Info, 1), odds)
               } else if (Util.isBasketball(Info.lottery_id)) {
                 newOdds.text = ResolveBasketball(key, odds, Info)
-                checked = this.isWinning(Info.betting, ResolveBasketball(key, odds, Info, 1))
+                checked = this.isWinning(Info.betting, ResolveBasketball(key, odds, Info, 1), odds)
               }
-
               if (checked) {
                 if (checked.checked) {
                   newOdds.checked = checked.checked

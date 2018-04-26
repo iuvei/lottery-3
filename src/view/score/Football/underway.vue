@@ -4,11 +4,26 @@
       <module1
         :data="[weekDay(propsData.first_half_begin_time,1),propsData.round_no,propsData.league,weekDay(propsData.first_half_begin_time,2)]"/>
       <div @click="$emit('go',propsData.third_party_schedule_id)" class="row" style="margin: 0.34rem 0 0 0;">
-        <div class="text-center color9292" style="width: 17.5%;position: relative;color:#333333;font-size: 0.36rem;">
+        <!---->
+        <div v-if="propsData.half_score" class="text-center"
+             style="width: 17.5%;position: relative;font-size: 0.36rem;">
+          <div style="float: left;width: 98%;">
+            <div class="row">
+              <div class="col-center" style="width: 100%">
+                <div style="font-weight: 400;margin-top: 0.25rem;line-height: 100%;">{{propsData.match_duration}}'</div>
+                <div style="font-size: 0.3rem;margin-top: 0.25rem;line-height: 100%;color:#888888">半场 {{ propsData.half_score }}</div>
+              </div>
+            </div>
+          </div>
+          <div style="float: right;width:2%;height: 1.23rem;background-color: #ddd"></div>
+        </div>
+        <div v-else class="text-center color9292"
+             style="width: 17.5%;position: relative;color:#333333;font-size: 0.36rem;">
           <div style="line-height:1.23rem;border-right: 1px solid #ddd;">
             {{ propsData.match_duration }}'
           </div>
         </div>
+        <!---->
         <div class="module3" style="font-size: 0.36rem;font-weight: 600;width: 43%">
           <div class="item">
             <span class="score1 color60a839">{{ scoreArray(0)}}</span>

@@ -82,7 +82,7 @@ const actions = {
       Http.get(`/MyOrder/queryScheduleListInOrder`, {
         lottery_id: id === `14` ? 6 : id === `34` ? 7 : 20,
         offset: offset || 0,
-        limit: 10
+        limit: 5
       }).then((data) => {
         resolve(data)
       }).catch(reject)

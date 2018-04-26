@@ -13,15 +13,15 @@
         <div class="module3" style="font-size: 0.36rem;font-weight: 600;width: 34%">
           <div class="item">
             <span class="score1 color4a4a4a">-</span>
-            <span class="name maxWidth80">{{ propsData.home }}</span>
+            <span class="name maxWidth80">{{ propsData.guest }}</span>
           </div>
           <div class="item">
             <span class="score1 color4a4a4a">-</span>
-            <span class="name maxWidth80">{{ propsData.guest }}</span>
+            <span class="name maxWidth80">{{ propsData.home }}</span>
           </div>
         </div>
         <!---->
-        <div class="text-right module4" style="position: relative;height: 1.76rem;width: 45%;">
+        <div v-if="propsData.result_odds" class="text-right module4" style="position: relative;height: 1.76rem;width: 45%;">
           <div class="item2">
             <!--比分-->
             <div class="body2">{{ propsData.result_odds[`701`][`v0`] }}</div>
