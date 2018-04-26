@@ -57,8 +57,7 @@
     name: 'finished',
     props: {
       propsData: {type: Object},
-      jcInfo: {type: null},
-      index: {type: Number}
+      jcInfo: {type: null}
     },
     components: {
       module1,

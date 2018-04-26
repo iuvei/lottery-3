@@ -28,26 +28,26 @@
               </div>
             </div>
           </li>
-          <li v-for="(item,index) in list.schedule_list" :key="item.id">
-            <template v-if="item.match_status===1">
+          <li v-for="(item) in list.jc_info" :key="item.id">
+            <template v-if="item.ScheduleData.match_status===1">
               <notStarted
                 @go="goBasketball"
-                :propsData="item"
-                :jcInfo="list.jc_info[index]"
+                :propsData="item.ScheduleData"
+                :jcInfo="item"
               />
             </template>
-            <template v-else-if="item.match_status===2">
+            <template v-else-if="item.ScheduleData.match_status===2">
               <underway
                 @go="goBasketball"
-                :propsData="item"
-                :jcInfo="list.jc_info[index]"
+                :propsData="item.ScheduleData"
+                :jcInfo="item"
               />
             </template>
             <template v-else>
               <finished
                 @go="goBasketball"
-                :propsData="item"
-                :jcInfo="list.jc_info[index]"
+                :propsData="item.ScheduleData"
+                :jcInfo="item"
               />
             </template>
           </li>

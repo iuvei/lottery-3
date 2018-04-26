@@ -64,6 +64,7 @@ export default class SportsCalculate {
     this.setBetContent(orders);
     this.multiple = multiple;
     return this.initScript().then(calculate => {
+      console.log(JSON.parse(JSON.stringify([this.playType, this.seriesTypes, this.betContent, this.isMix, this.isDup])))
       return Promise.resolve(calculate && calculate(this.playType, this.seriesTypes, this.betContent, this.isMix, this.isDup, null, null, null))
     })
   }
@@ -105,7 +106,7 @@ export default class SportsCalculate {
 
   getScheduleContent (lotteryId, selected) {
     let content = '';
-
+    console.log(JSON.parse(JSON.stringify([lotteryId, selected])))
     const convertSelected = (value) => {
       if (value.id && parseInt(value.id) !== lotteryId) {
         lotteryId = parseInt(value.id)

@@ -6,17 +6,56 @@ import SportsLotteryJcInfo from '../../../model/sports/SportsLotteryJcInfo';
 export default class compute {
   constructor (groups) {
     this.groups = groups
+    this.disposeALL()
     return this.computeOdds()
+  }
+
+  disposeALL () {
+    let PromsSave = []
+    const groups = JSON.parse(JSON.stringify(this.groups.groups));
+    groups.map((data) => {
+      data.list = data.list.map((list) => {
+        list.jc_info = list.jc_info.map(info => {
+          const newInfo = new SportsLotteryJcInfo(info, info.lottery_id);
+          const index = list.schedule_list.findIndex(schedule => schedule.id === info.id);
+          const Schedule = list.schedule_list.splice(index, 1);
+          info = Object.assign(newInfo, info, Schedule[0]);
+          info.selected = info.betting;
+          info = this.ScheduleList(info);
+          return info;
+        });
+        let series = []
+        if (list.series) {
+          list.seriesText = SeriesType[list.series];
+          series.push({key: list.series, value: SeriesType[list.series]})
+        }
+        PromsSave.push(this.setProjectBonus(list.lottery_id, series, list.jc_info, list.multiple))
+        return list;
+      });
+      return data;
+    })
+    Promise.all(PromsSave).then(console.log)
+  }
+
+  ScheduleList (info) {
+    console.log(`进`, JSON.parse(JSON.stringify(info)));
+
+    console.log(`出`, JSON.parse(JSON.stringify(info)));
+    return info
   }
 
   sfcCompute (item) {
     // 胜负彩
+    const data = JSON.parse(JSON.stringify(item))
     item.jc_info = item.jc_info.map((item2, index) => {
       item2.betTxt = []
       let arr = item2.betting_order.betting_num.split(',')
-      item2.betTxt[index] = arr.map(item3 => {
-        return {text: item3, value: ''}
-      })
+      item2.betTxt[index] = arr.map(item3 => ({text: item3, value: ''}))
+
+      const indexs = data.schedule_list.findIndex(schedule => schedule.id === item2.id)
+      const Schedule = data.schedule_list.splice(indexs, 1)
+      item2 = Object.assign(item2, {ScheduleData: Schedule[0]})
+
       return item2
     })
     return item
@@ -27,7 +66,7 @@ export default class compute {
   }
 
   basketballFootball (scheduleList, jcInfo, data) {
-    scheduleList.forEach(item => {
+    scheduleList.forEach((item) => {
       let betTxt = []
       let index = jcInfo.findIndex(Info => {
         if (Info.id === item.id) {
@@ -68,6 +107,7 @@ export default class compute {
         jcInfo[index].betTxt = betTxt
         jcInfo[index].selected = betTxt
         jcInfo[index].lotteryId = parseInt(data.jc_info[index].lottery_id)
+        jcInfo[index].ScheduleData = item
       } else {
         jcInfo[0].selected = []
       }
