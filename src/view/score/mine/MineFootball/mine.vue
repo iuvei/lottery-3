@@ -2,7 +2,7 @@
   <div>
     <div class="organ-item"
          v-for="(groups,index) in propsData"
-         :key="index*2">
+         :key="groups.date||index">
       <div class="bg-white organ-item-title"
            @click="show(groups.date_timestamp)">
         <span class="left">{{ groups.name||groups.date }}</span>
@@ -11,7 +11,7 @@
       <ul v-show="switchItem(groups.date_timestamp)"
           style="padding: 0.14rem;"
           v-for="(list,ind) in groups.list"
-          :key="ind*4">
+          :key="list.id||ind">
         <li class="container row mine-back1">
           <div class="left football" :style="{backgroundImage:`url('${list.lottery_image}')`}"></div>
           <div class="right">
@@ -32,18 +32,25 @@
                 >{{i}}</span>
               </div>
               <div v-else>
-                <span class="msgSpan" v-if="list.status<=3">理论奖金:</span>
-                <span class="msgSpan" v-else>奖金:</span>
-                <span style="font-size:15px;color: #ffb81f;font-weight: bold">
-                  {{ list.status<=3? `${list.oddsMin||''}~${list.oddsMax||''}`:list.winnings_bonus }}
+                <template v-if="list.status>3||list.status<7">
+                  <span class="msgSpan">奖金:</span>
+                  <span style="font-size:15px;color: #ffb81f;font-weight: bold">
+                  {{list.winnings_bonus }}
                 </span>
+                </template>
+                <template v-else>
+                  <span class="msgSpan">理论奖金:</span>
+                  <span style="font-size:15px;color: #ffb81f;font-weight: bold">
+                  {{list.oddsMin||''}}~{{ list.oddsMax||'' }}
+                </span>
+                </template>
                 <span class="send-icon" @click="Message"></span>
               </div>
             </div>
           </div>
         </li>
 
-        <li v-for="(item) in list.jc_info" :key="item.id">
+        <li v-for="(item,index) in list.jc_info" :key="item.id||index">
           <template v-if="item.ScheduleData.match_status===1">
             <notStarted
               @go="goBasketball"

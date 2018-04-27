@@ -161,7 +161,7 @@
       </div>
       <div v-if="lotteryType===2" class="row text-center two-title">
         <div :class="{'activate-child':lotteryState===1}" @click="switchShow([lotteryType,1])">
-          <div class="back-icons">第{{a21.groups[SelectIndex].id}}期</div>
+          <div class="back-icons">第{{a21.groups.length?a21.groups[SelectIndex].id:''}}期</div>
         </div>
         <div :class="{'activate-child':lotteryState===2}" @click="switchShow([lotteryType,2])">我的投注</div>
       </div>
