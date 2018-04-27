@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="organ-item" v-for="groups in propsData" :key="groups.date_timestamp">
+    <div class="organ-item" v-for="(groups,index) in propsData" :key="groups.date+index">
       <div v-if="groups.name||groups.date" class="bg-white organ-item-title" @click="show(groups.date_timestamp)">
         <span class="left">{{ groups.name||groups.date }}</span>
         <span class="right" :class="{bgPlay:switchItem(groups.date_timestamp)}"> </span>

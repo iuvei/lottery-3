@@ -21,7 +21,7 @@
           </div>
         </div>
         <!---->
-        <div v-if="propsData.result_odds" class="text-right module4" style="position: relative;height: 1.76rem;width: 45%;">
+        <div v-if="propsData.result_odds&&propsData.result_odds[`701`]" class="text-right module4" style="position: relative;height: 1.76rem;width: 45%;">
           <div class="item2">
             <!--比分-->
             <div class="body2">{{ propsData.result_odds[`701`][`v0`] }}</div>

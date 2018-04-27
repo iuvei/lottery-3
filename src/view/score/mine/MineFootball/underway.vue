@@ -61,7 +61,7 @@
     name: 'underway',
     props: {
       propsData: {type: Object},
-      groupsIndex: {type: Array}
+      jcInfo: {type: null}
     },
     components: {
       module1,

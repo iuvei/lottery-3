@@ -6,42 +6,7 @@ import SportsLotteryJcInfo from '../../../model/sports/SportsLotteryJcInfo';
 export default class compute {
   constructor (groups) {
     this.groups = groups
-    this.disposeALL()
     return this.computeOdds()
-  }
-
-  disposeALL () {
-    let PromsSave = []
-    const groups = JSON.parse(JSON.stringify(this.groups.groups));
-    groups.map((data) => {
-      data.list = data.list.map((list) => {
-        list.jc_info = list.jc_info.map(info => {
-          const newInfo = new SportsLotteryJcInfo(info, info.lottery_id);
-          const index = list.schedule_list.findIndex(schedule => schedule.id === info.id);
-          const Schedule = list.schedule_list.splice(index, 1);
-          info = Object.assign(newInfo, info, Schedule[0]);
-          info.selected = info.betting;
-          info = this.ScheduleList(info);
-          return info;
-        });
-        let series = []
-        if (list.series) {
-          list.seriesText = SeriesType[list.series];
-          series.push({key: list.series, value: SeriesType[list.series]})
-        }
-        PromsSave.push(this.setProjectBonus(list.lottery_id, series, list.jc_info, list.multiple))
-        return list;
-      });
-      return data;
-    })
-    Promise.all(PromsSave).then(console.log)
-  }
-
-  ScheduleList (info) {
-    console.log(`进`, JSON.parse(JSON.stringify(info)));
-
-    console.log(`出`, JSON.parse(JSON.stringify(info)));
-    return info
   }
 
   sfcCompute (item) {

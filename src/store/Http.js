@@ -112,7 +112,7 @@ export default class Http {
     })
   }
 
-  static post (url, data = {}) {
+  static post (url, data = {}, params2) {
     return new Promise(function (resolve, reject) {
       axios.get(HOST + '/Index/getTime', {...config})
         .then(response => {
@@ -139,7 +139,7 @@ export default class Http {
         var secretKey = 'ikD12opAwZE1Sobg';
         var nonce = randomWord(true, 5, 32);
         var sign = md5(valToken + timestamps + nonce + secretKey);
-        const params = {timestamp: timestamps, nonce: nonce, ssign: sign, token: valToken};
+        const params = {timestamp: timestamps, nonce: nonce, ssign: sign, token: valToken, ...params2};
         axios.post(HOST + url, data, {...config, params})
           .then(response => {
             if (response.data.code === 0) {

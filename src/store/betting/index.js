@@ -104,7 +104,11 @@ const actions = {
     if (context.rootState.user.token) {
       loading.show();
       const mdStr = '{0}{1}{2}Ehcv2b1AvWAMSey2'.format(result.lottery_id, result.issue_id, parseInt(result.total_amount));
-      return Http.post('/WebBet/preBet&lottery_id={0}&product_name=LHCP&sign={1}'.format(result.lottery_id, md5(mdStr)), result).then(data => {
+      return Http.post('/WebBet/preBet', result, {
+        lottery_id: result.lottery_id,
+        product_name: 'LHCP',
+        sign: md5(mdStr)
+      }).then(data => {
         context.commit(types.DIGITAL_CONFIRM_PAYMENT, data);
         loading.hide();
       })
@@ -114,7 +118,11 @@ const actions = {
     if (context.rootState.user.token) {
       loading.show();
       const mdStr = '{0}{1}{2}Ehcv2b1AvWAMSey2'.format(result.lottery_id, result.play_type, parseInt(result.total_amount));
-      return Http.post('/WebBet/preBet&lottery_id={0}&product_name=LHCP&sign={1}'.format(result.lottery_id, md5(mdStr)), result).then(data => {
+      return Http.post('/WebBet/preBet', result, {
+        lottery_id: result.lottery_id,
+        product_name: 'LHCP',
+        sign: md5(mdStr)
+      }).then(data => {
         context.commit(types.SPORTS_CONFIRM_PAYMENT, data);
         loading.hide();
       })
@@ -124,7 +132,11 @@ const actions = {
     if (context.rootState.user.token) {
       loading.show();
       const mdStr = '{0}{1}{2}Ehcv2b1AvWAMSey2'.format(result.lottery_id, result.issue_no, parseInt(result.total_amount));
-      return Http.post('/WebBet/preBet&lottery_id={0}&product_name=LHCP&sign={1}'.format(result.lottery_id, md5(mdStr)), result).then(data => {
+      return Http.post('/WebBet/preBet', result, {
+        lottery_id: result.lottery_id,
+        product_name: 'LHCP',
+        sign: md5(mdStr)
+      }).then(data => {
         context.commit(types.SPORTS_CONFIRM_PAYMENT, data);
         loading.hide();
       })

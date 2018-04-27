@@ -41,7 +41,7 @@
         </div>
         <!---->
         <div class="text-center module4" style="position: relative;height: 1.76rem;width: 38.2%;">
-          <div class="item2" v-if="propsData.result_odds[`602`]">
+          <div class="item2" v-if="propsData.result_odds&&propsData.result_odds[`602`]">
             <div class="score-x1 text-right">
               <div :class="propsData.result_odds['602'].letPoint>=1? 'back41b43b':'backFed223'"
                    style="width: auto;border-radius: 7px;padding: 0 0.09rem;"
@@ -52,7 +52,7 @@
             <div :class="propsData.result_odds.game602===1?'color734f40':'body2'" :key="1">{{propsData.result_odds[`602`][`v1`]}}</div>
             <div :class="propsData.result_odds.game602===0?'color734f40':'body2'" :key="0">{{propsData.result_odds[`602`][`v0`]}}</div>
           </div>
-          <div class="item2" v-if="propsData.result_odds[`601`]">
+          <div class="item2" v-if="propsData.result_odds&&propsData.result_odds[`601`]">
             <div class="score-x1"></div>
             <div :class="propsData.result_odds.game601===3?'color734f40':'body2'" :key="5">{{propsData.result_odds[`601`][`v3`]}}</div>
             <div :class="propsData.result_odds.game601===1?'color734f40':'body2'" :key="4">{{propsData.result_odds[`601`][`v1`]}}</div>

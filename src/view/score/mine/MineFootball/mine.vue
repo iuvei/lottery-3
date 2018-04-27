@@ -17,19 +17,19 @@
           <div class="right">
             <div style="line-height: 0.47rem;">
               <div style="overflow: hidden">
-                  <span
-                    style="display: inline-block;font-weight: bold;font-size:15px;color: #333333">¥{{ list.total_amount }}</span>
+  <span
+    style="display: inline-block;font-weight: bold;font-size:15px;color: #333333">¥{{ list.total_amount }}</span>
                 <span class="msgSpan">( {{ list.jc_info.length }}场 )</span>
-                <span class="msgSpan">{{ list.seriesText }}</span>
+                <span class="msgSpan" v-if="list.lottery_id==='20'||list.lottery_id==='21'">第{{ list.issue_no }}期</span>
+                <span class="msgSpan" v-else>{{ list.seriesText }}</span>
               </div>
             </div>
             <div style="line-height: 0.47rem;height: 0.47rem;">
               <div v-if="list.lottery_id==='20'||list.lottery_id==='21'">
                 <span class="green-card"
-                      v-for="(i,index) in list.jc_info"
-                      :key="index*3"
-                      :class="{opacity50:i.result_odds&&i.result_odds.prize_num===i.betting_order.betting_num}"
-                >{{i.betting_order.betting_num||'-'}}</span>
+                      v-for="(i,index) in sfcResult(list.prize_num)"
+                      :key="index"
+                >{{i}}</span>
               </div>
               <div v-else>
                 <span class="msgSpan" v-if="list.status<=3">理论奖金:</span>
@@ -120,6 +120,14 @@
       },
       goBasketball (id) {
         this.$router.push({name: 'FootballInformation', params: {id}})
+      },
+      sfcResult: function (arr) {
+        if (arr) {
+          return arr.split(',')
+        }
+        arr = new Array(14);
+        arr.fill('-');
+        return arr
       }
     },
     components: {
