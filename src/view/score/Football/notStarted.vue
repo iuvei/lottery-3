@@ -4,43 +4,25 @@
       <module1
         :data="[weekDay(propsData.first_half_begin_time,1),propsData.round_no,propsData.league,weekDay(propsData.first_half_begin_time,2)]"/>
       <div @click="$emit('go',propsData.third_party_schedule_id)" class="row" style="margin: 0.34rem 0 0 0;">
-        <div class="text-center color9292" style="width: 17.5%;position: relative;color:#888888;font-size: 0.36rem;">
-          <div style="line-height:1.23rem;border-right: 1px solid #dddd;">
-            {{ propsData.match_status_description }}
-          </div>
-        </div>
+        <description
+          style="width: 17.5%"
+          :propsData="[propsData.match_status_description]"
+        />
         <!---->
-        <div class="module3" style="font-size: 0.36rem;font-weight: 600;width: 43%">
-          <div class="item">
-            <span class="score1 color4a4a4a">-</span>
-            <span class="name maxWidth80">{{ propsData.home }}</span>
-          </div>
-          <div class="item">
-            <span class="score1 color4a4a4a">-</span>
-            <span class="name maxWidth80">{{ propsData.guest }}</span>
-          </div>
-        </div>
+        <name-score
+          style="width: 43%"
+          theme="football"
+          :propsHome="['-', propsData.home,'','']"
+          :propsGuest="['-',propsData.guest,'','']"
+        />
+        <match-odds
+          style="width: 38.2%;"
+          :props601="propsData.result_odds['601']"
+          :props602="propsData.result_odds['602']"
+          :game601="propsData.result_odds.game601"
+          :game602="propsData.result_odds.game602"
+        />
         <!---->
-        <div class="text-center module4" style="position: relative;height: 1.76rem;width: 38.2%;">
-          <div class="item2" v-if="propsData.result_odds&&propsData.result_odds[`602`]">
-            <!--比分-->
-            <div class="score-x1 text-right">
-              <div :class="propsData.result_odds['602'].letPoint>0? 'back41b43b':'backFed223'"
-                   style="width: auto;border-radius: 7px;padding: 0 0.09rem;"
-              >{{propsData.result_odds['602'].letPoint }}
-              </div>
-            </div>
-            <div class="body2" :key="121">{{propsData.result_odds[`602`][`v3`]}}</div>
-            <div class="body2" :key="111">{{propsData.result_odds[`602`][`v1`]}}</div>
-            <div class="body2" :key="101">{{propsData.result_odds[`602`][`v0`]}}</div>
-          </div>
-          <div class="item2" v-if="propsData.result_odds&&propsData.result_odds[`601`]">
-            <div class="score-x1"></div>
-            <div class="body2" :key="2">{{propsData.result_odds[`601`][`v3`]}}</div>
-            <div class="body2" :key="1">{{propsData.result_odds[`601`][`v1`]}}</div>
-            <div class="body2" :key="0">{{propsData.result_odds[`601`][`v0`]}}</div>
-          </div>
-        </div>
       </div>
       <is-top :index="groupsIndex" :toTop="propsData.toTop"/>
     </div>
@@ -49,6 +31,9 @@
 
 <script>
   import module1 from '../components/item-title.vue'
+  import Description from '../components/Description.vue'
+  import nameScore from '../components/nameScore.vue'
+  import matchOdds from '../components/matchOdds.vue'
   import IsTop from '../components/Istop.vue'
 
   export default {
@@ -59,7 +44,10 @@
     },
     components: {
       module1,
-      IsTop
+      IsTop,
+      Description,
+      nameScore,
+      matchOdds
     },
     filters: {
       scoreShow: function (value) {

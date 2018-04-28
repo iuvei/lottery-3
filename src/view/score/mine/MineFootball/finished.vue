@@ -40,7 +40,7 @@
           </div>
         </div>
         <!---->
-        <example style="width: 20%;" :jcInfo="jcInfo"/>
+        <!--<example style="width: 20%;" :jcInfo="jcInfo"/>-->
       </div>
       <div style="margin: 0 auto;width: 90%;height: 1px;background-color: #ddd"></div>
     </div>

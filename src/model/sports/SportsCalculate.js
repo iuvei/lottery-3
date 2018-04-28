@@ -127,7 +127,6 @@ export default class SportsCalculate {
           typeStr = '-{0}'.format(value.basePoint);
         }
       } else {
-        console.log(value)
         typeStr = value.key.substr(1);
       }
       content = `${content}${CONVENT_LOTTERY_ID[`${lotteryId}`]}#${typeStr}#${value.value}/`;

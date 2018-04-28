@@ -51,24 +51,24 @@
         </li>
 
         <li v-for="(item,index) in list.jc_info" :key="item.id||index">
-          <template v-if="item.ScheduleData.match_status===1">
+          <template v-if="item.AMatch.match_status===1">
             <notStarted
               @go="goBasketball"
-              :propsData="item.ScheduleData"
+              :propsData="item.AMatch"
               :jcInfo="item"
             />
           </template>
-          <template v-else-if="item.ScheduleData.match_status===2">
+          <template v-else-if="item.AMatch.match_status===2">
             <underway
               @go="goBasketball"
-              :propsData="item.ScheduleData"
+              :propsData="item.AMatch"
               :jcInfo="item"
             />
           </template>
           <template v-else>
             <finished
               @go="goBasketball"
-              :propsData="item.ScheduleData"
+              :propsData="item.AMatch"
               :jcInfo="item"
             />
           </template>

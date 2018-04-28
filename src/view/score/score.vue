@@ -322,12 +322,6 @@
             }
             loading.hide()
           })
-          // this.setLottery({target, params: data, add: target[2]});
-          // this.switchover(target);
-          // if (!data.groups || !data.groups.length && !target[2]) {
-          //   this.showToB = true;
-          // }
-          // loading.hide()
         }).catch(err => {
           console.log(err)
           loading.hide()
