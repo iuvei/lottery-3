@@ -45,15 +45,18 @@
 
   .match-odds .item .txt {
     width: 26%;
+  }
+
+  .color888 {
     color: #888888;
   }
 </style>
 <template>
-  <div class="match-odds">
+  <div @click="$emit('tap')"   class="match-odds">
     <div class="item" v-if="props602">
-      <div class="txt" :class="{textPrimary:game602===0}">{{props602.v0}}</div>
-      <div class="txt" :class="{textPrimary:game602===1}">{{props602.v1}}</div>
-      <div class="txt" :class="{textPrimary:game602===3}">{{props602.v3}}</div>
+      <div class="txt" :class="game602===0? 'text-primary':'color888'">{{props602.v0}}</div>
+      <div class="txt" :class="game602===1? 'text-primary':'color888'">{{props602.v1}}</div>
+      <div class="txt" :class="game602===3? 'text-primary':'color888'">{{props602.v3}}</div>
       <div class="score-x1">
         <div :class="props602.letPoint>0? 'back41b43b':'backFed223'">
           {{props602.letPoint }}
@@ -61,9 +64,9 @@
       </div>
     </div>
     <div class="item" v-if="props601">
-      <div class="txt" :class="{textPrimary:game601===0}">{{props601.v0}}</div>
-      <div class="txt" :class="{textPrimary:game601===1}">{{props601.v1}}</div>
-      <div class="txt" :class="{textPrimary:game601===3}">{{props601.v3}}</div>
+      <div class="txt" :class="game601===0? 'text-primary':'color888'">{{props601.v0}}</div>
+      <div class="txt" :class="game601===1? 'text-primary':'color888'">{{props601.v1}}</div>
+      <div class="txt" :class="game601===3? 'text-primary':'color888'">{{props601.v3}}</div>
     </div>
   </div>
 </template>

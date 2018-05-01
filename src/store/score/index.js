@@ -25,7 +25,7 @@ const state = {
 };
 
 const mutations = {
-  [types.TO_THE_TOP] (state, {del, index}) {
+  [types.TO_THE_TOP] (state, {del, index, target}) {
     // 增加置顶
     let delData
     const sta = `${state.lotteryType}${state.lotteryState}`
@@ -95,7 +95,7 @@ const actions = {
       data.type = params[1] === 1 ? 2 : params[1] === 2 ? 3 : 1;
       data.lottery_id = params[0] === 1 ? LOTTERYIDS.FOOTBALL : params[0] === 3 ? LOTTERYIDS.BASKETBALL : LOTTERYIDS.SFC;
       Http.get('/Live/getScheduleList', data).then((data) => {
-        resolve({data, toTheTop: state[`toTop${params[0]}${params[0]}`]})
+        resolve({data, toTheTop: state[`toTop${params[0]}${params[1]}`]})
       }).catch(reject)
     })
   }

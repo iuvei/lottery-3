@@ -1,7 +1,8 @@
 <style scoped>
-  .name-score *{
+  .name-score * {
     box-sizing: border-box;
   }
+
   .name-score {
     height: 1.76rem;
     font-size: 0.36rem;
@@ -19,62 +20,79 @@
     float: left;
   }
 
-  .name {
+  .maxWidth48 {
     max-width: 48%;
+  }
+
+  .maxWidth65 {
+    max-width: 65%;
+  }
+
+  .maxWidth75 {
+    max-width: 75%;
+  }
+
+  .name {
     margin-right: 2%;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
   }
 
-  .score {
+  .football-score {
     color: #a4a4a4;
-    width: 25%;
+    width: 2.3em;
+    text-align: center;
+  }
+
+  .basketball-score {
+    color: #a4a4a4;
+    width: 3em;
     text-align: center;
   }
 
   .football {
-    color: #e73f40;
-    width: 25%;
+    color: #60a839;
+    width: 2.3em;
     text-align: center;
   }
 
   .basketball {
-    color: #60a839;
-    width: 25%;
+    color: #e73f40;
+    width: 3em;
     text-align: center;
   }
 
   .red-board, .yellow-board {
     box-sizing: border-box;
-    width: 9%;
-    margin-right: 2%;
+    width: 1em;
+    margin-right: 0.3em;
     text-align: center;
     color: white;
     border-radius: 2px;
   }
 
   .red-board {
-  background-color: #e73f40;
+    background-color: #e73f40;
   }
 
   .yellow-board {
-background-color: #fed223;
+    background-color: #fed223;
   }
 </style>
 <template>
-  <div class="name-score">
+  <div @click="$emit('tap')"  class="name-score">
     <div class="item">
-      <div :class="propsHome[0]>=0 ?theme:'score'">{{ propsHome[0] }}</div>
-      <div class="name">{{ propsHome[1]}}{{ propsHome[1]}}</div>
-      <div v-if="propsHome[2]" class="red-board">{{ propsHome[2] }}</div>
-      <div v-if="propsHome[3]" class="yellow-board">{{ propsHome[3] }}</div>
+      <div :class="propsHome[0]>=0 ?theme:`${theme}-score`">{{ propsHome[0] }}</div>
+      <div class="name" :class="showClass('propsHome')">{{ propsHome[1]}}</div>
+      <div v-if="showClass('propsHome',2)" class="red-board">{{ propsHome[2] }}</div>
+      <div v-if="showClass('propsHome',3)" class="yellow-board">{{ propsHome[3] }}</div>
     </div>
     <div class="item">
-      <div :class="propsGuest[0]>=0? theme:'score'">{{ propsGuest[0] }}</div>
-      <div class="name">{{ propsGuest[1] }}</div>
-      <div v-if="propsGuest[2]" class="red-board">{{ propsGuest[2] }}</div>
-      <div v-if="propsGuest[3]" class="yellow-board">{{ propsGuest[3] }}</div>
+      <div :class="propsGuest[0]>=0? theme:`${theme}-score`">{{ propsGuest[0] }}</div>
+      <div class="name" :class="showClass('propsGuest')">{{ propsGuest[1] }}</div>
+      <div v-if="showClass('propsGuest',2)" class="red-board">{{ propsGuest[2] }}</div>
+      <div v-if="showClass('propsGuest',3)" class="yellow-board">{{ propsGuest[3] }}</div>
     </div>
   </div>
 </template>
@@ -86,6 +104,29 @@ background-color: #fed223;
       propsHome: {type: Array, required: true},
       propsGuest: {type: Array, required: true},
       theme: {type: String, required: true}
+    },
+    methods: {
+      showClass (home, bol) {
+        const is2 = this[home] && this[home][2] > 0
+        const is3 = this[home] && this[home][3] > 0
+        if (bol) {
+          if (bol === 2) {
+            return is2
+          } else {
+            return is3
+          }
+        }
+        if (is2) {
+          if (is3) {
+            return 'maxWidth48'
+          }
+          return 'maxWidth65'
+        } else if (is3) {
+          return 'maxWidth65'
+        } else {
+          return 'maxWidth75'
+        }
+      }
     }
   }
 </script>

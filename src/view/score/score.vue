@@ -38,7 +38,7 @@
 
   .refresh {
     position: absolute;
-    background: url("../../assets/home/refresh.png") no-repeat;
+    background: url('../../assets/home/refresh.png') no-repeat;
     background-size: 100%;
     width: 30px;
     height: 25px;
@@ -115,7 +115,7 @@
     display: inline-block;
     width: 12.5px;
     height: 12.5px;
-    background-image: url("../../assets/betting/selected.png");
+    background-image: url('../../assets/betting/selected.png');
     background-repeat: no-repeat;
     background-size: 100%;
     border-bottom-right-radius: 5px;
@@ -146,63 +146,63 @@
 
 </style>
 <template>
-  <div class="score padding-bottom-50">
-    <div class="bg-white score-top">
-      <div style="width: 60%;margin: 0 auto;position: relative;">
-        <div class="row">
-          <div @click="switchShow([1,1])" class="switchover switchover-left" :class="{activate:lotteryType===1}">竞足
+  <div class='score padding-bottom-50'>
+    <div class='bg-white score-top'>
+      <div style='width: 60%;margin: 0 auto;position: relative;'>
+        <div class='row'>
+          <div @click='switchShow([1,1])' class='switchover switchover-left' :class='{activate:lotteryType===1}'>竞足
           </div>
-          <div @click="switchShow([2,1])" class="switchover switchover-center" :class="{activate:lotteryType===2}">胜负彩
+          <div @click='switchShow([2,1])' class='switchover switchover-center' :class='{activate:lotteryType===2}'>胜负彩
           </div>
-          <div @click="switchShow([3,1])" class="switchover switchover-right" :class="{activate:lotteryType===3}">竞篮
+          <div @click='switchShow([3,1])' class='switchover switchover-right' :class='{activate:lotteryType===3}'>竞篮
           </div>
         </div>
-        <div class="refresh" @click="switchShow()"></div>
+        <div class='refresh' @click='switchShow()'></div>
       </div>
-      <div v-if="lotteryType===2" class="row text-center two-title">
+      <div v-if='lotteryType===2' class='row text-center two-title'>
         <div :class="{'activate-child':lotteryState===1}" @click="switchShow([lotteryType,1])">
-          <div class="back-icons">第{{a21.groups.length?a21.groups[SelectIndex].id:''}}期</div>
+          <div class='back-icons'>第{{a21.groups.length?a21.groups[SelectIndex].id:''}}期</div>
         </div>
         <div :class="{'activate-child':lotteryState===2}" @click="switchShow([lotteryType,2])">我的投注</div>
       </div>
-      <div v-else class="row text-center four-title">
+      <div v-else class='row text-center four-title'>
         <div :class="{'activate-child':lotteryState===1}" @click="switchShow([lotteryType,1])">进行中</div>
         <div :class="{'activate-child':lotteryState===2}" @click="switchShow([lotteryType,2])">已结束</div>
         <div :class="{'activate-child':lotteryState===3}" @click="switchShow([lotteryType,3])">未开始</div>
         <div :class="{'activate-child':lotteryState===4}" @click="switchShow([lotteryType,4])">我的投注</div>
       </div>
     </div>
-    <div v-if="a21.groups.length">
+    <div v-if='a21.groups.length'>
       <mt-popup
-        v-model="popupVisible"
-        style="width: 100%;max-width: 640px"
-        position="top">
-        <div class="v-body">
-          <div v-for="(item,index) in a21.groups"
-               :class="{activatediv:SelectIndex===index}"
-               @click.stop="actCallback(index)"
-               :key="item.id">
+        v-model='popupVisible'
+        style='width: 100%;max-width: 640px'
+        position='top'>
+        <div class='v-body'>
+          <div v-for='(item,index) in a21.groups'
+               :class='{activatediv:SelectIndex===index}'
+               @click.stop='actCallback(index)'
+               :key='item.id'>
             <span>第{{ item.id }}期</span>
-            <span v-show="SelectIndex===index" class="activate-icon"></span>
+            <span v-show='SelectIndex===index' class='activate-icon'></span>
           </div>
         </div>
       </mt-popup>
     </div>
     <div
-      v-infinite-scroll="loadMore"
-      infinite-scroll-disabled="orders.loading"
-      infinite-scroll-distance="1"
-      infinite-scroll-immediate-check="false"
-      :class="{paddingBottom1:isMine([lotteryType,lotteryState])}"
+      v-infinite-scroll='loadMore'
+      infinite-scroll-disabled='orders.loading'
+      infinite-scroll-distance='1'
+      infinite-scroll-immediate-check='false'
+      :class='{paddingBottom1:isMine([lotteryType,lotteryState])}'
     >
       <container
-        :switchBody="[lotteryType,lotteryState]"
-        :showToB="showToB"
-        :isLogin="isLogin"
-        :SelectIndex="SelectIndex"
+        :switchBody='[lotteryType,lotteryState]'
+        :showToB='showToB'
+        :isLogin='isLogin'
+        :SelectIndex='SelectIndex'
       />
     </div>
-    <bottom-nav active="Score"/>
+    <bottom-nav active='Score'/>
   </div>
 </template>
 <script>
@@ -314,6 +314,9 @@
         let push = {id: `${target[0]}${target[1]}`, offset: target[2]}
         loading.show();
         this.getMineGameList(push).then(data => {
+          if (target[0] === 2 && target[1] === 2) {
+          //  处理
+          }
           new Compute(data).then(resolve => {
             this.setLottery({target, params: resolve, add: target[2]});
             this.switchover(target);
@@ -342,13 +345,15 @@
               return inx2 !== -1
             })
             if (inx1 !== -1 && inx2 !== -1) {
-              toTop.push([inx1, inx2])
+              toTop.push([inx1, inx2, item])
             }
           })
           // 从主数据中删除置顶的数据
           let sing = {}
           toTop.forEach((item) => {
-            newTop.push(presentData.groups[item[0]].schedules.splice(item[1] - (sing[item[0]] || 0), 1))
+            let topSing = presentData.groups[item[0]].schedules.splice(item[1] - (sing[item[0]] || 0), 1)
+            topSing[0].toTop = {...item[2].toTop}
+            newTop.push(topSing[0])
             if (sing[item[0]]) {
               sing[item[0]]++
             } else {

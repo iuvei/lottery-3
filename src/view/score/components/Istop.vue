@@ -1,3 +1,24 @@
+<style scoped>
+  .stick {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-top-right-radius: 5px;
+    width: 0.89rem;
+    height: 0.89rem;
+  }
+
+  .pushpin {
+    display: inline-block;
+    position: absolute;
+    bottom: 0.15rem;
+    right: 0.15rem;
+    width: 0.34375rem;
+    height: 0.34375rem;
+  }
+</style>
+
 <template>
   <div>
     <template v-if="toTop">
@@ -33,24 +54,3 @@
     }
   }
 </script>
-
-<style scoped>
-  .stick {
-    display: inline-block;
-    position: absolute;
-    right: 0;
-    top: 0;
-    border-top-right-radius: 5px;
-    width: 0.89rem;
-    height: 0.89rem;
-  }
-
-  .pushpin {
-    display: inline-block;
-    position: absolute;
-    bottom: 0.15rem;
-    right: 0.15rem;
-    width: 0.34375rem;
-    height: 0.34375rem;
-  }
-</style>

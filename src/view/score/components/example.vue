@@ -1,99 +1,7 @@
-<template>
-  <div style="position: relative;height: 1.76rem;">
-    <div @click="show" class="body" style="height: 1.76rem;overflow: hidden">
-      <div v-if="downShow" style="height: 1.23rem">
-        <div v-for="(i,index) in showItem"
-             :key="index"
-             class="text-center item"
-             :class="{color73f40:i.checked}"
-        >
-          <div>{{i.text}}{{ i.colorRed }}</div>
-          <div>{{i.value?`(${i.value})`:null}}</div>
-        </div>
-      </div>
-      <div v-else class="row" style="height: 1.23rem">
-        <div class="col-center" style="width: 100%">
-          <div v-for="(i,index) in showItem"
-               :key="index"
-               class="text-center item"
-               :class="{color73f40:i.checked}"
-          >
-            <div>{{i.text}}</div>
-            <div>{{i.value?`(${i.value})`:null}}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <template v-if="downShow">
-      <div @click="show" class="down_gray">
-        <div>
-          <!--图标-->
-        </div>
-      </div>
-      <div v-show="down" class="down-gray-details">
-        <div @click="show" class="body">
-          <div v-for="(item,key) in jcInfo.betTxt" :key="`${item.id}${key}`">
-            <div v-for="i in item"
-                 :key="i.text"
-                 class="text-center item borderBottom"
-            >
-              <div :class="i.checked? 'color73f40':'color333'">{{i.text}}</div>
-              <div :class="i.checked? 'color73f40':'color888'">{{i.value?`(${i.value})`:null}}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </template>
-  </div>
-</template>
-
-<script>
-  export default {
-    name: 'example',
-    props: {
-      jcInfo: {type: null}
-    },
-    data () {
-      return {
-        down: false,
-        downShow: false
-      }
-    },
-    computed: {
-      showItem () {
-        const betTxt = JSON.parse(JSON.stringify(this.jcInfo.betTxt))
-        let arr = []
-        const isBig2 = betTxt.some(item => {
-          if (!item && Object.prototype.toString.call(item) !== `[object Array]`) {
-            return
-          }
-          if (this.jcInfo.lottery_id === '20' || this.jcInfo.lottery_id === '21') {
-            item[0].checked = this.jcInfo.result_odds && this.jcInfo.result_odds.prize_num === this.jcInfo.betting_order.betting_num
-          }
-          if (item.length > 2) {
-            item.length = 2
-          }
-          arr.push(...item)
-          return arr.length >= 2
-        })
-        if (isBig2) {
-          this.downShow = true
-        }
-        return arr
-      }
-    },
-    methods: {
-      show () {
-        this.down = !this.down
-      }
-    }
-  }
-</script>
-
 <style scoped>
   .down_gray {
     position: absolute;
-    bottom: 0;
+    bottom: 0.26rem;
     left: 0;
     right: 0;
     text-align: center;
@@ -135,21 +43,6 @@
     color: #888888;
   }
 
-  .body {
-    height: 100%;
-    font-size: 0.25rem;
-  }
-
-  .body > div {
-    border-left: 1px solid #dddddd;
-  }
-
-  .body .item, .body .item div {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-
   .borderBottom {
     background-image: url("../../../assets/dashed.png");
     background-position: bottom;
@@ -157,4 +50,98 @@
     background-size: 6px 1px;
   }
 
+  .example {
+    position: relative;
+    height: 1.76rem;
+    text-align: center;
+  }
+
+  .example-body {
+    position: relative;
+    height: 1.23rem;
+  }
+
+  .example-body:after {
+    content: ' ';
+    position: absolute;
+    left: -1px;
+    top: 0;
+    width: 1px;
+    background-color: #ddd;
+    height: 1.3rem;
+  }
+
+  .example-body .body {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+  }
+
+  .body .item {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 </style>
+
+<template>
+  <div class="example">
+    <div @click="show" class="example-body">
+      <div class="body">
+        <div v-for="item in showItem"
+             :key="item.text"
+             class="item"
+             :class="{color73f40:item.checked}"
+        >
+          <div>{{item.text}}</div>
+          <div v-if="item.value">({{item.value}})</div>
+        </div>
+      </div>
+    </div>
+    <template v-if="downShow">
+      <div @click="show" class="down_gray">
+        <div>
+          <!--图标-->
+        </div>
+      </div>
+      <div v-show="down" class="down-gray-details">
+        <div @click="show" class="body">
+          <div v-for="item in jcInfo.betting" :key="item.text" class="item borderBottom">
+            <div :class="item.checked? 'color73f40':'color333'">{{item.text}}</div>
+            <div :class="item.checked? 'color73f40':'color888'" v-if="item.value">({{item.value}})</div>
+          </div>
+        </div>
+      </div>
+    </template>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: 'example',
+    props: {
+      jcInfo: {type: null}
+    },
+    data () {
+      return {
+        down: false,
+        downShow: false,
+        showItem: []
+      }
+    },
+    created () {
+      if (this.jcInfo.betting.length >= 2) {
+        this.showItem = [{...(this.jcInfo.betting[0])}, {...(this.jcInfo.betting[1])}];
+        this.downShow = true
+      } else {
+        this.showItem = JSON.parse(JSON.stringify(this.jcInfo.betting))
+      }
+    },
+    methods: {
+      show () {
+        this.down = !this.down
+      }
+    }
+  }
+</script>

@@ -145,11 +145,11 @@
   import NotLoggedIn from '../../components/NotLoggedIn.vue'
   import toTheTop from './ListContainer/toTheTop.vue'
   import organList from './ListContainer/organList.vue'
-  import Result from './Result/mine.vue'
-  import Baskbetball from './Baskbetball/mine.vue'
-  import Football from './Football/mine.vue'
-  import MineFootball from './mine/MineFootball/mine.vue'
-  import MineBaskbetball from './mine/MineBaskbetball/mine.vue'
+  import Result from './template/result.vue'
+  import Baskbetball from './template/baskbetball.vue'
+  import Football from './template/football.vue'
+  import MineFootball from './mine/football.vue'
+  import MineBaskbetball from './mine/basketball.vue'
 
   export default {
     name: 'container',

@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'production') {
   }
 }
 // 务必在加载 Vue 之后，立即同步设置以下内容
-Vue.config.productionTip = true;
+Vue.config.productionTip = false;
 // 动画暂时不用
 // import 'vueg/css/transition-min.css'
 // import vueg from 'vueg';

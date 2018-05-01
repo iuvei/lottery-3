@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center body">
+  <div @click="$emit('tap')" class="text-center body">
     <div class="middle" v-if="propsData.length===1">
       <div class="txt1">{{ propsData[0] }}</div>
     </div>
@@ -12,7 +12,7 @@
 
 <script>
   export default {
-    name: 'Description',
+    name: 'description',
     props: {
       propsData: {type: Array}
     }
@@ -53,7 +53,7 @@
     background-color: #ddd;
   }
 
-  .body > div {
+  .body .middle, .body .bottom {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
