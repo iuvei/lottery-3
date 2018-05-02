@@ -94,7 +94,7 @@
           <description
             @tap="goFootball(propsData.third_party_schedule_id)"
             style="width: 17.5%"
-            :propsData="[propsData.match_status_description,`半场${propsData.half_score}`]"
+            :propsData="[propsData.match_status_description,`半 ${propsData.half_score}`]"
           />
           <!---->
           <name-score

@@ -42,7 +42,21 @@
       <span>个人信息</span>
       <span class="arrow-right"></span>
     </router-link>
-
+    <router-link tag="div" to="redManage" class="item border-top">
+      <span class="mine-envelope-management-icon icon"></span>
+      <span>红包管理</span>
+      <span class="arrow-right"></span>
+    </router-link>
+    <router-link tag="div" to="integralStore" class="item border-top">
+      <span class="mine-point-management-icon icon"></span>
+      <span>积分商城</span>
+      <span class="arrow-right"></span>
+    </router-link>
+    <router-link tag="div" to="exchangeRed" class="item border-top">
+      <span class="mine-credit-exchange-icon icon"></span>
+      <span>兑换红包</span>
+      <span class="arrow-right"></span>
+    </router-link>
     <div class="logout-panel">
       <a href="javascript:;" @click="logout" class="btn btn-out-line">退出登录</a>
     </div>
@@ -103,7 +117,9 @@
 
 <style>
   .mine {
-    position: relative; height: 100%;
+    box-sizing: border-box;
+    position: relative;
+    margin-bottom: 100px;
   }
   .mine .mine-top {
     background: linear-gradient(to bottom, #e6403f, #ee7736);
@@ -156,10 +172,9 @@
     padding: 10px 0;
   }
   .mine .logout-panel {
-    position: absolute;
     padding: 0 10px;
+    margin-top: 30px;
     width: 100%;
-    bottom: 60px;
   }
   .mine .logout-panel .btn {
     border: 1px solid #e73f40;

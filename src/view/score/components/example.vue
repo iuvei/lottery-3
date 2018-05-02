@@ -1,7 +1,7 @@
 <style scoped>
   .down_gray {
     position: absolute;
-    bottom: 0.26rem;
+    bottom: 0;
     left: 0;
     right: 0;
     text-align: center;
@@ -94,7 +94,7 @@
              class="item"
              :class="{color73f40:item.checked}"
         >
-          <div>{{item.text}}</div>
+          <div>{{item.text}}{{ item.id==='602'? `[${jcInfo.let_point}]`:'' }}</div>
           <div v-if="item.value">({{item.value}})</div>
         </div>
       </div>
@@ -108,7 +108,7 @@
       <div v-show="down" class="down-gray-details">
         <div @click="show" class="body">
           <div v-for="item in jcInfo.betting" :key="item.text" class="item borderBottom">
-            <div :class="item.checked? 'color73f40':'color333'">{{item.text}}</div>
+            <div :class="item.checked? 'color73f40':'color333'">{{item.text}}{{ item.id==='602'? `[${jcInfo.let_point}]`:'' }}</div>
             <div :class="item.checked? 'color73f40':'color888'" v-if="item.value">({{item.value}})</div>
           </div>
         </div>

@@ -5,7 +5,7 @@
 
   .match-odds .item {
     height: 50%;
-    width: 80%;
+    width: 90%;
     text-align: right;
   }
 </style>

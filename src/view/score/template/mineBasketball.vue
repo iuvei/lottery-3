@@ -7,11 +7,20 @@
     background-color: white;
     width: 100%;
     padding: .26rem 0;
-    margin-bottom: 10px;
+    /*margin-bottom: 10px;*/
     position: relative;
     border-radius: 5px;
   }
 
+  .item-body:after {
+    content: ' ';
+    position: absolute;
+    width: 95%;
+    height: 1px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ddd;
+  }
   .item-body-body {
     margin-top: .34rem;
   }
@@ -56,7 +65,7 @@
           <description
             @tap="goBasketball(propsData.third_party_schedule_id)"
             style="width: 12.7%"
-            :propsData="[`${propsData.match_duration}'`,propsData.half_score? `半场${propsData.half_score}`:'']"
+            :propsData="[`${propsData.match_status_description}`,propsData.match_duration]"
           />
           <!---->
           <name-score

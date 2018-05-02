@@ -54,14 +54,46 @@ import { pageJump, user } from '../common/store';
 import Score from '../view/score/score.vue'
 // 比分模块end
 
+// 红包管理st
+import redManage from '../view/user/redPacket/redManage.vue'
+// 红包管理end
+
+// 红包兑换st
+import exchangeRed from '../view/user/redPacket/exchangeRed.vue'
+// 红包兑换end
+
+// 积分兑换st
+import integralStore from '../view/user/redPacket/integralStore.vue'
+import integralDetails from '../view/user/redPacket/integralDetails.vue'
+// 积分兑换end
 Vue.use(Router)
 const ScoreRouter = [
   {
     path: '/Score',
     name: 'Score',
     component: Score
+  },
+  {
+    path: '/redManage',
+    name: 'redManage',
+    component: redManage
+  },
+  {
+    path: '/exchangeRed',
+    name: 'exchangeRed',
+    component: exchangeRed
+  },
+  {
+    path: '/integralStore',
+    name: 'integralStore',
+    component: integralStore
+  },
+  {
+    path: '/integralDetails',
+    name: 'integralDetails',
+    component: integralDetails
   }
-]// 新增比分模块
+]// 新增模块
 
 const router = new Router({
   routes: [

@@ -25,7 +25,7 @@ const state = {
 };
 
 const mutations = {
-  [types.TO_THE_TOP] (state, {del, index, target}) {
+  [types.TO_THE_TOP] (state, {del, index}) {
     // 增加置顶
     let delData
     const sta = `${state.lotteryType}${state.lotteryState}`

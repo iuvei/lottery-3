@@ -97,7 +97,11 @@
       </div>
       <div class="body-item">
         <div class="green-card" v-if="propsData[0]==='20'||propsData[0]==='21'">
-          <div class="green-card-body" v-for="(i,index) in sfcResult(prizeNum)" :key="index">{{i}}</div>
+          <div class="green-card-body"
+               v-for="(i,index) in sfcResult(prizeNum)"
+               :key="index+i.txt"
+               :class="{opacity50:i.check}">{{i.txt}}
+          </div>
         </div>
         <div v-else>
           <template v-if="propsBonus[0]>3&&propsBonus[0]<7">
@@ -125,6 +129,7 @@
       propsImg: {type: String, default: ''},
       propsData: {type: Array, default: []},
       propsBonus: {type: Array, default: []},
+      jcInfo: {type: Array},
       prizeNum: {type: String, default: ''}
     },
     computed: {
@@ -137,12 +142,24 @@
     },
     methods: {
       sfcResult (arr) {
-        if (arr) {
-          return arr.split(',')
+        let add = JSON.parse(JSON.stringify(arr))
+        if (add) {
+          add = add.split(',');
+          add = add.map(i => {
+            return {txt: i, check: true}
+          });
+        } else {
+          add = new Array(14);
+          for (let i = 0; i < add.length; i++) {
+            add[i] = {txt: '-', check: true}
+          }
         }
-        arr = new Array(14);
-        arr.fill('-');
-        return arr
+        this.jcInfo.forEach((item) => {
+          if (add[item.round_no - 1]) {
+            add[item.round_no - 1].check = false
+          }
+        });
+        return add
       },
       Message () {
         MessageBox('', `<p class="text-left" style="line-height:0.56rem;color:#333 ">该订单相关比赛当期赛况下理论奖金范围,实际赔率有浮动,仅做参考,最终以实际中奖金额为准.<br/>奖金优化方案暂不支持理论奖金计算</p>`);

@@ -58,7 +58,7 @@
           <description
             style="width: 17.5%"
             @tap="goBasketball(propsData.third_party_schedule_id)"
-            :propsData="[`${propsData.match_duration}'`,propsData.half_score? `半场${propsData.half_score}`:'']"
+            :propsData="[`${propsData.match_status_description}`,propsData.match_duration]"
           />
           <!---->
           <name-score

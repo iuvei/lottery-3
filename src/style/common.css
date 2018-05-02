@@ -479,3 +479,6 @@ button.mint-msgbox-confirm{
   color: #e73f40;
 }
 /*弹窗默认覆盖*/
+.v-hidden{
+  visibility: hidden;
+}

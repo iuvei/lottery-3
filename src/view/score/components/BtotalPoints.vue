@@ -9,13 +9,12 @@
 
   .total-points > div {
     display: inline-block;
-    width: 40%;
   }
 </style>
 <template>
-  <div @click="$emit('tap')"  class="total-points">
-    <div>总分:{{propsData[0]}}</div>
-    <div>分差:{{propsData[1]}}</div>
+  <div @click="$emit('tap')" class="total-points">
+    <div style="width: 48%">总分:{{propsData[0]}}</div>
+    <div style="width: 48%">分差:{{propsData[1]}}</div>
   </div>
 </template>
 

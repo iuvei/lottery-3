@@ -25,11 +25,11 @@
   }
 
   .maxWidth65 {
-    max-width: 65%;
+    max-width: 55%;
   }
 
   .maxWidth75 {
-    max-width: 75%;
+    max-width: 55%;
   }
 
   .name {

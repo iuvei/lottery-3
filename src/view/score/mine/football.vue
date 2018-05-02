@@ -51,6 +51,7 @@
           :propsData="[list.lottery_id,list.total_amount,list.jc_info.length,list.seriesText , list.issue_no]"
           :propsBonus="[list.status,`${list.oddsMin}~${list.oddsMax}`,list.winnings_bonus]"
           :prizeNum="list.prize_num"
+          :jcInfo="list.jc_info"
         />
         <li v-for="(item,index) in list.jc_info" :key="item.id||index">
           <mine-football
