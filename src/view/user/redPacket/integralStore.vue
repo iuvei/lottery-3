@@ -30,7 +30,23 @@
   }
 
   .integral-body {
-    padding: 41px 0;
+    overflow-x: hidden;
+    padding: 41px 0 82px 0;
+  }
+
+  .integral-body-title {
+    margin: .39rem 0;
+    background-color: #f4f4f4;
+    color: #333333;
+    font-weight: bold;
+    font-size: .37rem;
+  }
+
+  .integral-body-title-child {
+    margin-left: .35rem;
+    border-left: 2px #e73f40 solid;
+    text-indent: 0.5em;
+    line-height: 1;
   }
 </style>
 
@@ -47,7 +63,20 @@
       </v-head>
     </div>
     <div class="integral-body">
-      <div>红包红包红包红包红包红包红包红包红包红包红包</div>
+      <div class="integral-body-title">
+        <div class="integral-body-title-child">兑换红包</div>
+      </div>
+      <div style="position: relative;overflow: hidden">
+        <template v-for="i in 10">
+          <red-item :theme="false"/>
+        </template>
+      </div>
+      <div class="integral-body-title">
+        <div class="integral-body-title-child">兑换实物</div>
+      </div>
+      <div style="position: relative">
+        <entity-exchange/>
+      </div>
       <div class="text-center" style="font-size: 15px;height: 40px;line-height: 40px;color: #999999">敬请期待更多礼品</div>
     </div>
     <div class="integral-bottom">
@@ -58,9 +87,11 @@
 
 <script>
   import VHead from '../../../components/VHead.vue';
+  import redItem from './component/redItem';
+  import entityExchange from './component/entityExchange';
 
   export default {
     name: 'integralStore',
-    components: {VHead}
+    components: {VHead, redItem, entityExchange}
   }
 </script>

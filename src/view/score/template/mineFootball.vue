@@ -29,7 +29,7 @@
     <template v-if="propsData.match_status===1">
       <div class="item-body">
         <item-title
-          :propsData="[weekDay(propsData.first_half_begin_time,1),propsData.round_no,propsData.league,weekDay(propsData.first_half_begin_time,2)]"/>
+          :propsData="[isSFC(1),propsData.league,isSFC(2)]"/>
         <div class="row item-body-body">
           <description
             @tap="goFootball(propsData.third_party_schedule_id)"
@@ -56,7 +56,7 @@
     <template v-else-if="propsData.match_status===2">
       <div class="item-body">
         <item-title
-          :propsData="[weekDay(propsData.first_half_begin_time,1),propsData.round_no,propsData.league,weekDay(propsData.first_half_begin_time,2)]"/>
+          :propsData="[isSFC(1),propsData.league,isSFC(2)]"/>
         <div class="row item-body-body">
           <!---->
           <description
@@ -88,7 +88,7 @@
     <template v-else>
       <div class="item-body">
         <item-title
-          :propsData="[weekDay(propsData.first_half_begin_time,1),propsData.round_no,propsData.league,weekDay(propsData.first_half_begin_time,2)]"/>
+          :propsData="[isSFC(1),propsData.league,isSFC(2)]"/>
         <div class="row item-body-body">
           <!---->
           <description
@@ -154,6 +154,15 @@
         let arr = this.propsData.current_score.split(':')
         return arr[value]
       },
+      isSFC (type) {
+        if (this.jcInfo.lottery_id === '20' || this.jcInfo.lottery_id === '21') {
+          if (type === 1) {
+            return `第${this.jcInfo.round_no}场 `
+          }
+          return this.weekDay(this.jcInfo.AMatch.first_half_begin_time)
+        }
+        return this.weekDay(this.jcInfo.AMatch.first_half_begin_time, type)
+      },
       weekDay (timestamp, type) {
         const data = new Date(timestamp * 1000);
         const weeks = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
@@ -168,7 +177,7 @@
         }
 
         if (type === 1) {
-          return weeks[new Date(timestamp * 1000).getDay()];
+          return `${weeks[new Date(timestamp * 1000).getDay()]} ${this.propsData.round_no}`;
         } else if (type === 2) {
           return `${check(data.getHours())}:${check(data.getMinutes())}`
         }

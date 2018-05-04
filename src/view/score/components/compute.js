@@ -16,9 +16,18 @@ export default class compute {
         // 比赛信息处理
         list.jc_info = list.jc_info.map(info => {
           const newInfo = new SportsLotteryJcInfo(info, info.lottery_id);
-          const index = list.schedule_list.findIndex(schedule => schedule.id === info.id);
-          const AMatch = list.schedule_list.splice(index, 1);
-          info = Object.assign(newInfo, info, {AMatch: AMatch[0]});
+          const index = list.schedule_list.findIndex(schedule => {
+            if (schedule.id === info.id || schedule.issue_no + schedule.round_no === info.issue_no + info.round_no) {
+              return true
+            }
+            return false
+          });
+          if (index !== -1) {
+            const AMatch = list.schedule_list.splice(index, 1);
+            info = Object.assign(newInfo, info, {AMatch: AMatch[0]});
+          } else {
+            info = Object.assign(newInfo, info, {AMatch: {}});
+          }
           info.selected = info.betting;
           return info;
         });

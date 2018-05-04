@@ -1,4 +1,4 @@
-<style>
+<style scoped>
   .red-manage * {
     box-sizing: border-box;
   }
@@ -46,58 +46,7 @@
       font-size: 0;
     }
   }
-</style>
-<template>
-  <div class="red-manage">
-    <div class="red-manage-title">
-      <v-head title="红包">
-        <span slot="right" class="question-icon" @click=""></span>
-      </v-head>
-      <mt-navbar v-model="selected">
-        <mt-tab-item id="1">可使用(3)</mt-tab-item>
-        <mt-tab-item id="2">等待派发</mt-tab-item>
-        <mt-tab-item id="3">已使用/过期</mt-tab-item>
-      </mt-navbar>
-    </div>
 
-    <mt-tab-container v-model="selected">
-      <mt-tab-container-item id="1">
-        <div v-for="n in 102">红包{{ n }}</div>
-      </mt-tab-container-item>
-      <mt-tab-container-item id="2">
-        <div v-for="n in 4">红包{{ n }}</div>
-      </mt-tab-container-item>
-      <mt-tab-container-item id="3">
-        <div v-for="n in 6">红包{{ n }}</div>
-      </mt-tab-container-item>
-    </mt-tab-container>
-    <div class="red-manage-bottom text-center">
-      <router-link to="exchangeRed" class="button-L">兑换红包</router-link>
-      <router-link to="exchangeRed" class="bottom-R">购买红包</router-link>
-    </div>
-  </div>
-</template>
-
-<script>
-  import VHead from '../../../components/VHead.vue';
-  import { Navbar, TabItem, TabContainerItem, TabContainer, Button } from 'mint-ui';
-
-  export default {
-    name: 'redManage',
-    data () {
-      return {selected: '1'}
-    },
-    components: {
-      VHead,
-      [Navbar.name]: Navbar,
-      [Button.name]: Button,
-      [TabItem.name]: TabItem,
-      [TabContainer.name]: TabContainer,
-      [TabContainerItem.name]: TabContainerItem
-    }
-  }
-</script>
-<style scoped>
   .question-icon {
     background: url("../../../assets/betting/question.png") no-repeat center;
     background-size: 50% 50%;
@@ -134,3 +83,141 @@
   }
 
 </style>
+<template>
+  <div class="red-manage">
+    <div class="red-manage-title">
+      <v-head title="红包">
+        <span slot="right" class="question-icon" @click="goHelp"></span>
+      </v-head>
+      <mt-navbar v-model="select">
+        <mt-tab-item id="yes">可使用( {{redQuantity.available_coupon_number ||0}} )</mt-tab-item>
+        <mt-tab-item id="wait">等待派发( {{ redQuantity.waiting_coupon_number||0 }} )</mt-tab-item>
+        <mt-tab-item id="no">已使用/过期</mt-tab-item>
+      </mt-navbar>
+    </div>
+    <div>
+      <div v-if="selected1[0]" v-show="selected1[1]">
+        <template v-for="n in 102">
+          <red-packet :propsData="1" theme="yes"/>
+        </template>
+        <template v-if="1">
+          <no-red-packet props-data="暂无可用红包"/>
+        </template>
+      </div>
+      <div v-if="selected2[0]" v-show="selected2[1]">
+        <template v-for="n in 102">
+          <red-packet :propsData="2" theme="wait"/>
+        </template>
+        <template v-if="1">
+          <no-red-packet props-data="暂无派发红包"/>
+        </template>
+      </div>
+      <div v-if="selected3[0]" v-show="selected3[1]">
+        <template v-for="n in 0">
+          <red-packet :propsData="3" theme="no"/>
+        </template>
+        <template v-if="1">
+          <no-red-packet props-data="暂无红包"/>
+        </template>
+      </div>
+    </div>
+    <div class="red-manage-bottom text-center">
+      <router-link to="exchangeRed" class="button-L">兑换红包</router-link>
+      <router-link to="redPurchase" class="bottom-R">购买红包</router-link>
+    </div>
+  </div>
+</template>
+
+<script>
+  import VHead from '../../../components/VHead.vue';
+  import redPacket from './component/redPacket.vue';
+  import noRedPacket from './component/noRedPacket.vue';
+  import Http from '../../../store/Http.js';
+  import loading from '../../../common/loading';
+  import { Navbar, TabItem, TabContainerItem, TabContainer, Button } from 'mint-ui';
+
+  export default {
+    name: 'redManage',
+    data () {
+      return {
+        select: 'yes',
+        selected1: [true, true],
+        selected2: [false, false],
+        selected3: [false, false],
+        redQuantity: {}
+      }
+    },
+    mounted () {
+      this.getRedQuantity()
+      this.getRedList()
+    },
+    methods: {
+      getRedQuantity () {
+        loading.show()
+        Http.get('/Coupon/calcUserCouponNumber').then(data => {
+          this.redQuantity = {...data}
+          loading.hide()
+        })
+      },
+      getRedList () {
+        loading.show()
+        Http.get('/Coupon/getUserCouponList', {type: 0, offset: 0, limit: 100}).then(data => {
+          console.log(data)
+          loading.hide()
+        })
+      },
+      switchover (news) {
+        switch (news) {
+          case 'yes':
+            if (this.selected1[0]) {
+              this.selected1 = [true, !this.selected1[1]]
+            } else {
+              this.selected1 = [true, !this.selected1[1]]
+            }
+            break;
+          case 'wait':
+            if (this.selected2[0]) {
+              this.selected2 = [true, !this.selected2[1]]
+            } else {
+              this.selected2 = [true, !this.selected2[1]]
+            }
+            break;
+          case 'no':
+            if (this.selected3[0]) {
+              this.selected3 = [true, !this.selected3[1]]
+            } else {
+              this.selected3 = [true, !this.selected3[1]]
+            }
+            break;
+          default:
+        }
+      },
+      goHelp () {
+        this.$router.push({
+          name: 'WebPage',
+          query: {
+            title: '红包管理帮助',
+            url: 'http://phone-api.tigercai.com/index.php?s=/Content/help/coupon.html'
+          }
+        })
+      }
+    },
+    watch: {
+      select (news, no) {
+        console.log(news, no)
+        this.switchover(no)
+        this.switchover(news)
+      }
+    },
+    components: {
+      VHead,
+      redPacket,
+      noRedPacket,
+      [Navbar.name]: Navbar,
+      [Button.name]: Button,
+      [TabItem.name]: TabItem,
+      [TabContainer.name]: TabContainer,
+      [TabContainerItem.name]: TabContainerItem
+    }
+  }
+</script>

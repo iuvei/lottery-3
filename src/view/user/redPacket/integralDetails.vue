@@ -53,19 +53,33 @@
     border-bottom: 1px solid #ddd;
     background-color: white;
   }
+
   .integral-details .integral-details-item > div {
-    width: 33.33%;
     display: inline-block;
-    height: 40px;
+    width: 33.33%;
+    height: 50px;
+    padding: 5px 0;
     line-height: 40px;
-    font-size: 15px;
+    font-size: 14px;
     text-align: center;
-    color: #333333;
-    overflow: hidden;
+    vertical-align: middle;
   }
-  .integral-details .text-one{
+
+  .integral-details .integral-details-item > div.integral-details-left {
+    line-height: 20px;
     text-align: left;
     text-indent: 1em;
+    color: #666666;
+    word-wrap: break-word;
+    word-break: normal;
+  }
+
+  .color73f {
+    color: #e73f40;
+  }
+
+  .color35a {
+    color: #35ab1e;
   }
 </style>
 <template>
@@ -78,11 +92,17 @@
         <div>积分变动</div>
       </div>
     </div>
-    <div>
+    <div v-infinite-scroll='loadMore'
+         infinite-scroll-disabled='orders.loading'
+         infinite-scroll-distance='1'
+         infinite-scroll-immediate-check='false'>
       <div class="integral-details-item" v-for="i in 100">
-        <div class="text-one">{{ i+1 }}</div>
-        <div>{{ i+1+1 }}</div>
-        <div>{{ i+1+1+1 }}</div>
+        <div class="integral-details-left">
+          <div>2018-05-02</div>
+          <div>13:37:41</div>
+        </div>
+        <div style="color: #666666;">签到获得</div>
+        <div class="color73f">+8</div>
       </div>
     </div>
   </div>
@@ -93,6 +113,11 @@
 
   export default {
     name: 'IntegralDetails',
-    components: {VHead}
+    components: {VHead},
+    methods: {
+      loadMore () {
+        console.log(1)
+      }
+    }
   }
 </script>

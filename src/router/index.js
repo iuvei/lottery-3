@@ -56,6 +56,7 @@ import Score from '../view/score/score.vue'
 
 // 红包管理st
 import redManage from '../view/user/redPacket/redManage.vue'
+import redPurchase from '../view/user/redPacket/redPurchase.vue'
 // 红包管理end
 
 // 红包兑换st
@@ -92,8 +93,14 @@ const ScoreRouter = [
     path: '/integralDetails',
     name: 'integralDetails',
     component: integralDetails
+  },
+  {
+    path: '/redPurchase',
+    name: 'redPurchase',
+    component: redPurchase
   }
-]// 新增模块
+]
+// 新增模块
 
 const router = new Router({
   routes: [

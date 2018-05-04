@@ -42,6 +42,7 @@
       <span>个人信息</span>
       <span class="arrow-right"></span>
     </router-link>
+
     <router-link tag="div" to="redManage" class="item border-top">
       <span class="mine-envelope-management-icon icon"></span>
       <span>红包管理</span>
@@ -57,6 +58,7 @@
       <span>兑换红包</span>
       <span class="arrow-right"></span>
     </router-link>
+
     <div class="logout-panel">
       <a href="javascript:;" @click="logout" class="btn btn-out-line">退出登录</a>
     </div>

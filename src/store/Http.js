@@ -21,7 +21,7 @@ function errorHandle (data, reject) {
       store && store.commit(CLEAR_TOKEN);
       break;
     default:
-      Toast(data.msg);
+      Toast(data.msg || '未知错误');
   }
 }
 // 请求失败处理

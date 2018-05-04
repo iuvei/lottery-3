@@ -21,7 +21,7 @@
     <template v-if="propsData.match_status===1">
       <div class="item-body">
         <item-title
-          :propsData="[weekDay(propsData.first_half_begin_time,1),propsData.round_no,propsData.league,weekDay(propsData.first_half_begin_time,2)]"/>
+          :propsData="[`第${propsData.round_no}场 `,propsData.league,weekDay(propsData.first_half_begin_time)]"/>
         <div @click="goFootball(propsData.third_party_schedule_id)" class="row item-body-body">
           <description
             @tap="goFootball(propsData.third_party_schedule_id)"
@@ -43,7 +43,7 @@
     <template v-else-if="propsData.match_status===2">
       <div class="item-body">
         <item-title
-          :propsData="[weekDay(propsData.first_half_begin_time,1),propsData.round_no,propsData.league,weekDay(propsData.first_half_begin_time,2)]"/>
+          :propsData="[`第${propsData.round_no}场 `,propsData.league,weekDay(propsData.first_half_begin_time)]"/>
         <div class="row item-body-body">
           <!---->
           <description
@@ -72,7 +72,7 @@
     <template v-else>
       <div class="item-body">
         <item-title
-          :propsData="[weekDay(propsData.first_half_begin_time,1),propsData.round_no,propsData.league,weekDay(propsData.first_half_begin_time,2)]"/>
+          :propsData="[`第${propsData.round_no}场 `,propsData.league,weekDay(propsData.first_half_begin_time)]"/>
         <div @click="goFootball(propsData.third_party_schedule_id)" class="row item-body-body">
           <!---->
           <description
