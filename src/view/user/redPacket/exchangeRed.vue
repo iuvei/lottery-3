@@ -63,10 +63,12 @@
       exchangeCoupon () {
         if (this.cdKey) {
           loading.show()
-          Http.get('/Coupon/exchangeCoupon', {coupon_code: this.cdKey}).then(data => {
-            console.log(data)
-            loading.hide()
-          })
+          Http.get('/Coupon/exchangeCoupon', {coupon_code: this.cdKey})
+            .then(() => {
+              loading.hide()
+              Toast('兑换成功')
+              this.$router.back();
+            })
         } else {
           Toast('兑换码不能为空')
         }

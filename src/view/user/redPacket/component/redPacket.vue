@@ -50,8 +50,7 @@
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     background-image: url("../../../../assets/red_paecket_back.png");
-    background-position: left bottom;
-    background-size: 16px auto;
+    background-position: 100% 100%;
     background-repeat: repeat-x;
     padding: 12px;
     font-size: 0;
@@ -69,7 +68,8 @@
   }
 
   .left-red-minor, .right-red-minor {
-    font-size: .43rem;
+    font-size: .37rem;
+    line-height: .59rem;
     color: white;
     filter: alpha(opacity=50);
     -moz-opacity: 0.5;
@@ -82,7 +82,7 @@
   }
 
   .left-red-importance, .right-red-importance {
-    font-size: 0.54rem;
+    font-size: .5rem;
     line-height: 1;
     color: white;
   }
@@ -92,7 +92,7 @@
   }
 
   .red-packet-bottom {
-    font-size: .39rem;
+    font-size: .37rem;
     padding: 10px 12px;
     color: #999999;
   }
@@ -103,17 +103,17 @@
       <div class="red-packet-left">
         <div class="left-red-importance">
           <span style="font-size: 0.5em">¥</span>
-          <span>10000</span>
-          <span :class="theme+'-badge'">余额</span>
+          <span>{{ propsData.balance }}</span>
+          <span :class="theme+'-badge'" v-if="0">余额</span>
         </div>
-        <div class="left-red-minor">订单满1000可用</div>
+        <div class="left-red-minor">{{ propsData.condition }}</div>
       </div>
       <div class="red-packet-right">
-        <div class="right-red-importance">天降红包</div>
-        <div class="right-red-minor">3天后过期</div>
+        <div class="right-red-importance">{{ propsData.display_name }}</div>
+        <div class="right-red-minor">{{ propsData.end_time|getEndTime }}</div>
       </div>
     </div>
-    <div class="red-packet-bottom">可用彩种: 竞彩足球 竞彩篮球 双色球 大乐透</div>
+    <div class="red-packet-bottom">可用彩种: {{ propsData.support_lottery }}</div>
   </div>
 </template>
 
@@ -123,7 +123,7 @@
   export default {
     name: 'redPacket',
     props: {
-      propsData: {type: null},
+      propsData: {type: Object},
       theme: {type: null}
     },
     components: {

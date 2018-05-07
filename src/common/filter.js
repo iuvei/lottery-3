@@ -29,6 +29,8 @@ Vue.filter('getEndTime', function (timestamp) {
     return Math.floor(timeGap / DAY) + '天后过期';
   } else if (timeGap > HOUR) {
     return Math.floor(timeGap / HOUR) + '小时后过期';
+  } else if (timeGap <= 0) {
+    return '已过期';
   } else {
     return '即将过期';
   }

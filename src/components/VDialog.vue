@@ -1,9 +1,9 @@
 <template>
   <div class="dialog">
-    <div class="mask"></div>
+    <div class="mask"  @click="onClose"></div>
     <div class="content">
       <div class="content-hd">
-        <a href="javascript:;" class="dialog-close-icon" @click="onClose"></a>
+        <a href="javascript:;" class="dialog-close-icon"  @click="onClose"></a>
         {{title}}
       </div>
       <div class="content-bd">

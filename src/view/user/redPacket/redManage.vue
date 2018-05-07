@@ -90,33 +90,44 @@
         <span slot="right" class="question-icon" @click="goHelp"></span>
       </v-head>
       <mt-navbar v-model="select">
-        <mt-tab-item id="yes">可使用( {{redQuantity.available_coupon_number ||0}} )</mt-tab-item>
-        <mt-tab-item id="wait">等待派发( {{ redQuantity.waiting_coupon_number||0 }} )</mt-tab-item>
-        <mt-tab-item id="no">已使用/过期</mt-tab-item>
+        <mt-tab-item id="1">可使用( {{redQuantity.available_coupon_number ||0}} )</mt-tab-item>
+        <mt-tab-item id="2">等待派发( {{ redQuantity.waiting_coupon_number||0 }} )</mt-tab-item>
+        <mt-tab-item id="3">已使用/过期</mt-tab-item>
       </mt-navbar>
     </div>
-    <div>
+    <div
+      v-infinite-scroll='loadMore'
+      infinite-scroll-distance='20'
+      infinite-scroll-immediate-check='false'
+      style="padding-bottom: 1rem"
+    >
       <div v-if="selected1[0]" v-show="selected1[1]">
-        <template v-for="n in 102">
-          <red-packet :propsData="1" theme="yes"/>
+        <template v-if="selectData1.length">
+          <template v-for="n in selectData1">
+            <red-packet :propsData="n" theme="yes"/>
+          </template>
         </template>
-        <template v-if="1">
+        <template v-else>
           <no-red-packet props-data="暂无可用红包"/>
         </template>
       </div>
       <div v-if="selected2[0]" v-show="selected2[1]">
-        <template v-for="n in 102">
-          <red-packet :propsData="2" theme="wait"/>
+        <template v-if="selectData2.length">
+          <template v-for="n in selectData2">
+            <red-packet :propsData="n" theme="wait"/>
+          </template>
         </template>
-        <template v-if="1">
+        <template v-else>
           <no-red-packet props-data="暂无派发红包"/>
         </template>
       </div>
       <div v-if="selected3[0]" v-show="selected3[1]">
-        <template v-for="n in 0">
-          <red-packet :propsData="3" theme="no"/>
+        <template v-if="selectData3.length">
+          <template v-for="n in selectData3">
+            <red-packet :propsData="n" theme="no"/>
+          </template>
         </template>
-        <template v-if="1">
+        <template v-else>
           <no-red-packet props-data="暂无红包"/>
         </template>
       </div>
@@ -140,49 +151,65 @@
     name: 'redManage',
     data () {
       return {
-        select: 'yes',
+        select: '1',
         selected1: [true, true],
         selected2: [false, false],
         selected3: [false, false],
+        selectData1: [],
+        selectData2: [],
+        selectData3: [],
         redQuantity: {}
       }
     },
     mounted () {
-      this.getRedQuantity()
-      this.getRedList()
+      this.getRedQuantity();
+      this.getRedList(1).then(data => {
+        loading.hide();
+        this.selectData1 = data
+      })
     },
     methods: {
       getRedQuantity () {
-        loading.show()
+        loading.show();
         Http.get('/Coupon/calcUserCouponNumber').then(data => {
           this.redQuantity = {...data}
           loading.hide()
         })
       },
-      getRedList () {
-        loading.show()
-        Http.get('/Coupon/getUserCouponList', {type: 0, offset: 0, limit: 100}).then(data => {
-          console.log(data)
-          loading.hide()
+      getRedList (type, offset) {
+        return new Promise((resolve) => {
+          loading.show();
+          if (this[`selectData${type}`].length !== 0 && this[`selectData${type}`].length % 15 > 0) {
+            resolve()
+          } else {
+            const data = {
+              type: type,
+              offset: offset ? this[`selectData${type}`].length : 0,
+              limit: offset ? this[`selectData${type}`].length + 15 : 15
+            };
+            Http.get('/Coupon/getUserCouponList', data).then(data => {
+              resolve(data.list)
+            })
+          }
         })
       },
       switchover (news) {
         switch (news) {
-          case 'yes':
+          case '1':
             if (this.selected1[0]) {
               this.selected1 = [true, !this.selected1[1]]
             } else {
               this.selected1 = [true, !this.selected1[1]]
             }
             break;
-          case 'wait':
+          case '2':
             if (this.selected2[0]) {
               this.selected2 = [true, !this.selected2[1]]
             } else {
               this.selected2 = [true, !this.selected2[1]]
             }
             break;
-          case 'no':
+          case '3':
             if (this.selected3[0]) {
               this.selected3 = [true, !this.selected3[1]]
             } else {
@@ -191,6 +218,14 @@
             break;
           default:
         }
+      },
+      loadMore () {
+        this.getRedList(this.select, true).then(data => {
+          loading.hide();
+          if (data) {
+            this[`selectData${this.select}`] = data.concat(JSON.parse(JSON.stringify(this[`selectData${this.select}`])));
+          }
+        })
       },
       goHelp () {
         this.$router.push({
@@ -204,9 +239,17 @@
     },
     watch: {
       select (news, no) {
-        console.log(news, no)
-        this.switchover(no)
-        this.switchover(news)
+        this.getRedList(news).then(data => {
+          loading.hide();
+          if (data) {
+            this[`selectData${news}`] = data.concat(JSON.parse(JSON.stringify(this[`selectData${news}`])));
+            this.switchover(no);
+            this.switchover(news);
+          } else {
+            this.switchover(no);
+            this.switchover(news);
+          }
+        })
       }
     },
     components: {

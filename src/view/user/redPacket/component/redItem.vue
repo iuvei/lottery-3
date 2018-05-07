@@ -32,6 +32,8 @@
     background-size: 100% 100%;
     background-repeat: no-repeat;
     height: 1.63rem;
+    /*margin: 0 auto;*/
+    /*padding: 18.8% 0;*/
     width: 100%;
     color: white;
   }
@@ -86,7 +88,7 @@
 
   .red-item-details {
     color: #666666;
-    padding: .32rem 0;
+    padding: .15rem 0;
     font-size: .37rem;
   }
 
@@ -138,17 +140,17 @@
     <div class="red-item-body">
       <div class="red-item-top">
         <div class="red-item-top-1">
-          <div>¥12222</div>
+          <div>¥{{ propsData.value }}</div>
         </div>
         <div class="red-item-top-2">
-          <div class="top2-child-left">购买送80元</div>
-          <div class="top2-child-right">补货中</div>
+          <div class="top2-child-left">{{ propsData.diaplay_name }}</div>
+          <div class="top2-child-right" v-if="propsData.status">{{ propsData.status }}</div>
         </div>
       </div>
-      <div class="red-item-details">全彩种通用</div>
+      <div class="red-item-details"></div>
       <div v-if="theme" class="red-item-PB">
-        <div class="red-item-price"><span>500</span>元</div>
-        <div class="red-item-button">购买</div>
+        <div class="red-item-price"><span>{{ propsData.price }}</span>元</div>
+        <div class="red-item-button" @click="$emit('tap',propsData)">购买</div>
       </div>
       <div v-else class="red-item-PB2">
         <div class="red-item-price">
@@ -157,7 +159,7 @@
             <count-down :endTime="'1525472430'"/>
           </div>
         </div>
-        <div class="red-item-button">购买</div>
+        <div class="red-item-button" @click="$emit('tap',propsData)">购买</div>
       </div>
     </div>
   </div>
@@ -169,7 +171,8 @@
   export default {
     name: 'redItem',
     props: {
-      theme: {type: null}
+      theme: {type: null},
+      propsData: {}
     },
     components: {countDown}
   }

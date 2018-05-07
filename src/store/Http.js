@@ -20,6 +20,15 @@ function errorHandle (data, reject) {
     case 10003:
       store && store.commit(CLEAR_TOKEN);
       break;
+    case 1060201:
+      Toast('兑换码无效');
+      break;
+    case 1060202:
+      Toast('红包已失效');
+      break;
+    case 1060207:
+      Toast('超过兑换次数');
+      break;
     default:
       Toast(data.msg || '未知错误');
   }
