@@ -29,6 +29,10 @@
   .exchange-red .exchange-red-key {
     padding: 15px 0;
   }
+
+  .exchange-red-key .mint-cell-wrapper {
+   background: none;
+  }
 </style>
 <template>
   <div class="exchange-red">
@@ -36,7 +40,7 @@
       <span slot="right" class="question-icon" @click="goHelp"></span>
     </v-head>
     <div class="exchange-red-key">
-      <mt-field placeholder="输入兑换码" v-model="cdKey" style="background-color: initial;background: none;"/>
+      <mt-field placeholder="输入兑换码" v-model="cdKey" style="background: none;"/>
     </div>
     <div class="exchange-button">
       <mt-button type="danger" size="large" @click="exchangeCoupon">立即兑换</mt-button>

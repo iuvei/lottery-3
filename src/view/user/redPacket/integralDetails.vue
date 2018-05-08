@@ -68,7 +68,8 @@
   .integral-details .integral-details-item > div.integral-details-left {
     line-height: 20px;
     text-align: left;
-    text-indent: 1em;
+    /*text-indent: 1em;*/
+    padding-left: 1em;
     color: #666666;
     word-wrap: break-word;
     word-break: normal;
@@ -92,17 +93,16 @@
         <div>积分变动</div>
       </div>
     </div>
-    <div v-infinite-scroll='loadMore'
-         infinite-scroll-disabled='orders.loading'
-         infinite-scroll-distance='1'
-         infinite-scroll-immediate-check='false'>
-      <div class="integral-details-item" v-for="i in 100">
+    <div v-infinite-scroll="loadMore"
+         infinite-scroll-distance="10"
+         infinite-scroll-immediate-check="false"
+    >
+      <div class="integral-details-item" v-for="n in list">
         <div class="integral-details-left">
-          <div>2018-05-02</div>
-          <div>13:37:41</div>
+          <div>{{ n.time|dateFormat('yyyy-MM-dd hh:mm:ss') }}</div>
         </div>
-        <div style="color: #666666;">签到获得</div>
-        <div class="color73f">+8</div>
+        <div style="color: #666666;">{{ n.event_name }}</div>
+        <div class="color73f">{{ n.event_point }}</div>
       </div>
     </div>
   </div>
@@ -110,14 +110,47 @@
 
 <script>
   import VHead from '../../../components/VHead.vue';
+  import Http from '../../../store/Http.js';
+  import loading from '../../../common/loading';
+
+  let Length = 0;
 
   export default {
     name: 'IntegralDetails',
-    components: {VHead},
+    data () {
+      return {
+        list: [],
+        loading: false
+      }
+    },
     methods: {
       loadMore () {
-        console.log(1)
+        this.getIntegralList()
+      },
+      getIntegralList () {
+        if (this.loading) return;
+        loading.show();
+        Length += 15;
+        Http.get('/UserIntegral/getUserIntegralList', {
+          offset: Length - 15,
+          limit: 15
+        }).then(data => {
+          if (data.list.length) {
+            if (data.list.length < 15) {
+              this.loading = true
+            }
+            this.list = (JSON.parse(JSON.stringify(this.list))).concat(data.list)
+          } else {
+            this.loading = true
+          }
+          loading.hide()
+        })
       }
-    }
+    },
+    mounted () {
+      Length = 0;
+      this.getIntegralList()
+    },
+    components: {VHead}
   }
 </script>

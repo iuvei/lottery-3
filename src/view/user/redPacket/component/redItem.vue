@@ -51,7 +51,7 @@
     background-size: auto 100%;
     background-repeat: no-repeat;
     background-position: 7% 0;
-    font-size: .56rem;
+    font-size: .5rem;
     font-weight: bold;
     overflow: hidden;
   }
@@ -64,7 +64,7 @@
 
   .red-item-top-2 > div {
     display: inline-block;
-    font-size: .39rem;
+    font-size: .37rem;
     overflow: hidden;
   }
 
@@ -90,6 +90,9 @@
     color: #666666;
     padding: .15rem 0;
     font-size: .37rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .red-item-PB2, .red-item-PB {
@@ -140,23 +143,31 @@
     <div class="red-item-body">
       <div class="red-item-top">
         <div class="red-item-top-1">
-          <div>¥{{ propsData.value }}</div>
+          <div v-if="theme">¥{{ propsData.value }}</div>
+          <div v-else>{{ propsData.name }}</div>
         </div>
         <div class="red-item-top-2">
-          <div class="top2-child-left">{{ propsData.diaplay_name }}</div>
-          <div class="top2-child-right" v-if="propsData.status">{{ propsData.status }}</div>
+          <template v-if="theme">
+            <div class="top2-child-left">{{ propsData.diaplay_name }}</div>
+            <div class="top2-child-right" v-if="propsData.status">{{ propsData.status }}</div>
+          </template>
+          <template v-else>
+            <div class="top2-child-left">{{ propsData.condition }}</div>
+            <div class="top2-child-right" v-if="propsData.good_num<100">剩余{{ propsData.good_num }}个</div>
+          </template>
         </div>
       </div>
-      <div class="red-item-details"></div>
+      <div class="red-item-details" v-if="!theme">可用彩种: {{ propsData.support_lottery }}</div>
+      <div class="red-item-details" v-else></div>
       <div v-if="theme" class="red-item-PB">
         <div class="red-item-price"><span>{{ propsData.price }}</span>元</div>
         <div class="red-item-button" @click="$emit('tap',propsData)">购买</div>
       </div>
       <div v-else class="red-item-PB2">
         <div class="red-item-price">
-          <div><span style="color:#e73f40;">1000</span>积分</div>
-          <div style="color: #333333">
-            <count-down :endTime="'1525472430'"/>
+          <div><span style="color:#e73f40;">{{  propsData.point}}</span>积分</div>
+          <div v-if="theme&&propsData.end_time>0" style="color: #333333;">
+            <count-down :endTime="propsData.end_time"/>
           </div>
         </div>
         <div class="red-item-button" @click="$emit('tap',propsData)">购买</div>
@@ -171,7 +182,7 @@
   export default {
     name: 'redItem',
     props: {
-      theme: {type: null},
+      theme: {type: null}, // true代表展示购买红包
       propsData: {}
     },
     components: {countDown}

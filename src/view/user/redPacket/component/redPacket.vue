@@ -104,13 +104,14 @@
         <div class="left-red-importance">
           <span style="font-size: 0.5em">¥</span>
           <span>{{ propsData.balance }}</span>
-          <span :class="theme+'-badge'" v-if="0">余额</span>
+          <span :class="theme+'-badge'" v-if="propsData.balance>0&&propsData.balance!=propsData.value">余额</span>
         </div>
         <div class="left-red-minor">{{ propsData.condition }}</div>
       </div>
       <div class="red-packet-right">
         <div class="right-red-importance">{{ propsData.display_name }}</div>
-        <div class="right-red-minor">{{ propsData.end_time|getEndTime }}</div>
+        <div class="right-red-minor" v-if="propsData.balance>0">{{propsData.end_time|getEndTime}}</div>
+        <div class="right-red-minor" v-else>已使用</div>
       </div>
     </div>
     <div class="red-packet-bottom">可用彩种: {{ propsData.support_lottery }}</div>

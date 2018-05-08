@@ -1,14 +1,14 @@
 <template>
   <div class="entity-exchange">
-    <img src="../../../../assets/down_logo.png" alt="">
+    <img :src="propsData.image" alt="">
     <div>
-      <div class="entity-exchange-top">iphone7 32g</div>
+      <div class="entity-exchange-top">{{ propsData.name }}</div>
       <div class="entity-exchange-bottom">
         <div>
-          <span style="color: #e73f40">5000</span>
+          <span style="color: #e73f40">{{ propsData.point }}</span>
           <span style="color: #a9a9a9">积分</span>
         </div>
-        <div>兑换</div>
+        <div @click="$emit('tap',propsData)">兑换</div>
       </div>
     </div>
   </div>
@@ -28,6 +28,7 @@
 
   .entity-exchange > img {
     width: 50%;
+    padding: 5%;
   }
 
   .entity-exchange > div {
@@ -80,7 +81,10 @@
 
 <script>
   export default {
-    name: 'entityExchange'
+    name: 'entityExchange',
+    props: {
+      propsData: {type: Object}
+    }
   }
 </script>
 

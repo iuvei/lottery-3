@@ -14,7 +14,7 @@
           <div>¥{{ purchase.value }}</div>
           <div>{{ purchase.condition }}</div>
         </div>
-        <div class="alert-msg text-left">有效期:兑换后2日内</div>
+        <div class="alert-msg text-left"></div>
         <div class="alert-msg text-left">可用彩种:{{ purchase.support_lottery}}</div>
       </div>
       <div class="padding margin-top-10">
@@ -88,6 +88,7 @@
   import redItem from './component/redItem.vue';
   import Http from '../../../store/Http.js';
   import loading from '../../../common/loading';
+  import Toast from '../../../common/toast';
 
   export default {
     name: 'redPurchase',
@@ -110,16 +111,23 @@
         })
       },
       onCloseDialog () {
-        // this.hied = false
+        this.hied = false;
         loading.show();
         Http.get('/Coupon/buyCoupon', {coupon_id: this.purchase.id}).then(data => {
-          console.log(data)
-          loading.hide()
+          loading.hide();
+          if (data && data.money > 0) {
+            Toast('余额不足,请充值');
+            this.$router.push({
+              name: 'Payment',
+              query: {lack: data.money}
+            });
+          } else {
+            Toast('红包购买成功');
+          }
         })
       },
       payAffirm (data) {
-        console.log(data)
-        this.purchase = {...data}
+        this.purchase = {...data};
         this.hied = true
       }
     },

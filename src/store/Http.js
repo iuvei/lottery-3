@@ -29,10 +29,20 @@ function errorHandle (data, reject) {
     case 1060207:
       Toast('超过兑换次数');
       break;
+    case 1090301:
+      Toast('商品已下架');
+      break;
+    case 1090302:
+      Toast('积分不足');
+      break;
+    case 1090303:
+      Toast('每日兑换次数限制');
+      break;
     default:
       Toast(data.msg || '未知错误');
   }
 }
+
 // 请求失败处理
 function errorCatch (error, reject) {
   reject(error);
