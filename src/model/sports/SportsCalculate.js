@@ -60,9 +60,9 @@ export default class SportsCalculate {
 
   setProjectBonus (series, orders, multiple) {
     // 返回promise计算脚本
+    this.multiple = multiple;
     this.setSeriesTypes(series);
     this.setBetContent(orders);
-    this.multiple = multiple;
     return this.initScript().then(calculate => {
       return Promise.resolve(calculate && calculate(this.playType, this.seriesTypes, this.betContent, this.isMix, this.isDup, null, null, null))
     })

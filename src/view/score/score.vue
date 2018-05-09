@@ -190,7 +190,7 @@
     </div>
     <div
       v-infinite-scroll='loadMore'
-      infinite-scroll-disabled='orders.loading'
+      infinite-scroll-disabled='Loading'
       infinite-scroll-distance='1'
       infinite-scroll-immediate-check='false'
       :class='{paddingBottom1:isMine([lotteryType,lotteryState])}'
@@ -226,7 +226,8 @@
       return {
         popupVisible: false,
         showToB: false,
-        SelectIndex: 1
+        SelectIndex: 1,
+        Loading: false
       }
     },
     computed: {
@@ -248,7 +249,8 @@
         getMineGameList: GET_MINE_BET_DATA
       }),
       switchShow (target = []) {
-        this.showToB = false
+        this.showToB = false;
+        this.Loading = false;
         if (target.length) {
           // 切换
           if (this.isMine(target)) {
@@ -308,26 +310,32 @@
       getMineData (target) {
         if (this.isLogin) {
           this.switchover(target);
-          return
+          return;
         }
-        // target[2]上拉加载判断
-        let push = {id: `${target[0]}${target[1]}`, offset: target[2]}
         loading.show();
+        const push = {id: `${target[0]}${target[1]}`, offset: target[2]};
+        if (target[2]) {
+          this.Loading = true;
+        }
         this.getMineGameList(push).then(data => {
-          if (target[0] === 2 && target[1] === 2) {
-          //  处理
-          }
           new Compute(data).then(resolve => {
-            this.setLottery({target, params: resolve, add: target[2]});
-            this.switchover(target);
+            // --避免上拉重复加载
+            let nub = 0;
+            if (target[2]) {
+              resolve.groups.forEach(inx => {
+                nub += inx.list.length
+              });
+              this.Loading = nub < 5;
+            }
+            // --避免上拉重复加载
+            this.setLottery({target, params: resolve, add: target[2]});// 设置目标数据
+            this.switchover(target);// 切换目标
             if (!resolve.groups || !resolve.groups.length && !target[2]) {
+              // 是否显示没有比赛
               this.showToB = true;
             }
             loading.hide()
           })
-        }).catch(err => {
-          console.log(err)
-          loading.hide()
         })
       },
       findToTheTop (presentTop = [], presentData) {
@@ -407,7 +415,6 @@
         let i = 0;
         if (this.isMine([this.lotteryType, this.lotteryState])) {
           item = this.$store.state.score[`${this.lotteryType}${this.lotteryState}`];
-          // console.log(item)
           item.groups.forEach(inx => {
             i += inx.list.length
           });

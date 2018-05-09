@@ -32,8 +32,6 @@
     background-size: 100% 100%;
     background-repeat: no-repeat;
     height: 1.63rem;
-    /*margin: 0 auto;*/
-    /*padding: 18.8% 0;*/
     width: 100%;
     color: white;
   }
@@ -66,24 +64,27 @@
     display: inline-block;
     font-size: .37rem;
     overflow: hidden;
+    white-space: nowrap;
   }
 
   .top2-child-left {
     float: left;
-    padding-left: 0.7em;
+    padding-left: 7%;
     filter: alpha(opacity=70);
     -moz-opacity: 0.7;
     -khtml-opacity: 0.7;
     opacity: 0.7;
+    /*-webkit-transform: scale(0.8);*/
   }
 
   .top2-child-right {
     float: right;
-    padding-right: 0.7em;
+    padding-right: 7%;
     filter: alpha(opacity=70);
     -moz-opacity: 0.7;
     -khtml-opacity: 0.7;
     opacity: 0.7;
+    /*-webkit-transform: scale(0.8);*/
   }
 
   .red-item-details {
@@ -141,37 +142,43 @@
 <template>
   <div class="red-item">
     <div class="red-item-body">
-      <div class="red-item-top">
-        <div class="red-item-top-1">
-          <div v-if="theme">¥{{ propsData.value }}</div>
-          <div v-else>{{ propsData.name }}</div>
-        </div>
-        <div class="red-item-top-2">
-          <template v-if="theme">
+      <template v-if="theme">
+        <div class="red-item-top">
+          <div class="red-item-top-1">
+            <div>¥{{ propsData.value }}</div>
+          </div>
+          <div class="red-item-top-2">
             <div class="top2-child-left">{{ propsData.diaplay_name }}</div>
             <div class="top2-child-right" v-if="propsData.status">{{ propsData.status }}</div>
-          </template>
-          <template v-else>
-            <div class="top2-child-left">{{ propsData.condition }}</div>
-            <div class="top2-child-right" v-if="propsData.good_num<100">剩余{{ propsData.good_num }}个</div>
-          </template>
-        </div>
-      </div>
-      <div class="red-item-details" v-if="!theme">可用彩种: {{ propsData.support_lottery }}</div>
-      <div class="red-item-details" v-else></div>
-      <div v-if="theme" class="red-item-PB">
-        <div class="red-item-price"><span>{{ propsData.price }}</span>元</div>
-        <div class="red-item-button" @click="$emit('tap',propsData)">购买</div>
-      </div>
-      <div v-else class="red-item-PB2">
-        <div class="red-item-price">
-          <div><span style="color:#e73f40;">{{  propsData.point}}</span>积分</div>
-          <div v-if="theme&&propsData.end_time>0" style="color: #333333;">
-            <count-down :endTime="propsData.end_time"/>
           </div>
         </div>
-        <div class="red-item-button" @click="$emit('tap',propsData)">购买</div>
-      </div>
+        <div class="red-item-details"></div>
+        <div class="red-item-PB">
+          <div class="red-item-price"><span>{{ propsData.price }}</span>元</div>
+          <div class="red-item-button" @click="$emit('tap',propsData)">购买</div>
+        </div>
+      </template>
+      <template v-else>
+        <div class="red-item-top">
+          <div class="red-item-top-1">
+            <div>{{ propsData.name }}</div>
+          </div>
+          <div class="red-item-top-2">
+            <div class="top2-child-left">{{ propsData.condition }}</div>
+            <div class="top2-child-right" v-if="propsData.good_num<100">剩余{{ propsData.good_num }}个</div>
+          </div>
+        </div>
+        <div class="red-item-details">可用彩种: {{ propsData.support_lottery }}</div>
+        <div class="red-item-PB2">
+          <div class="red-item-price">
+            <div><span style="color:#e73f40;">{{  propsData.point}}</span>积分</div>
+            <div v-if="theme&&propsData.end_time>0" style="color: #333333;">
+              <count-down :endTime="propsData.end_time"/>
+            </div>
+          </div>
+          <div class="red-item-button" @click="$emit('tap',propsData)">兑换</div>
+        </div>
+      </template>
     </div>
   </div>
 </template>

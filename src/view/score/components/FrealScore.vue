@@ -41,11 +41,11 @@
     <!--进行中-->
     <div class="item">
       <div>{{filtration('propsHome','shots_on_goal')}}/{{filtration('propsHome','shoot')}}</div>
-      <div>{{filtration('propsHome','ball_possession')}}</div>
+      <div>{{filtration('propsHome','ball_possession','%')}}</div>
     </div>
     <div class="item">
       <div>{{filtration('propsGuest','shots_on_goal')}}/{{filtration('propsGuest','shoot')}}</div>
-      <div>{{filtration('propsGuest','ball_possession')}}</div>
+      <div>{{filtration('propsGuest','ball_possession','%')}}</div>
     </div>
     <div class="item" style="position: absolute;top: -0.69rem;width: 100%">
       <!--射门图标-->
@@ -63,11 +63,11 @@
       propsGuest: {type: Object}
     },
     methods: {
-      filtration (props, who) {
+      filtration (props, who, pre) {
         if (this[props]) {
           return this[props][who]
         } else {
-          return '0'
+          return `0${pre || ''}`
         }
       }
     }

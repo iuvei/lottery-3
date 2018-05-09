@@ -108,8 +108,7 @@
 
 <template>
   <div>
-    <v-dialog v-show="hied1" @close="hied1 = false">
-      <p class="text-md">兑换确认</p>
+    <v-dialog v-show="hied1" @close="hied1 = false" title="兑换确认">
       <div class="text-md margin-top-5">
         <div class="alert-msg">您将使用 <span>{{ purchase1.point }}</span>积分兑换</div>
         <div class="alert-red-conversion">
@@ -123,8 +122,7 @@
         <a href="javascript:;" class="btn" @click="redConversion()">兑换</a>
       </div>
     </v-dialog>
-    <v-dialog v-show="hied2" @close="hied2 = false">
-      <p class="text-md">兑换确认</p>
+    <v-dialog v-show="hied2" @close="hied2 = false" title="兑换确认">
       <div class="text-md margin-top-5">
         <div class="alert-msg">您将使用 <span>{{ purchase2.point }}</span>积分兑换</div>
         <img :src="purchase2.image" alt="" style="width: 50%;height: auto">

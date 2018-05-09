@@ -113,8 +113,6 @@
   import Http from '../../../store/Http.js';
   import loading from '../../../common/loading';
 
-  let Length = 0;
-
   export default {
     name: 'IntegralDetails',
     data () {
@@ -129,16 +127,14 @@
       },
       getIntegralList () {
         if (this.loading) return;
+        this.loading = true;
         loading.show();
-        Length += 15;
         Http.get('/UserIntegral/getUserIntegralList', {
-          offset: Length - 15,
+          offset: this.list.length,
           limit: 15
         }).then(data => {
-          if (data.list.length) {
-            if (data.list.length < 15) {
-              this.loading = true
-            }
+          if (data && data.list.length) {
+            this.loading = data.list.length < 15;
             this.list = (JSON.parse(JSON.stringify(this.list))).concat(data.list)
           } else {
             this.loading = true
@@ -148,7 +144,6 @@
       }
     },
     mounted () {
-      Length = 0;
       this.getIntegralList()
     },
     components: {VHead}

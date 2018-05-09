@@ -69,12 +69,11 @@
           loading.show()
           Http.get('/Coupon/exchangeCoupon', {coupon_code: this.cdKey})
             .then(() => {
-              loading.hide()
-              Toast('兑换成功')
-              this.$router.back();
+              loading.hide();
+              Toast('兑换成功');
             })
         } else {
-          Toast('兑换码不能为空')
+          Toast('兑换码不能为空');
         }
       },
       goHelp () {

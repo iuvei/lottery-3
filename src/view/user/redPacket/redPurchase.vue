@@ -6,16 +6,13 @@
         <red-item @tap="payAffirm" :propsData="n" :theme="true"/>
       </template>
     </div>
-    <v-dialog v-show="hied" @close="hied = false">
-      <p class="text-md">购买确认</p>
+    <v-dialog v-show="hied" @close="hied = false" title="购买确认">
       <div class="text-md margin-top-5">
         <div class="alert-msg">您将使用 <span>{{ purchase.price }}</span>元购买</div>
         <div class="alert-red-conversion">
           <div>¥{{ purchase.value }}</div>
-          <div>{{ purchase.condition }}</div>
+          <div>{{ purchase.diaplay_name }}</div>
         </div>
-        <div class="alert-msg text-left"></div>
-        <div class="alert-msg text-left">可用彩种:{{ purchase.support_lottery}}</div>
       </div>
       <div class="padding margin-top-10">
         <a href="javascript:;" class="btn" @click="onCloseDialog">购买</a>
@@ -64,7 +61,7 @@
     line-height: 1;
     left: 0;
     padding-left: 7%;
-    font-size: .39rem;
+    font-size: .37rem;
     filter: alpha(opacity=70);
     -moz-opacity: 0.7;
     -khtml-opacity: 0.7;
@@ -113,18 +110,19 @@
       onCloseDialog () {
         this.hied = false;
         loading.show();
-        Http.get('/Coupon/buyCoupon', {coupon_id: this.purchase.id}).then(data => {
-          loading.hide();
-          if (data && data.money > 0) {
-            Toast('余额不足,请充值');
-            this.$router.push({
-              name: 'Payment',
-              query: {lack: data.money}
-            });
-          } else {
-            Toast('红包购买成功');
-          }
-        })
+        Http.get('/Coupon/buyCoupon', {coupon_id: this.purchase.id})
+          .then(data => {
+            loading.hide();
+            if (data && data.money > 0) {
+              Toast('余额不足,请充值');
+              this.$router.push({
+                name: 'Payment',
+                query: {lack: data.money}
+              });
+            } else {
+              Toast('红包购买成功');
+            }
+          })
       },
       payAffirm (data) {
         this.purchase = {...data};

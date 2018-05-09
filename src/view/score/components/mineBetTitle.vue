@@ -99,7 +99,7 @@
         <div class="green-card" v-if="propsData[0]==='20'||propsData[0]==='21'">
           <div class="green-card-body"
                v-for="(i,index) in sfcResult(prizeNum)"
-               :key="index+i.txt"
+               :key="index"
                :class="{opacity50:i.check}">{{i.txt}}
           </div>
         </div>
@@ -130,7 +130,7 @@
       propsData: {type: Array, default: []},
       propsBonus: {type: Array, default: []},
       jcInfo: {type: Array},
-      prizeNum: {type: String, default: ''}
+      prizeNum: {type: null}
     },
     computed: {
       showSeries () {
@@ -144,7 +144,9 @@
       sfcResult (arr) {
         let add = JSON.parse(JSON.stringify(arr))
         if (add) {
-          add = add.split(',');
+          if (Object.prototype.toString.call(add) === '[object String]') {
+            add = add.split(',');
+          }
           add = add.map(i => {
             return {txt: i, check: true}
           });

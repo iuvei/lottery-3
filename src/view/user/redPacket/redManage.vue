@@ -86,9 +86,7 @@
 <template>
   <div class="red-manage">
     <div class="red-manage-title">
-      <v-head title="红包">
-        <span slot="right" class="question-icon" @click="goHelp"></span>
-      </v-head>
+      <v-head title="红包"><span slot="right" class="question-icon" @click="goHelp"></span></v-head>
       <mt-navbar v-model="select">
         <mt-tab-item id="1">可使用( {{redQuantity.available_coupon_number ||0}} )</mt-tab-item>
         <mt-tab-item id="2">等待派发( {{ redQuantity.waiting_coupon_number||0 }} )</mt-tab-item>
@@ -97,7 +95,7 @@
     </div>
     <div
       v-infinite-scroll='loadMore'
-      infinite-scroll-distance='20'
+      infinite-scroll-distance='10'
       infinite-scroll-immediate-check='false'
       style="padding-bottom: 1rem"
     >
@@ -158,14 +156,17 @@
         selectData1: [],
         selectData2: [],
         selectData3: [],
-        redQuantity: {}
+        redQuantity: {},
+        Loading: {[`1`]: false, [`2`]: false, [`3`]: false}
       }
     },
     mounted () {
       this.getRedQuantity();
       this.getRedList(1).then(data => {
-        loading.hide();
-        this.selectData1 = data
+        if (data) {
+          loading.hide();
+          this.selectData1 = data
+        }
       })
     },
     methods: {
@@ -176,24 +177,45 @@
           loading.hide()
         })
       },
-      getRedList (type, offset) {
+      getRedList (type) {
         return new Promise((resolve) => {
-          loading.show();
-          if (this[`selectData${type}`].length !== 0 && this[`selectData${type}`].length % 15 > 0) {
+          if (this.Loading[type]) {
             resolve()
           } else {
-            const data = {
+            this.Loading[type] = true;
+            loading.show();
+            Http.get('/Coupon/getUserCouponList', {
               type: type,
-              offset: offset ? this[`selectData${type}`].length : 0,
-              limit: offset ? this[`selectData${type}`].length + 15 : 15
-            };
-            Http.get('/Coupon/getUserCouponList', data).then(data => {
+              offset: this[`selectData${type}`].length,
+              limit: 15
+            }).then(data => {
+              if (data.list.length) {
+                this.Loading[type] = data.list.length < 15
+              }
               resolve(data.list)
             })
           }
         })
       },
+      loadMore () {
+        this.getRedList(this.select).then(data => {
+          loading.hide();
+          if (data && data.length) {
+            this[`selectData${this.select}`] = (JSON.parse(JSON.stringify(this[`selectData${this.select}`]))).concat(data);
+          }
+        })
+      },
+      goHelp () {
+        this.$router.push({
+          name: 'WebPage',
+          query: {
+            title: '红包管理帮助',
+            url: 'http://phone-api.tigercai.com/index.php?s=/Content/help/coupon.html'
+          }
+        })
+      },
       switchover (news) {
+        // 渲染过一次就不删除
         switch (news) {
           case '1':
             if (this.selected1[0]) {
@@ -218,37 +240,20 @@
             break;
           default:
         }
-      },
-      loadMore () {
-        this.getRedList(this.select, true).then(data => {
-          loading.hide();
-          if (data) {
-            this[`selectData${this.select}`] = data.concat(JSON.parse(JSON.stringify(this[`selectData${this.select}`])));
-          }
-        })
-      },
-      goHelp () {
-        this.$router.push({
-          name: 'WebPage',
-          query: {
-            title: '红包管理帮助',
-            url: 'http://phone-api.tigercai.com/index.php?s=/Content/help/coupon.html'
-          }
-        })
       }
     },
     watch: {
       select (news, no) {
         this.getRedList(news).then(data => {
-          loading.hide();
-          if (data) {
-            this[`selectData${news}`] = data.concat(JSON.parse(JSON.stringify(this[`selectData${news}`])));
+          if (data && data.length) {
+            this[`selectData${news}`] = (JSON.parse(JSON.stringify(this[`selectData${news}`]))).concat(data);
             this.switchover(no);
             this.switchover(news);
           } else {
             this.switchover(no);
             this.switchover(news);
           }
+          loading.hide();
         })
       }
     },

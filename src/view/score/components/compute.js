@@ -14,6 +14,23 @@ export default class compute {
     this.groups.groups = this.groups.groups.map((data, indexA) => {
       data.list = data.list.map((list, indexB) => {
         // 比赛信息处理
+        if (list.lottery_id === '20' || list.lottery_id === '21') {
+          // 胜负彩处理
+          list.ectypePrizeNum = list.schedule_list.map((item) => {
+            let score;
+            if (item.match_status === 3) {
+              score = item.current_score.split(':');
+              if (score[0] && score[1]) {
+                if (score[0] === score[1]) {
+                  return 1
+                }
+                return score[0] > score[1] ? 3 : 0;
+              }
+              return '-'
+            }
+            return '-'
+          })
+        }
         list.jc_info = list.jc_info.map(info => {
           const newInfo = new SportsLotteryJcInfo(info, info.lottery_id);
           const index = list.schedule_list.findIndex(schedule => {
@@ -31,6 +48,7 @@ export default class compute {
           info.selected = info.betting;
           return info;
         });
+        // 如果是胜负彩就不计算奖金
         if (list.lottery_id === '20' || list.lottery_id === '21') return list;
         // 奖金计算
         let series = [];
@@ -48,6 +66,8 @@ export default class compute {
     return Promise.all(PromsSave).then(yes => {
       location.forEach((item, index) => {
         if (Object.prototype.toString.call(yes[index]) === `[object Object]`) {
+          yes[index].min *= this.groups.groups[item[0]].list[item[1]].multiple
+          yes[index].max *= this.groups.groups[item[0]].list[item[1]].multiple
           this.groups.groups[item[0]].list[item[1]].calculatePrice = yes[index]
           this.groups.groups[item[0]].list[item[1]].oddsMin = (yes[index].min).toFixed(2)
           this.groups.groups[item[0]].list[item[1]].oddsMax = (yes[index].max).toFixed(2)
