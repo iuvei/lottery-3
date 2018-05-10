@@ -41,12 +41,23 @@
   }
 
   .bet-title {
+    position: relative;
     background-color: white;
     padding: 0.359375rem 0.25rem 0.265625rem 0.25rem;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
     background-size: 12px 100%;
     background-repeat: repeat-x;
+  }
+
+  .bet-title:after {
+    content: ' ';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: white;
   }
 
   .bet-title .f-img {

@@ -36,12 +36,7 @@
     background-color: #d3d3d3;
   }
 
-  .red-packet * {
-    box-sizing: border-box;
-  }
-
   .red-packet {
-    box-sizing: border-box;
     margin: 3%;
     width: 94%;
   }

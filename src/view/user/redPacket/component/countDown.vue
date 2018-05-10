@@ -1,7 +1,7 @@
 <template>
   <span :endTime="endTime" :endText="endText">
     <slot>
-      剩余时间:{{content}}
+      剩余:{{content}}
     </slot>
   </span>
 </template>

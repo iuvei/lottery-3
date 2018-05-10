@@ -251,6 +251,7 @@
       switchShow (target = []) {
         this.showToB = false;
         this.Loading = false;
+        window.scrollTo(0, 0);
         if (target.length) {
           // 切换
           if (this.isMine(target)) {

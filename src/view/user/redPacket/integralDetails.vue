@@ -1,8 +1,4 @@
 <style scoped>
-  .integral-details * {
-    box-sizing: border-box;
-  }
-
   .integral-details {
     margin-top: 81px;
   }
@@ -84,7 +80,7 @@
   }
 </style>
 <template>
-  <div class="integral-details">
+  <div class="box-init integral-details">
     <div class="integral-details-top">
       <v-head title="积分明细"/>
       <div class="integral-details-classes">
@@ -102,7 +98,7 @@
           <div>{{ n.time|dateFormat('yyyy-MM-dd hh:mm:ss') }}</div>
         </div>
         <div style="color: #666666;">{{ n.event_name }}</div>
-        <div class="color73f">{{ n.event_point }}</div>
+        <div :class="n.event_point>0 ?'color35a':'color73f'">{{ n.event_point }}</div>
       </div>
     </div>
   </div>

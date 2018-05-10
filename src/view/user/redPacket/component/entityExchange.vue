@@ -14,12 +14,7 @@
   </div>
 </template>
 <style scoped>
-  .entity-exchange * {
-    box-sizing: border-box;
-  }
-
   .entity-exchange {
-    box-sizing: border-box;
     background-color: white;
     border-bottom: 1px #ddd solid;
     padding: 0.3rem;

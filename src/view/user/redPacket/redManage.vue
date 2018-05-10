@@ -1,7 +1,4 @@
 <style scoped>
-  .red-manage * {
-    box-sizing: border-box;
-  }
 
   .red-manage {
     padding-top: 89px;
@@ -84,7 +81,7 @@
 
 </style>
 <template>
-  <div class="red-manage">
+  <div class="box-init red-manage">
     <div class="red-manage-title">
       <v-head title="红包"><span slot="right" class="question-icon" @click="goHelp"></span></v-head>
       <mt-navbar v-model="select">
@@ -244,6 +241,7 @@
     },
     watch: {
       select (news, no) {
+        window.scrollTo(0, 0);
         this.getRedList(news).then(data => {
           if (data && data.length) {
             this[`selectData${news}`] = (JSON.parse(JSON.stringify(this[`selectData${news}`]))).concat(data);

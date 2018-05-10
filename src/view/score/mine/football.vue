@@ -30,6 +30,17 @@
     -webkit-transform: rotate(180deg);
     transform: rotate(180deg);
   }
+  .organ-item-li{
+    background-color: white;
+  }
+  .organ-item-li::before {
+    content: ' ';
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+    height: 1px;
+    background-color: #dddd;
+  }
 </style>
 <template>
   <div>
@@ -53,7 +64,9 @@
           :prizeNum="list.prize_num||list.ectypePrizeNum"
           :jcInfo="list.jc_info"
         />
-        <li v-for="(item,index) in list.jc_info" :key="item.id||index">
+        <li class="organ-item-li"
+            v-for="(item,index) in list.jc_info"
+            :key="item.id||index">
           <mine-football
             :props-data="item.AMatch"
             :jc-info="item"

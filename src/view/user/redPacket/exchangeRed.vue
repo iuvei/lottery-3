@@ -9,17 +9,13 @@
     top: 0;
   }
 
-  .exchange-red * {
-    box-sizing: border-box;
-  }
-
   .exchange-button {
-    padding: 0 10px;
-    margin-bottom: 15px;
+    padding: 0 3.13%;
+    margin-bottom: 4.6%;
   }
 
   .exchange-msg {
-    padding: 10px;
+    padding: 3.13%;
     font-size: 14px;
     line-height: 2em;
     color: #999999;
@@ -27,7 +23,7 @@
 </style>
 <style>
   .exchange-red .exchange-red-key {
-    padding: 15px 0;
+    padding: 4.6% 0;
   }
 
   .exchange-red-key .mint-cell-wrapper {
@@ -35,7 +31,7 @@
   }
 </style>
 <template>
-  <div class="exchange-red">
+  <div class="box-init exchange-red">
     <v-head title="兑换红包">
       <span slot="right" class="question-icon" @click="goHelp"></span>
     </v-head>

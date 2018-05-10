@@ -10,15 +10,6 @@
     position: relative;
   }
 
-  .item-body:after {
-    content: ' ';
-    position: absolute;
-    width: 95%;
-    height: 1px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #ddd;
-  }
 
   .item-body-body {
     margin-top: .34rem;

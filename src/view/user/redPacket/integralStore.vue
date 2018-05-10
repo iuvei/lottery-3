@@ -1,7 +1,6 @@
 <style scoped>
   .alert-red-conversion {
     position: relative;
-    box-sizing: border-box;
     max-width: 90%;
     margin: 0 auto;
     padding: 16.92% 0;
@@ -13,7 +12,6 @@
   }
 
   .alert-red-conversion > div:nth-child(1) {
-    box-sizing: border-box;
     position: absolute;
     top: 18.9%;
     left: 0;
@@ -107,7 +105,7 @@
 </style>
 
 <template>
-  <div>
+  <div class="box-init">
     <v-dialog v-show="hied1" @close="hied1 = false" title="兑换确认">
       <div class="text-md margin-top-5">
         <div class="alert-msg">您将使用 <span>{{ purchase1.point }}</span>积分兑换</div>

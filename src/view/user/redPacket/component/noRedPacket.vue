@@ -15,12 +15,7 @@
 </script>
 
 <style>
-  .no-red-packet * {
-    box-sizing: border-box;
-  }
-
   .no-red-packet {
-    box-sizing: border-box;
     text-align: center;
     height: 10rem;
   }

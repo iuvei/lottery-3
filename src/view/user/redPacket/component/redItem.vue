@@ -1,7 +1,5 @@
 <style scoped>
-  .red-item, .red-item * {
-    box-sizing: border-box;
-  }
+
 
   .red-item {
     float: left;
@@ -172,8 +170,8 @@
         <div class="red-item-PB2">
           <div class="red-item-price">
             <div><span style="color:#e73f40;">{{  propsData.point}}</span>积分</div>
-            <div v-if="theme&&propsData.end_time>0" style="color: #333333;">
-              <count-down :endTime="propsData.end_time"/>
+            <div v-if="propsData.exchane_end_time>0&&propsData.exchane_end_time<2102415999" style="color: #333333;">
+              <count-down :endTime="propsData.exchane_end_time"/>
             </div>
           </div>
           <div class="red-item-button" @click="$emit('tap',propsData)">兑换</div>

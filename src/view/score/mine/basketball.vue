@@ -30,6 +30,17 @@
     -webkit-transform: rotate(180deg);
     transform: rotate(180deg);
   }
+  .organ-item-li{
+    background-color: white;
+  }
+  .organ-item-li:before {
+    content: ' ';
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+    height: 1px;
+    background-color: #dddd;
+  }
 </style>
 <template>
   <div>
@@ -49,7 +60,9 @@
             :propsData="[list.lottery_id,list.total_amount,list.jc_info.length,list.seriesText ]"
             :propsBonus="[list.status,`${list.oddsMin}~${list.oddsMax}`,list.winnings_bonus]"
           />
-          <li v-for="(item) in list.jc_info" :key="item.id">
+          <li class="organ-item-li"
+              v-for="(item) in list.jc_info"
+              :key="item.id">
             <mine-basketball
               :props-data="item.AMatch"
               :jc-info="item"
