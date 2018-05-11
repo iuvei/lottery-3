@@ -40,16 +40,17 @@
 
   .red-item-top-1 > div {
     position: relative;
-    padding-left: 24%;
+    padding-left: 18%;
     top: 50%;
     transform: translateY(-50%);
     background-image: url("../../../../assets/icon/red_item_icon.png");
     background-size: auto 100%;
     background-repeat: no-repeat;
-    background-position: 7% 0;
-    font-size: .5rem;
+    background-position: 4% 0;
+    font-size: .47rem;
     font-weight: bold;
     overflow: hidden;
+    white-space: nowrap;
   }
 
   .red-item-top-2 {
@@ -98,12 +99,6 @@
     font-size: 0;
   }
 
-  .red-item-PB .red-item-price, .red-item-PB .red-item-button {
-    display: inline-block;
-    width: 50%;
-    font-size: .39rem;
-  }
-
   .red-item-price {
     color: #999999;
   }
@@ -116,24 +111,25 @@
   .red-item-button {
     border: 1px #e73f40 solid;
     text-align: center;
-    padding: .2rem 0;
+    padding: .25rem 0;
     border-radius: 5px;
     color: #e73f40;
   }
 
-  .red-item-PB2 .red-item-button {
+  .red-item-button {
     width: 30%;
     display: inline-block;
-    font-size: .3rem;
+    font-size: .37rem;
+    line-height: 1;
     vertical-align: middle;
   }
 
-  .red-item-PB2 .red-item-price {
+  .red-item-price {
     vertical-align: middle;
     width: 70%;
     display: inline-block;
-    font-size: .3rem;
-    overflow: hidden;
+    font-size: .37rem;
+    line-height: 1;
   }
 
 </style>
@@ -147,7 +143,6 @@
           </div>
           <div class="red-item-top-2">
             <div class="top2-child-left">{{ propsData.diaplay_name }}</div>
-            <div class="top2-child-right" v-if="propsData.status">{{ propsData.status }}</div>
           </div>
         </div>
         <div class="red-item-details"></div>
@@ -163,14 +158,15 @@
           </div>
           <div class="red-item-top-2">
             <div class="top2-child-left">{{ propsData.condition }}</div>
-            <div class="top2-child-right" v-if="propsData.good_num<100">剩余{{ propsData.good_num }}个</div>
+            <div class="top2-child-right">{{ goodNum }}</div>
           </div>
         </div>
-        <div class="red-item-details">可用彩种: {{ propsData.support_lottery }}</div>
+        <div class="red-item-details">可用彩种: {{ propsData.support_lottery||'通用' }}</div>
         <div class="red-item-PB2">
           <div class="red-item-price">
             <div><span style="color:#e73f40;">{{  propsData.point}}</span>积分</div>
-            <div v-if="propsData.exchane_end_time>0&&propsData.exchane_end_time<2102415999" style="color: #333333;">
+            <div style="color: #333333;margin-top: 0.1rem"
+                 v-if="propsData.exchane_end_time>0&&propsData.exchane_end_time<2102415999">
               <count-down :endTime="propsData.exchane_end_time"/>
             </div>
           </div>
@@ -189,6 +185,17 @@
     props: {
       theme: {type: null}, // true代表展示购买红包
       propsData: {}
+    },
+    computed: {
+      goodNum () {
+        if (this.propsData.good_num < 100) {
+          if (this.propsData.good_num < 1) {
+            return `补货中`
+          }
+          return `剩余${this.propsData.good_num}个`
+        }
+        return ``
+      }
     },
     components: {countDown}
   }

@@ -101,7 +101,9 @@
       getCouponList () {
         loading.show()
         Http.get('/Coupon/getCouponList').then(data => {
-          this.redList = data.list
+          if (data && data.list) {
+            this.redList = data.list
+          }
           loading.hide()
         })
       },
@@ -111,15 +113,7 @@
         Http.get('/Coupon/buyCoupon', {coupon_id: this.purchase.id})
           .then(data => {
             loading.hide();
-            if (data && data.money > 0) {
-              Toast('余额不足,请充值');
-              this.$router.push({
-                name: 'Payment',
-                query: {lack: data.money}
-              });
-            } else {
-              Toast('红包购买成功');
-            }
+            Toast('红包购买成功');
           })
       },
       payAffirm (data) {

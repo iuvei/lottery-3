@@ -1,9 +1,9 @@
 <template>
   <div class="dialog">
-    <div class="mask"  @click="onClose"></div>
+    <div class="mask" @click="onClose"></div>
     <div class="content">
       <div class="content-hd">
-        <a href="javascript:;" class="dialog-close-icon"  @click="onClose"></a>
+        <a href="javascript:;" class="dialog-close-icon" @click="onClose"></a>
         {{title}}
       </div>
       <div class="content-bd">
@@ -29,6 +29,7 @@
   .dialog {
     position: absolute;
   }
+
   .dialog .mask {
     position: fixed;
     z-index: 500;
@@ -38,6 +39,7 @@
     bottom: 0;
     background: rgba(0, 0, 0, 0.6);
   }
+
   .dialog .content {
     position: fixed;
     z-index: 501;
@@ -53,13 +55,16 @@
     overflow: hidden;
     color: #333;
   }
+
   .dialog .content-hd {
     height: 30px;
     line-height: 30px;
     text-align: center;
   }
+
   .dialog .dialog-close-icon {
     position: absolute;
-    right: 10px; top: 10px;
+    right: 10px;
+    top: 10px;
   }
 </style>

@@ -26,11 +26,11 @@
         </template>
         <div class="col col-center">
           <template v-if="detail.match_status === 3">
-            <div class="text-ml">{{detail.current_score}}</div>
+            <div class="text-ml">{{transform}}</div>
             <div class="text-sm">{{detail.match_status_description}}</div>
           </template>
           <template v-else-if="detail.match_status === 2">
-            <div class="text-ml">{{detail.current_score}}</div>
+            <div class="text-ml">{{transform}}</div>
             <div class="text-sm">{{detail.match_duration}}'</div>
           </template>
           <template v-else>
@@ -75,6 +75,15 @@
     computed: {
       detail () {
         return this.$store.state.information.detail;
+      },
+      transform () {
+        let arr;
+        if (this.type === 'football') {
+          return this.detail.current_score
+        }
+        arr = this.detail.current_score.split(':');
+        arr.reverse();
+        return arr.join(':')
       }
     },
     methods: {

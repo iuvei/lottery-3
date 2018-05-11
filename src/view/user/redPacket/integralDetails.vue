@@ -129,7 +129,7 @@
           offset: this.list.length,
           limit: 15
         }).then(data => {
-          if (data && data.list.length) {
+          if (data && data.list && data.list.length) {
             this.loading = data.list.length < 15;
             this.list = (JSON.parse(JSON.stringify(this.list))).concat(data.list)
           } else {

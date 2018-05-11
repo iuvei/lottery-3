@@ -77,7 +77,7 @@
           name: 'WebPage',
           query: {
             title: '兑换红包帮助',
-            url: 'http://phone-api.tigercai.com/index.php?s=/Content/help/coupon_exchange.html'
+            url: 'https://phone-api.tigercai.com/index.php?s=/Content/help/coupon_exchange.html'
           }
         })
       }

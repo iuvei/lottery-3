@@ -199,30 +199,50 @@
         loading.show();
         Http.get('/UserIntegral/getIntegralGoodsList').then(data => {
           loading.hide();
-          this.list = data.groups
+          if (data && data.groups) {
+            this.list = data.groups
+          }
         })
       },
       redConversion (data) {
         if (data) {
+          const time = new Date().getTime() / 1000;
+          if (data.good_num <= 0) {
+            Toast('该商品正在补货中,尽请等待');
+            return
+          }
+          if ((data.exchane_end_time && data.exchane_end_time > 0 && data.exchane_end_time < time) || (data.end_time && data.end_time > 0 && data.end_time < time)) {
+            Toast('兑换时间已过期');
+            return
+          }
           this.purchase1 = {...data};
           this.hied1 = true;
           return
         }
         Http.get('/UserIntegral/exchangeGood', {id: this.purchase1.id}).then(() => {
-          Toast('兑换成功')
-          this.getMineInfo()
+          Toast('兑换成功');
+          this.getMineInfo();
           this.hied1 = false;
         })
       },
       entityConversion (data) {
         if (data) {
+          const time = new Date().getTime() / 1000;
+          if (data.good_num <= 0) {
+            Toast('该商品正在补货中,尽请等待');
+            return
+          }
+          if ((data.exchane_end_time && data.exchane_end_time > 0 && data.exchane_end_time < time) || (data.end_time && data.end_time > 0 && data.end_time < time)) {
+            Toast('兑换时间已过期')
+            return
+          }
           this.purchase2 = {...data};
           this.hied2 = true;
           return
         }
         Http.get('/UserIntegral/exchangeGood', {id: this.purchase2.id}).then(() => {
-          Toast('兑换成功')
-          this.getMineInfo()
+          Toast('兑换成功');
+          this.getMineInfo();
           this.hied2 = false;
         })
       }

@@ -43,7 +43,8 @@
             sec = sec < 10 ? '0' + sec : sec;
             let format = '';
             if (day > 0) {
-              format = `${day}天${hour}:${min}:${sec}`;
+              format = `${day}天`;
+              clearInterval(timer);
             }
             if (day <= 0 && hour > 0) {
               format = `${hour}:${min}:${sec}`;

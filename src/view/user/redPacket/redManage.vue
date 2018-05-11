@@ -170,7 +170,9 @@
       getRedQuantity () {
         loading.show();
         Http.get('/Coupon/calcUserCouponNumber').then(data => {
-          this.redQuantity = {...data}
+          if (data) {
+            this.redQuantity = {...data}
+          }
           loading.hide()
         })
       },
@@ -186,7 +188,7 @@
               offset: this[`selectData${type}`].length,
               limit: 15
             }).then(data => {
-              if (data.list.length) {
+              if (data && data.list && data.list.length) {
                 this.Loading[type] = data.list.length < 15
               }
               resolve(data.list)
@@ -207,7 +209,7 @@
           name: 'WebPage',
           query: {
             title: '红包管理帮助',
-            url: 'http://phone-api.tigercai.com/index.php?s=/Content/help/coupon.html'
+            url: 'https://phone-api.tigercai.com/index.php?s=/Content/help/coupon.html'
           }
         })
       },

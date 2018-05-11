@@ -64,6 +64,7 @@ export default class SportsCalculate {
     this.setSeriesTypes(series);
     this.setBetContent(orders);
     return this.initScript().then(calculate => {
+      console.log(this.playType, this.seriesTypes, this.betContent, this.isMix, this.isDup)
       return Promise.resolve(calculate && calculate(this.playType, this.seriesTypes, this.betContent, this.isMix, this.isDup, null, null, null))
     })
   }
@@ -224,9 +225,8 @@ export default class SportsCalculate {
   convertBetNumbDxf (number) {
     if (number[0] === '+') {
       return 'v1';
-    } else {
-      return 'v2';
     }
+    return 'v2';
   }
 
   convertBetNum (lotteryId, betNum) {
