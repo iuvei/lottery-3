@@ -58,7 +58,7 @@
       <span>兑换红包</span>
       <span class="arrow-right"></span>
     </router-link>
-
+    <p class="text-normal text-center margin-10"><a href="tel:400-835-1108" class="text-light">客服热线 400-835-1108</a></p>
     <div class="logout-panel">
       <a href="javascript:;" @click="logout" class="btn btn-out-line">退出登录</a>
     </div>
@@ -184,5 +184,8 @@
   }
   .mine .vip img {
     width: 20px; height: 20px;
+  }
+  .margin-10{
+    margin: 10px auto;
   }
 </style>

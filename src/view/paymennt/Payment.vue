@@ -1,6 +1,6 @@
 <template>
   <div class="payment">
-    <v-head title="充值"></v-head>
+    <v-head title="充值" :to="goTo"></v-head>
     <div class="text-xn padding">
       <p class="text-light">充值账号：<span class="text-default">{{mine.username}}</span></p>
       <p class="text-light margin-top-5">
@@ -53,7 +53,8 @@
     name: 'payment',
     data () {
       return {
-        number: Util.urlSearch()['lack'] || 100
+        number: Util.urlSearch()['lack'] || 100,
+        goTo: null
       }
     },
     computed: {
@@ -93,12 +94,12 @@
         changeRechargeTypeId: CHANGE_RECHARGE_TYPE
       })
     },
-    created () {
+    mounted () {
       this.getMineInfo();
       this.getRechargeList();
-      const id = Util.urlSearch()['recharge_sku'];
-      if (id) {
-        this.rechargeInfo({ recharge_sku: id });
+      const Search = Util.urlSearch();
+      if (Search.recharge_sku) {
+        this.rechargeInfo({ recharge_sku: Search.recharge_sku });
       }
     },
     components: { VHead, Checkbox }

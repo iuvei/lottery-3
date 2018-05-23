@@ -22,7 +22,18 @@ export default class Lottery {
       [LOTTERYIDS.JSK3]: K3Betting,
       [LOTTERYIDS.SFC]: SFCBetting,
       [LOTTERYIDS.RXJ]: SFCBetting,
-      [LOTTERYIDS.FC3D]: FC3DBetting
+      [LOTTERYIDS.FC3D]: FC3DBetting,
+      [LOTTERYIDS.FOOTBALL_SPF]: FootballBetting,
+      [LOTTERYIDS.FOOTBALL_RQSPF]: FootballBetting,
+      [LOTTERYIDS.FOOTBALL_BF]: FootballBetting,
+      [LOTTERYIDS.FOOTBALL_ZJQ]: FootballBetting,
+      [LOTTERYIDS.FOOTBALL_BQC]: FootballBetting,
+      [LOTTERYIDS.FOOTBALL_HH]: FootballBetting,
+      [LOTTERYIDS.BASKETBALL_SF]: BasketballBetting,
+      [LOTTERYIDS.BASKETBALL_RFSF]: BasketballBetting,
+      [LOTTERYIDS.BASKETBALL_SFC]: BasketballBetting,
+      [LOTTERYIDS.BASKETBALL_DXF]: BasketballBetting,
+      [LOTTERYIDS.BASKETBALL_HH]: BasketballBetting
     }
     return LotteryComponent[lotteryId];
   }

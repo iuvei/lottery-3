@@ -125,10 +125,20 @@
           })
         }
         this.$store.dispatch(SFC_CONFIRM_PAYMENT, result).then(() => {
+          let lock = 0;
           if (this.confirm.id) {
-            if (this.mine.balance < (this.confirm.multiple * this.confirm.stakeCount * 2)) {
-              Toast('余额不足');
-              this.$router.push({ name: 'Payment', query: {lack: (this.confirm.multiple * this.confirm.stakeCount * 2 - this.mine.balance).toFixed(2)} });
+            lock = (this.confirm.multiple * this.confirm.stakeCount * 2)
+            if (this.mine.balance < lock) {
+              this.$router.push({
+                name: 'PaymentOrder',
+                query: {
+                  lock,
+                  difference: lock - this.mine.balance,
+                  id: this.confirm.id,
+                  sign: this.confirm.sign,
+                  product_name: 'LHCP'
+                }
+              });
             } else {
               this.$router.push({ name: 'PaymentOrder', query: {id: this.confirm.id, sign: this.confirm.sign, product_name: 'LHCP'} });
             }

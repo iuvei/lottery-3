@@ -23,7 +23,7 @@
       <!--未开始-->
       <div class="item-body">
         <item-title
-          :propsData="[weekDay(propsData.first_half_begin_time,1),propsData.round_no,propsData.league,weekDay(propsData.first_half_begin_time,2)]"/>
+          :propsData="[weekDay(propsData.begin_date,1),propsData.round_no,propsData.league,weekDay(propsData.first_half_begin_time,2)]"/>
         <div class="row item-body-body">
           <description
             @tap="goBasketball(propsData.third_party_schedule_id)"
@@ -51,7 +51,7 @@
       <!--进行中-->
       <div class="item-body">
         <item-title
-          :propsData="[weekDay(propsData.first_half_begin_time,1),propsData.round_no,propsData.league,weekDay(propsData.first_half_begin_time,2)]"/>
+          :propsData="[weekDay(propsData.begin_date,1),propsData.round_no,propsData.league,weekDay(propsData.first_half_begin_time,2)]"/>
         <div class="row item-body-body">
           <!---->
           <description
@@ -85,7 +85,7 @@
       <!--已完成-->
       <div class="item-body">
         <item-title
-          :propsData="[weekDay(propsData.first_half_begin_time,1),propsData.round_no,propsData.league,weekDay(propsData.first_half_begin_time,2)]"/>
+          :propsData="[weekDay(propsData.begin_date,1),propsData.round_no,propsData.league,weekDay(propsData.first_half_begin_time,2)]"/>
         <div class="row item-body-body">
           <!---->
           <description

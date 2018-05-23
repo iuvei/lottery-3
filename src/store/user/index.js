@@ -209,6 +209,7 @@ const mutations = {
     state.token = '';
     user.clearToken();
     router.replace({name: 'Login'});
+    location.reload()
   },
   [types.CLEAR_TOKEN] (state) {
     user.clearToken();

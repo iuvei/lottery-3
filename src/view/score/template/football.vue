@@ -21,7 +21,7 @@
     <template v-if="propsData.match_status===1">
       <div class="item-body">
         <item-title
-          :propsData="[weekDay(propsData.first_half_begin_time,1),propsData.round_no,propsData.league,weekDay(propsData.first_half_begin_time,2)]"/>
+          :propsData="[weekDay(propsData.begin_date,1),propsData.round_no,propsData.league,weekDay(propsData.first_half_begin_time,2)]"/>
         <div class="row item-body-body">
           <description
             style="width: 17.5%"
@@ -53,7 +53,7 @@
     <template v-else-if="propsData.match_status===2">
       <div class="item-body">
         <item-title
-          :propsData="[weekDay(propsData.first_half_begin_time,1),propsData.round_no,propsData.league,weekDay(propsData.first_half_begin_time,2)]"/>
+          :propsData="[weekDay(propsData.begin_date,1),propsData.round_no,propsData.league,weekDay(propsData.first_half_begin_time,2)]"/>
         <div class="row item-body-body">
           <!---->
           <description
@@ -82,7 +82,7 @@
     <template v-else>
       <div class="item-body">
         <item-title
-          :propsData="[weekDay(propsData.first_half_begin_time,1),propsData.round_no,propsData.league,weekDay(propsData.first_half_begin_time,2)]"/>
+          :propsData="[weekDay(propsData.begin_date,1),propsData.round_no,propsData.league,weekDay(propsData.first_half_begin_time,2)]"/>
         <div  class="row item-body-body">
           <!---->
           <description

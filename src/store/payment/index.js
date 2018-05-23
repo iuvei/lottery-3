@@ -60,7 +60,10 @@ const actions = {
       loading.hide();
     }, (error) => {
       if (error.data && error.data.lack_money > 0) {
+        Toast(`余额不足`);
         router.push({ name: 'Payment', query: {lack: error.data.lack_money} });
+      } else {
+        router.back()
       }
       loading.hide();
     });

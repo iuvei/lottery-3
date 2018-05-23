@@ -9,10 +9,8 @@ import './common/directive'; // 自定义的指令
 import './common/filter'; // 自定义的过滤器
 
 if (process.env.NODE_ENV === 'production') {
-  let targetProtocol = 'https:';
-  if (window.location.protocol !== targetProtocol) {
-    window.location.href = targetProtocol +
-      window.location.href.substring(window.location.protocol.length);
+  if (window.location.protocol !== 'https:') {
+    window.location.protocol = 'https:';
   }
 }
 // 务必在加载 Vue 之后，立即同步设置以下内容

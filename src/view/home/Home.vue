@@ -75,8 +75,45 @@
       refresh () {
         this.recommendIssueRefresh();
       },
-      goBannerUrl (banner) {
-        location.href = banner.target;
+      goBannerUrl (item) {
+        let router;
+        const item2 = JSON.parse(JSON.stringify(item));
+        switch (item2.type) {
+          case '0':
+            // -打开新页面
+            router = {name: 'WebPage', query: {title: item2.title, url: item2.target}};
+            break;
+          case '1':
+            // -购买红包
+            router = {name: 'redPurchase'};
+            break;
+          case '2':
+            // -投注页面
+            router = {
+              name: Lottery.getComponent(item2.lottery_id),
+              params: {id: item2.lottery_id}
+            };
+            break;
+          case '3':
+            // -充值
+            router = {name: 'Payment'};
+            break;
+          case '4':
+            // -合买大厅
+            break;
+          case '5':
+            // -合买详情
+            break;
+          case '7':
+            // -签到页面
+            break;
+          case '8':
+            // -vip详情
+            break;
+          default:
+            // -不做处理
+        }
+        router && this.$router.push(router);
       }
     },
     created () {

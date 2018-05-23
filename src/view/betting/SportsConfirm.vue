@@ -251,10 +251,20 @@
           })
         };
         this.$store.dispatch(SPORTS_CONFIRM_PAYMENT, result).then(() => {
+          let lock = 0;
           if (this.confirm.id) {
-            if (this.mine.balance < (this.confirm.stakeCount * this.confirm.multiple * 2)) {
-              Toast('余额不足');
-              this.$router.push({ name: 'Payment', query: {lack: (this.confirm.stakeCount * this.confirm.multiple * 2 - this.mine.balance).toFixed(2)} });
+            lock = (this.confirm.stakeCount * this.confirm.multiple * 2).toFixed(2)
+            if (this.mine.balance < lock) {
+              this.$router.push({
+                name: 'PaymentOrder',
+                query: {
+                  lock,
+                  difference: lock - this.mine.balance,
+                  id: this.confirm.id,
+                  sign: this.confirm.sign,
+                  product_name: 'LHCP'
+                }
+              });
             } else {
               this.$router.push({ name: 'PaymentOrder', query: {id: this.confirm.id, sign: this.confirm.sign, product_name: 'LHCP'} });
             }
@@ -342,7 +352,6 @@
         calculate.setPlayType(this.lotteryId);
         if (this.series.length > 0) {
           calculate.setProjectBonus(this.series, this.bettingList, this.confirm.multiple).then((value) => {
-            console.log(value);
             if (value.count) {
               calculate.tickets = value.betlist;
               this.$store.commit(SPORTS_BONUS_CHANGE, value);

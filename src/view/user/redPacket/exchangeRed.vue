@@ -27,7 +27,7 @@
   }
 
   .exchange-red-key .mint-cell-wrapper {
-   background: none;
+    background: none;
   }
 </style>
 <template>
@@ -67,6 +67,20 @@
             .then(() => {
               loading.hide();
               Toast('兑换成功');
+            })
+            .catch(err => {
+              switch (err.code) {
+                case 1060202:
+                  Toast('红包已失效');
+                  break;
+                case 1060201:
+                  Toast('兑换码无效');
+                  break;
+                case 1060207:
+                  Toast('超过兑换次数');
+                  break;
+                default:
+              }
             })
         } else {
           Toast('兑换码不能为空');

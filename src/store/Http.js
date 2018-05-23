@@ -5,7 +5,6 @@ import { user } from '../common/store';
 import loading from '../common/loading';
 import store from './index';
 import md5 from 'js-md5';
-import router from '../router';
 
 let HOST = '/api';
 
@@ -15,46 +14,16 @@ if (window.API_HOST) {
 
 // code > 0 时，失败处理
 function errorHandle (data, reject) {
-  let money = 100;
   reject(data);
   loading.hide();
   switch (data.code) {
     case 10003:
       store && store.commit(CLEAR_TOKEN);
       break;
-    case 1060101:
-      Toast('红包不存在');
-      break;
-    case 1060102:
-    case 1060202:
-      Toast('红包已失效');
-      break;
-    case 1060201:
-      Toast('兑换码无效');
-      break;
-    case 1060207:
-      Toast('超过兑换次数');
-      break;
-    case 1090301:
-      Toast('商品已下架');
-      break;
-    case 1090302:
-      Toast('积分不足');
-      break;
-    case 1090303:
-      Toast('每日兑换次数限制');
-      break;
     case 10006:
-      Toast('余额不足,请充值');
-      if (data.data && data.data.money) {
-        money = data.data.money
-      }
-      router.app.$router.push({
-        name: 'Payment',
-        query: {lack: money}
-      });
       break;
     default:
+      console.log('未处理code')
       Toast(data.msg || '未知错误');
   }
 }

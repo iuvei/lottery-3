@@ -12,10 +12,14 @@
   import router from '../router/index';
   export default {
     name: 'head',
-    props: ['title', 'hideBack'],
+    props: ['title', 'hideBack', 'to'],
     methods: {
       goBack () {
-        router.go(-1);
+        if (this.to) {
+          router.replace(this.to)
+        } else {
+          router.go(-1);
+        }
       }
     }
   }

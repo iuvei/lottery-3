@@ -115,6 +115,25 @@
             loading.hide();
             Toast('红包购买成功');
           })
+          .catch(err => {
+            let money = 100;
+            switch (err.code) {
+              case 1060101:
+                Toast('红包不存在');
+                break;
+              case 1060102:
+                Toast('红包已失效');
+                break;
+              case 10006:
+                Toast('余额不足请充值');
+                if (err.data && err.data.money) {
+                  money = err.data.money
+                }
+                this.$router.push({name: 'Payment', query: {lack: money}});
+                break;
+              default:
+            }
+          })
       },
       payAffirm (data) {
         this.purchase = {...data};

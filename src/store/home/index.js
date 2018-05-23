@@ -14,7 +14,7 @@ let state = {
 const actions = {
   [types.GET_BANNER] (context) {
     if (state.banners.length === 0) {
-      Http.get('/Home/getBanner').then(data => {
+      Http.get('/Home/getBanner', {offset: 0, limit: 10, type: 0, size: '414_110'}).then(data => {
         context.commit(types.GET_BANNER, data);
       })
     }

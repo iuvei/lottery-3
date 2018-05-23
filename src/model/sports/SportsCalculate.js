@@ -64,7 +64,6 @@ export default class SportsCalculate {
     this.setSeriesTypes(series);
     this.setBetContent(orders);
     return this.initScript().then(calculate => {
-      console.log(this.playType, this.seriesTypes, this.betContent, this.isMix, this.isDup)
       return Promise.resolve(calculate && calculate(this.playType, this.seriesTypes, this.betContent, this.isMix, this.isDup, null, null, null))
     })
   }

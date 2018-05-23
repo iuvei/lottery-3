@@ -152,6 +152,9 @@
           }
           return this.weekDay(this.jcInfo.AMatch.first_half_begin_time)
         }
+        if (type === 1) {
+          return this.weekDay(this.jcInfo.AMatch.begin_date, type)
+        }
         return this.weekDay(this.jcInfo.AMatch.first_half_begin_time, type)
       },
       weekDay (timestamp, type) {

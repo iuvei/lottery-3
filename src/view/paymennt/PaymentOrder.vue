@@ -54,6 +54,8 @@
   import Util from '../../common/util';
   import { mapActions, mapState, mapMutations } from 'vuex';
   import { PAYMENT_ORDER_COMPLETE, SELECT_ORDER_RED_PACK, PAYMENT_ORDER } from '../../store/payment/types';
+  import store from 'store';
+  import Toast from '../../common/toast';
   let search = {};
   export default {
     name: 'orderPayment',
@@ -65,6 +67,7 @@
     },
     computed: {
       ...mapState({
+        mine: state => state.user.mine,
         confirm: state => state.payment.order,
         orderId: state => state.payment.orderId
       })
@@ -92,13 +95,45 @@
         if (this.redPackTitleId !== id) {
           this.redPackTitleId = id;
         }
+      },
+      init () {
+        search = Util.urlSearch();
+        if (!search.id && !search.lock) {
+          search = this.$router.query;
+        }
+        if (search.lock) {
+          if (store.get('accountsDiffer')) {
+            store.remove('accountsDiffer');
+            // 返回回来的
+            if (search.lock > this.mine.balance) {
+              this.$router.go(-1);
+              console.log('返回')
+              // 如果金额还是不够
+            } else if (search.id) {
+              this.paymentOrder(search);
+            }
+          } else {
+            console.log('金额不够前进');
+            if (search.difference) {
+              search.difference = parseInt(search.difference).toFixed(2)
+            } else {
+              search.difference = 100
+            }
+            this.$router.push({name: 'Payment', query: {lack: search.difference}}, () => {
+              store.set('accountsDiffer', 'accountsDiffer');
+              Toast('余额不足,请充值');
+            });
+          }
+        } else if (search.id) {
+          this.paymentOrder(search);
+          if (store.get('accountsDiffer')) {
+            store.remove('accountsDiffer');
+          }
+        }
       }
     },
-    created () {
-      search = Util.urlSearch();
-      if (search['id']) {
-        this.paymentOrder(search);
-      }
+    mounted () {
+      this.init()
     },
     components: { VHead }
   }
