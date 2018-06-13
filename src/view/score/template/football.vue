@@ -40,10 +40,10 @@
           <match-odds
             style="width: 38.2%;"
             @tap="goFootball(propsData.third_party_schedule_id)"
-            :props601="propsData.result_odds['601']"
-            :props602="propsData.result_odds['602']"
-            :game601="propsData.result_odds.game601"
-            :game602="propsData.result_odds.game602"
+            :props601="propsData.result_odds&&propsData.result_odds['601']"
+            :props602="propsData.result_odds&&propsData.result_odds['602']"
+            :game601="propsData.result_odds&&propsData.result_odds.game601"
+            :game602="propsData.result_odds&&propsData.result_odds.game602"
           />
           <!---->
         </div>
@@ -103,10 +103,10 @@
             v-if="propsData.result_odds"
             style="width: 38.2%;"
             @tap="goFootball(propsData.third_party_schedule_id)"
-            :props601="propsData.result_odds['601']"
-            :props602="propsData.result_odds['602']"
-            :game601="propsData.result_odds.game601"
-            :game602="propsData.result_odds.game602"
+            :props601="propsData.result_odds&&propsData.result_odds['601']"
+            :props602="propsData.result_odds&&propsData.result_odds['602']"
+            :game601="propsData.result_odds&&propsData.result_odds.game601"
+            :game602="propsData.result_odds&&propsData.result_odds.game602"
           />
           <!---->
         </div>
@@ -125,7 +125,7 @@
   import matchOdds from '../components/FmatchOdds.vue'
 
   export default {
-    name: 'mine',
+    name: 'football',
     props: {
       propsData: {type: Object},
       index: {type: Array}

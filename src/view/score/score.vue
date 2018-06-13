@@ -161,7 +161,7 @@
       </div>
       <div v-if='lotteryType===2' class='row text-center two-title'>
         <div :class="{'activate-child':lotteryState===1}" @click="switchShow([lotteryType,1])">
-          <div class='back-icons'>第{{a21.groups.length?a21.groups[SelectIndex].id:''}}期</div>
+          <div class='back-icons'>第{{(a21.groups.length&&a21.groups[SelectIndex])?a21.groups[SelectIndex].id:''}}期</div>
         </div>
         <div :class="{'activate-child':lotteryState===2}" @click="switchShow([lotteryType,2])">我的投注</div>
       </div>
@@ -275,14 +275,18 @@
       },
       getGameData (target) {
         loading.show();
-        let newData = null
+        let newData = null;
         this.getGameList(target).then(({data = {}, toTheTop = null}) => {
+          let SelectIndex = 1;
           if (data.groups && data.groups.length) {
             data = this.disposeF(data) // 数据处理同步
             if (target[0] === 2 && target[1] === 1) {
-              this.SelectIndex = data.groups.findIndex(item => {
+              SelectIndex = data.groups.findIndex(item => {
                 return item.is_current === 1
               })
+              if (SelectIndex !== -1) {
+                this.SelectIndex = SelectIndex
+              }
             }
             if (toTheTop) {
               newData = this.findToTheTop(toTheTop, data)  // {newTop, presentData}

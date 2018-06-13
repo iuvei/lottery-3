@@ -23,7 +23,9 @@ const IDCard = () => import('../view/user/IDCard.vue'); // 身份证信息
 const BankCard = () => import('../view/user/BankCard.vue'); // 银行卡
 const Cash = () => import('../view/user/Cash.vue');// 现金
 const CashDetail = () => import('../view/user/CashDetail.vue');// 现金详情
-const Orders = () => import('../view/user/Orders');// 订单
+// const Orders = () => import('../view/user/Orders');// 订单
+import Orders from '../view/user/Orders';
+
 const OrderDetail = () => import('../view/user/OrderDetail');// 订单详情
 const OrderDetailScheme = () => import('../view/user/OrderDetailScheme');// 订单方案
 const ForgotPassword = () => import('../view/user/ForgotPassword.vue');// 忘记密码
@@ -38,8 +40,8 @@ const SSQBetting = () => import('../view/betting/SSQBetting.vue');// 投注比�
 const K3Betting = () => import('../view/betting/K3Betting.vue');// 投注比赛
 const FC3DBetting = () => import('../view/betting/FC3DBetting.vue');//  投注比赛
 const SFCBetting = () => import('../view/betting/SFCBetting.vue');//  投注比赛
-const WebPage = () => import('../view/WebPage.vue');// iframe加载外链
-// import WebPage from '../view/WebPage.vue';// -我的
+// const WebPage = () => import('../view/WebPage.vue');// iframe加载外链
+import WebPage from '../view/WebPage.vue';// -我的
 
 const PromotionElevenPickFive = () => import('../view/promotion/ElevenPickFive.vue'); // 高频彩
 const PromotionTest = () => import('../view/promotion/Test.vue'); // 00
@@ -52,6 +54,7 @@ const redPurchase = () => import('../view/user/redPacket/redPurchase.vue');// �
 const exchangeRed = () => import('../view/user/redPacket/exchangeRed.vue');// 红包兑换end
 const integralStore = () => import('../view/user/redPacket/integralStore.vue');// 积分兑换st
 const integralDetails = () => import('../view/user/redPacket/integralDetails.vue');// 积分详情
+const SingInLaTombola = () => import('../view/user/SingInLaTombola.vue');// 签到刮奖
 
 Vue.use(Router)
 const ScoreRouter = [
@@ -88,6 +91,12 @@ const ScoreRouter = [
     path: '/redPurchase',
     name: 'redPurchase',
     component: redPurchase,
+    meta: {requireAuth: true}
+  },
+  {
+    path: '/SingInLaTombola',
+    name: 'SingInLaTombola',
+    component: SingInLaTombola,
     meta: {requireAuth: true}
   }
 ]

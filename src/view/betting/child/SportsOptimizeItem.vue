@@ -85,7 +85,3 @@
     components: {CustomSelectBox, CustomRadio}
   }
 </script>
-
-<style>
-
-</style>

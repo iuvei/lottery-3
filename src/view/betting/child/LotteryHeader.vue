@@ -26,9 +26,11 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex';
-  import { CURRENT_PLAY_TYPE_SELECT, GET_CURRENT_LOTTERY, SPORTS_FILTER_PANEL_CHANGE,
-    RECOMMEND_ISSUE_SET, CURRENT_SPORT_PLAY_TYPE_SELECT } from '../../../store/betting/types';
+  import { mapState, mapMutations } from 'vuex';
+  import {
+    CURRENT_PLAY_TYPE_SELECT, GET_CURRENT_LOTTERY, SPORTS_FILTER_PANEL_CHANGE,
+    RECOMMEND_ISSUE_SET, CURRENT_SPORT_PLAY_TYPE_SELECT, SET_CURRENT_LOTTERY
+  } from '../../../store/betting/types';
   import { recommendIssue } from '../../../common/store';
   import Lottery from '../../../model/common/Lottery';
   import { LOTTERYIDS } from '../../../store/constants';
@@ -87,7 +89,10 @@
       },
       openFilter () {
         this.$store.commit(SPORTS_FILTER_PANEL_CHANGE, true);
-      }
+      },
+      ...mapMutations({
+        setLottery: SET_CURRENT_LOTTERY
+      })
     },
     created () {
       if (Lottery.isSSQ(this.lottery) || Lottery.isDLT(this.lottery) || Lottery.isK3(this.lottery) || Lottery.isFC3D(this.lottery)) {

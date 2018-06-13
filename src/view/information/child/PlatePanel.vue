@@ -18,7 +18,3 @@
     components: { PlateTable }
   }
 </script>
-
-<style>
-
-</style>

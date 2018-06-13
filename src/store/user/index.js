@@ -26,7 +26,8 @@ const state = {
   userBank: {}, // 个人银行信息
   bankList: {}, // 银行列表
   withDrawCashMoney: 0, // 提现金额
-  newRegisterStatus: false
+  newRegisterStatus: false,
+  signIn: {} // 签到信息
 };
 
 const actions = {
@@ -161,10 +162,26 @@ const actions = {
     Http.get('/User/logout').then(() => {
       context.commit(types.SCHEME_CONFIRM_CHANGE_ACCOUNT);
     })
+  },
+  [types.MINE_SIGN_IN] (context) {
+    loading.show();
+    Http.get('/UserIntegral/userSign').then((data) => {
+      context.commit(types.MINE_SIGN_IN, data);
+      loading.hide();
+    })
+  },
+  [types.SIGN_IN_ACCEPT_THE_PRIZE] (context, id) {
+    Http.get('/UserIntegral/userDraw', {id}).then((data) => {
+      console.log(data)
+    })
   }
 };
 
 const mutations = {
+  [types.MINE_SIGN_IN] (state, data) {
+    state.signIn = data;
+    router.push({name: 'SingInLaTombola'});
+  },
   [types.LOGIN] (state, data) {
     user.setToken(data.user_token);
     state.token = data.user_token;

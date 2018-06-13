@@ -130,14 +130,11 @@
   import BasketballDXFLottery from './child/BasketballDXFLottery.vue';
   import BasketballHHLottery from './child/BasketballHHLottery.vue';
   import {mapActions, mapState} from 'vuex';
-  import Vue from 'vue';
-  import {Popup} from 'mint-ui';
   import Series from '../../model/common/Series';
   import SportsCalculate from '../../model/sports/SportsCalculate';
   import Lottery from '../../model/common/Lottery';
   import Toast from '../../common/toast';
   import { MINE_INFO } from '../../store/user/types';
-  Vue.component(Popup.name, Popup);
   let calculate;
   export default {
     name: 'sportsConfirm',

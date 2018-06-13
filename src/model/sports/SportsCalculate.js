@@ -82,6 +82,7 @@ export default class SportsCalculate {
   setBetContent (orders) {
     let betContent = '';
     orders.map(order => {
+      order.lotteryId = order.lotteryId ? order.lotteryId : parseInt(order.lottery_id);
       let content = '';
       if (order.lotteryId === 606) {
         for (let i = 0; i < 5; i++) {
@@ -132,15 +133,23 @@ export default class SportsCalculate {
       content = `${content}${CONVENT_LOTTERY_ID[`${lotteryId}`]}#${typeStr}#${value.value}/`;
     }
     // console.log(selected)
-    selected.forEach(value => {
-      if (Object.prototype.toString.call(value) === `[object Array]`) {
-        value.forEach(item => {
-          convertSelected(item)
-        })
-      } else {
-        convertSelected(value)
-      }
-    })
+    if (Object.prototype.toString.call(selected) === `[object Array]`) {
+      selected.forEach(item => {
+        convertSelected(item)
+      })
+    } else {
+      convertSelected(selected)
+    }
+    //   selected.forEach(value => {
+    //   if (Object.prototype.toString.call(value) === `[object Array]`) {
+    //     value.forEach(item => {
+    //       console.log('错误', item)
+    //       convertSelected(item)
+    //     })
+    //   } else {
+    //     convertSelected(value)
+    //   }
+    // })
     return content
   }
 

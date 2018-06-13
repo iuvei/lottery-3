@@ -15,7 +15,7 @@
 
 <script>
   export default {
-    name: 'organItem',
+    name: 'universal',
     props: {
       propsData: {
         type: Object, required: true

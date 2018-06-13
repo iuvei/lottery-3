@@ -75,7 +75,6 @@
 </script>
 
 <style>
-
   .odds-panel .all-icon-tip {
     padding: 5px 0 5px 5px;
   }

@@ -1,5 +1,6 @@
 import * as types from './types';
 import { LOTTERYIDS } from '../constants';
+import { recommendIssue } from '../../common/store';
 import BettingFactory from '../../model/BettingFactory';
 import SportsBetting from '../../model/SportsBetting';
 import SfcBetting from '../../model/SfcBetting';
@@ -21,6 +22,7 @@ const state = {
   [LOTTERYIDS.FC3D]: { playType: null },
   [LOTTERYIDS.K3]: { playType: null },
   [LOTTERYIDS.JXK3]: { playType: null },
+  [LOTTERYIDS.JSK3]: { playType: null },
   [LOTTERYIDS.SSQ]: { playType: null },
   [LOTTERYIDS.DLT]: { playType: null },
   [LOTTERYIDS.FOOTBALL_SPF]: { playType: {id: 601, value: '胜平负'}, mode: 2, scheme: [] },
@@ -83,12 +85,6 @@ const actions = {
       context.commit(types.GET_CURRENT_LOTTERY, data);
     })
   },
-  // 获取竟猜投注列表
-  [types.GET_CURRENT_SPORT_LOTTERY] (context) {
-    Http.get('/Lottery/getJcList', {lottery_id: state.lottery, play_type: state[state.lottery].mode}).then(data => {
-      context.commit(types.GET_CURRENT_SPORT_LOTTERY, data);
-    });
-  },
   // 获取胜负彩列表
   [types.GET_CURRENT_SFC_LOTTERY] (context) {
     if ((parseInt(state.lottery) === 20 && state[state.lottery].length === 0) ||
@@ -101,6 +97,7 @@ const actions = {
     }
   },
   [types.DIGITAL_CONFIRM_PAYMENT] (context, result) {
+    // 数字彩付款
     if (context.rootState.user.token) {
       loading.show();
       const mdStr = '{0}{1}{2}Ehcv2b1AvWAMSey2'.format(result.lottery_id, result.issue_id, parseInt(result.total_amount));
@@ -115,6 +112,7 @@ const actions = {
     }
   },
   [types.SPORTS_CONFIRM_PAYMENT] (context, result) {
+    // 体育付款
     if (context.rootState.user.token) {
       loading.show();
       const mdStr = '{0}{1}{2}Ehcv2b1AvWAMSey2'.format(result.lottery_id, result.play_type, parseInt(result.total_amount));
@@ -129,6 +127,7 @@ const actions = {
     }
   },
   [types.SFC_CONFIRM_PAYMENT] (context, result) {
+    // 胜负彩付款
     if (context.rootState.user.token) {
       loading.show();
       const mdStr = '{0}{1}{2}Ehcv2b1AvWAMSey2'.format(result.lottery_id, result.issue_no, parseInt(result.total_amount));
@@ -143,8 +142,10 @@ const actions = {
     }
   },
   [types.CURRENT_SPORT_PLAY_TYPE_SELECT] (context, data) {
+    // 体育彩票进入时调用
     if (state.lottery !== data.id) {
       context.commit(types.SET_CURRENT_LOTTERY, data.id);
+      if (data.mode && state.mode !== data.mode) context.commit(types.SPORT_MODE_SELECT, data.mode);
       const obj = state[state.lottery];
       if (!obj.scheme[obj.mode === 2 ? 0 : 1]) {
         loading.show();
@@ -153,9 +154,12 @@ const actions = {
           loading.hide();
         });
       }
+    } else {
+      context.commit(types.CURRENT_SPORT_PLAY_TYPE_SELECT);
     }
   },
   [types.SPORT_MODE_SELECT] (context, mode) {
+    // 体育彩票切换时调用
     const obj = state[state.lottery];
     if (!obj.scheme[mode === 2 ? 0 : 1]) {
       loading.show();
@@ -185,13 +189,44 @@ const mutations = {
   },
   [types.CURRENT_SPORT_PLAY_TYPE_SELECT] (state, data) {
     const obj = state[state.lottery];
-    let schemes = [...obj.scheme];
-    schemes[obj.mode === 2 ? 0 : 1] = new SportsBetting(data, obj.mode);
-    obj.scheme = schemes;
-  },
-  [types.GET_CURRENT_SPORT_LOTTERY] (state, data) {
-    // x
-    console.log(data);
+    const schemes = [...obj.scheme];
+    const index = obj.mode === 2 ? 0 : 1;
+    const preselection = recommendIssue.get();
+    let gameData = null;
+    let pitch = null;
+    if (data) {
+      // 数据处理
+      schemes[index] = new SportsBetting(data, obj.mode);
+      obj.scheme = schemes;
+    }
+    if (preselection) {
+      // 数据预选
+      recommendIssue.clear();
+      if (preselection.lottery_id === 606 || preselection.lottery_id === 705) {
+        console.log('未处理混合投注');
+      } else if (preselection.lottery_id === schemes[index].lotteryId) {
+        for (let i = 0; i < schemes[index].groups.length; i++) {
+          for (let s = 0; s < schemes[index].groups[i].schedules.length; s++) {
+            if (schemes[index].groups[i].schedules[s].round_no === preselection.roundNo && schemes[index].groups[i].schedules[s].id === preselection.scheduleId) {
+              gameData = [i, s];
+              i = schemes[index].groups.length;
+              break;
+            }
+          }
+        }
+        // 找到目标赛事
+        if (gameData && Object.prototype.toString.call(preselection.bet_number) === `[object String]`) {
+          pitch = preselection.bet_number.split(',');
+          pitch.forEach(item => {
+            const data = schemes[index].groups[gameData[0]].schedules[gameData[1]].holderList.find(item2 => item === item2.key);
+            if (data) {
+              schemes[index].groups[gameData[0]].schedules[gameData[1]].onOptionSelected(data);
+              obj.scheme[index].setBottomTip();
+            }
+          })
+        }
+      }
+    }
   },
   [types.SPORT_MODE_SELECT] (state, data) {
     state[state.lottery].mode = data;
@@ -356,6 +391,7 @@ const mutations = {
     state.sportConfirm.isMulti = false;
   },
   [types.GET_CURRENT_SFC_LOTTERY] (state, data) {
+    // 胜负彩数据
     state[state.lottery] = data.issues.map(issue => {
       return new SfcBetting(issue, state.lottery);
     });

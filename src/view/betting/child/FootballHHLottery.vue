@@ -144,7 +144,7 @@
   import VDialog from '../../../components/VDialog.vue';
   import {SPORTS_OPTION_SELECTED} from '../../../store/betting/types';
   export default {
-    name: 'footballBQCLottery',
+    name: 'footballHHLottery',
     props: ['schedule', 'isConfirm'],
     data () {
       return {
@@ -210,6 +210,7 @@
     },
     methods: {
       onOptionSelected (item, index) {
+        // console.log(item, index)
         this.schedule.onOptionSelected(item, index);
         this.$store.commit(SPORTS_OPTION_SELECTED);
         this.$emit('onOptionSelected');
@@ -234,6 +235,7 @@
           : this.dialogItemSelected[current].push(item);
       },
       onPanelConfirm () {
+        // console.log(this.dialogItemSelected)
         this.schedule.onOptionSelected(this.dialogItemSelected);
         this.$store.commit(SPORTS_OPTION_SELECTED);
         this.$emit('onOptionSelected');

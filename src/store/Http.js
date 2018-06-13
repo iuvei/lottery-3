@@ -8,8 +8,10 @@ import md5 from 'js-md5';
 
 let HOST = '/api';
 
-if (window.API_HOST) {
-  HOST = window.API_HOST;
+if (process.env.NODE_ENV === 'production') {
+  HOST = window.API_HOST || HOST;
+} else {
+  HOST = 'http://test.h5.phone.t.ebao123.com/index.php?s=/H5';
 }
 
 // code > 0 时，失败处理

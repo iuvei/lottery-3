@@ -18,6 +18,7 @@
     "css3transform": "^1.1.7",
     "fastclick": "^1.0.6",
     "js-md5": "^0.7.3",
+    "jquery": "^2.1.4",
     "md5": "^2.2.1",
     "mint-ui": "^2.2.2",
     "postcss": "^5.2.16",

@@ -1,7 +1,7 @@
 <template>
   <div class="web-page">
     <v-head :title="title"></v-head>
-    <iframe :src="url" ref="frame" @load="OnLoad" @error="hide"></iframe>
+    <iframe :src="url" ref="frame" @load="OnLoad" @error="hide" height="600"></iframe>
   </div>
 </template>
 
@@ -10,8 +10,6 @@
   import loading from '../common/loading';
   import Toast from '../common/toast';
   import Lottery from '../model/common/Lottery';
-  import { mapActions } from 'vuex';
-  import { LOGOUT } from '../store/user/types';
 
   export default {
     name: 'webPage',
@@ -23,12 +21,9 @@
       }
     },
     methods: {
-      ...mapActions({
-        logOut: LOGOUT
-      }),
       receiveMessage (event) {
         let data = {};
-        console.log(event);
+        // console.log(event);
         if (event.data && typeof event.data === 'string') {
           data = this.analysis(event.data.substring(event.data.indexOf('?')));
         } else {
@@ -50,7 +45,7 @@
             this.$router.push({name: Lottery.getComponent(data.data.lottery_id), params: {id: data.data.lottery_id}});
             break;
           case '10702':
-            this.$router.push({name: 'Payment', query: {lack: data.data.money}});
+            this.$router.push({name: 'Payment', query: {lack: (data.data && data.data.money) || 100}});
             break;
           case '10703':
             this.$router.push({name: 'IDCard'});
@@ -87,7 +82,7 @@
             Toast('开发中...');
             break;
           default:
-            console.log('未知接口编号')
+            console.log('未知接口编号');
         }
       },
       analysis (url) {
@@ -96,7 +91,7 @@
           let str = url.substr(1);
           let strs = str.split('&');
           for (let i = 0; i < strs.length; i++) {
-            if (unescape) {
+            if (typeof unescape === 'function') {
               theRequest[strs[i].split('=')[0]] = unescape(strs[i].split('=')[1]);
             } else {
               theRequest[strs[i].split('=')[0]] = decodeURIComponent(strs[i].split('=')[1]);
@@ -113,7 +108,7 @@
         loading.hide();
       },
       base64 (da) {
-        if (escape && atob && decodeURIComponent) {
+        if (typeof escape === 'function' && typeof atob === 'function' && typeof decodeURIComponent === 'function') {
           return decodeURIComponent(escape(atob(da)));
         } else {
           return decode(da);
@@ -214,6 +209,12 @@
       window.addEventListener('message', this.receiveMessage, false);
       const query = this.$router.currentRoute.query;
       if (query.url) {
+        // 带上h5标识参数
+        if (query.url.indexOf('?') !== -1) {
+          query.url += '&ish5=true'
+        } else {
+          query.url += '?ish5=true'
+        }
         this.url = query.url;
         query.title && (this.title = query.title);
       }

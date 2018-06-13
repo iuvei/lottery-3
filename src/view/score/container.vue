@@ -1,6 +1,3 @@
-<style scoped>
-
-</style>
 <template>
   <div>
     <!--没有登陆去登陆-->
@@ -14,13 +11,13 @@
               <football :propsData="props.data" :index="[0,props.index]"/>
             </template>
           </to-the-top>
-          <organ-list v-for="(item,index) in a11.groups"
-                      :key="item.data"
-                      :propsData="item">
+          <universal v-for="(item,index) in a11.groups"
+                     :key="item.data"
+                     :propsData="item">
             <template slot-scope="props">
               <football :propsData="props.data" :index="[index,props.index]"/>
             </template>
-          </organ-list>
+          </universal>
         </div>
       </div>
       <div v-show="switchBody[1]===2">
@@ -30,13 +27,13 @@
               <football :propsData="props.data" :index="[0,props.index]"/>
             </template>
           </to-the-top>
-          <organ-list v-for="(item,index) in a12.groups"
-                      :key="item.data"
-                      :propsData="item">
+          <universal v-for="(item,index) in a12.groups"
+                     :key="item.data"
+                     :propsData="item">
             <template slot-scope="props">
               <football :propsData="props.data" :index="[index,props.index]"/>
             </template>
-          </organ-list>
+          </universal>
         </div>
       </div>
       <div v-show="switchBody[1]===3">
@@ -46,18 +43,18 @@
               <football :propsData="props.data" :index="[0,props.index]"/>
             </template>
           </to-the-top>
-          <organ-list v-for="(item,index) in a13.groups"
-                      :key="item.data"
-                      :propsData="item">
+          <universal v-for="(item,index) in a13.groups"
+                     :key="item.data"
+                     :propsData="item">
             <template slot-scope="props">
               <football :propsData="props.data" :index="[index,props.index]"/>
             </template>
-          </organ-list>
+          </universal>
         </div>
       </div>
       <div v-show="switchBody[1]===4">
         <div v-if="a14.groups.length">
-          <mine-football :propsData="a14.groups"/>
+          <football-container :propsData="a14.groups"/>
         </div>
       </div>
     </div>
@@ -67,20 +64,20 @@
         <div v-if="a21.groups.length">
           <to-the-top v-if="toTop21.length" :propsData="toTop21">
             <template slot-scope="props">
-              <result :propsData="props.data" :index="[0,props.index]"/>
+              <football-s-f-c :propsData="props.data" :index="[0,props.index]"/>
             </template>
           </to-the-top>
-          <organ-list :propsData="a21.groups[SelectIndex]"
-                      :name="toTop21.length?`第${a21.groups[SelectIndex].id}期`:''">
+          <universal :propsData="a21.groups[SelectIndex]"
+                     :name="toTop21.length?`第${a21.groups[SelectIndex].id}期`:''">
             <template slot-scope="props">
-              <result :propsData="props.data" :index="[SelectIndex,props.index]"/>
+              <football-s-f-c :propsData="props.data" :index="[SelectIndex,props.index]"/>
             </template>
-          </organ-list>
+          </universal>
         </div>
       </div>
       <div v-show="switchBody[1]===2">
         <div v-if="a22.groups.length">
-          <mine-football :propsData="a22.groups"/>
+          <football-container :propsData="a22.groups"/>
         </div>
       </div>
     </div>
@@ -90,47 +87,47 @@
         <div v-if="a31.groups.length">
           <to-the-top v-if="toTop31.length" :propsData="toTop31">
             <template slot-scope="props">
-              <baskbetball :propsData="props.data" :index="[0,props.index]"/>
+              <basketball :propsData="props.data" :index="[0,props.index]"/>
             </template>
           </to-the-top>
-          <organ-list v-for="(item,index)  in a31.groups" :key="item.data" :propsData="item">
+          <universal v-for="(item,index)  in a31.groups" :key="item.data" :propsData="item">
             <template slot-scope="props">
-              <baskbetball :propsData="props.data" :index="[index,props.index]"/>
+              <basketball :propsData="props.data" :index="[index,props.index]"/>
             </template>
-          </organ-list>
+          </universal>
         </div>
       </div>
       <div v-show="switchBody[1]===2">
         <div v-if="a32.groups.length">
           <to-the-top v-if="toTop32.length" :propsData="toTop32">
             <template slot-scope="props">
-              <baskbetball :propsData="props.data" :index="[0,props.index]"/>
+              <basketball :propsData="props.data" :index="[0,props.index]"/>
             </template>
           </to-the-top>
-          <organ-list v-for="(item,index)  in a32.groups" :key="item.data" :propsData="item">
+          <universal v-for="(item,index)  in a32.groups" :key="item.data" :propsData="item">
             <template slot-scope="props">
-              <baskbetball :propsData="props.data" :index="[index,props.index]"/>
+              <basketball :propsData="props.data" :index="[index,props.index]"/>
             </template>
-          </organ-list>
+          </universal>
         </div>
       </div>
       <div v-show="switchBody[1]===3">
         <div v-if="a33.groups.length">
           <to-the-top v-if="toTop33.length" :propsData="toTop33">
             <template slot-scope="props">
-              <baskbetball :propsData="props.data" :index="[0,props.index]"/>
+              <basketball :propsData="props.data" :index="[0,props.index]"/>
             </template>
           </to-the-top>
-          <organ-list v-for="(item,index)  in a33.groups" :key="item.data" :propsData="item">
+          <universal v-for="(item,index)  in a33.groups" :key="item.data" :propsData="item">
             <template slot-scope="props">
-              <baskbetball :propsData="props.data" :index="[index,props.index]"/>
+              <basketball :propsData="props.data" :index="[index,props.index]"/>
             </template>
-          </organ-list>
+          </universal>
         </div>
       </div>
       <div v-show="switchBody[1]===4">
         <div v-if="a34.groups.length">
-          <mine-baskbetball :propsData="a34.groups"/>
+          <basketball-container :propsData="a34.groups"/>
         </div>
       </div>
     </div>
@@ -141,15 +138,6 @@
 
 <script>
   import { mapState } from 'vuex';
-  import ToBetBuy from '../../components/ToBetBuy.vue'
-  import NotLoggedIn from '../../components/NotLoggedIn.vue'
-  import toTheTop from './ListContainer/toTheTop.vue'
-  import organList from './ListContainer/organList.vue'
-  import Result from './template/result.vue'
-  import Baskbetball from './template/baskbetball.vue'
-  import Football from './template/football.vue'
-  import MineFootball from './mine/football.vue'
-  import MineBaskbetball from './mine/basketball.vue'
 
   export default {
     name: 'container',
@@ -196,15 +184,15 @@
       }
     },
     components: {
-      NotLoggedIn,
-      ToBetBuy,
-      toTheTop,
-      organList,
-      Result,
-      Baskbetball,
-      Football,
-      MineFootball,
-      MineBaskbetball
+      NotLoggedIn: () => import('../../components/NotLoggedIn.vue'),
+      ToBetBuy: () => import('../../components/ToBetBuy.vue'),
+      toTheTop: () => import('./components/toTheTop.vue'),
+      universal: () => import('./container/universal.vue'),
+      footballSFC: () => import('./template/footballSFC.vue'),
+      Basketball: () => import('./template/basketball.vue'),
+      Football: () => import('./template/football.vue'),
+      FootballContainer: () => import('./container/football.vue'),
+      BasketballContainer: () => import('./container/basketball.vue')
     }
   }
 </script>

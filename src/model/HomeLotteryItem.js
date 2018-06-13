@@ -57,6 +57,7 @@ export default class HomeLotteryItem {
       case LOTTERYIDS.SYXW8:
       case LOTTERYIDS.SYXW18:
       case LOTTERYIDS.K3:
+      case LOTTERYIDS.JSK3:
       case LOTTERYIDS.JXK3:
         this.timer = Util.timeCountdown(this.firstTime, (time) => {
           if (time > 0) {

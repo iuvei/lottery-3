@@ -64,7 +64,7 @@
     },
     methods: {
       filtration (props, who, pre) {
-        if (this[props]) {
+        if (this[props] && this[props][who]) {
           return this[props][who]
         } else {
           return `0${pre || ''}`

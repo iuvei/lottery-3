@@ -1,6 +1,6 @@
 <template>
   <div class="head">
-    <span class="back-icon" @click="goBack" v-if="!hideBack"></span>
+    <span class="back-icon" :class="selfAdaption||''" @click="goBack" v-if="!hideBack"></span>
     <div>{{title}}</div>
     <span class="right">
       <slot name="right"></slot>
@@ -11,8 +11,8 @@
 <script>
   import router from '../router/index';
   export default {
-    name: 'head',
-    props: ['title', 'hideBack', 'to'],
+    name: 'vhead',
+    props: ['title', 'hideBack', 'to', 'selfAdaption'],
     methods: {
       goBack () {
         if (this.to) {
@@ -51,5 +51,12 @@
     font-size: 14px;
     color: #969696;
     top: 0;
+  }
+
+  .head .SingInLaTombola {
+    background: url("../assets/icon/white_back_icon.png") no-repeat center;
+    background-size: 40% 40%;
+    height: 35px;
+    width: 25px;
   }
 </style>

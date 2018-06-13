@@ -114,7 +114,7 @@
   import example from '../components/example.vue'
 
   export default {
-    name: 'mineFootball',
+    name: 'footballMine',
     props: {
       propsData: {type: Object, required: true},
       jcInfo: {type: Object, required: true}

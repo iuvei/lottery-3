@@ -225,3 +225,15 @@
   background: url("../assets/icon/point_management.png") no-repeat;
   background-size: 100% ;
 }
+.mine-white-back-icon{
+  transform:rotate(180deg);
+  width: 1em; height: 1em;
+  background: url("../assets/icon/white_back_icon.png") no-repeat;
+  background-size: auto 100%;
+}
+
+.mine-sing-in-icon {
+  background: url("../assets/icon/sing_in.png") no-repeat;
+  background-size: auto 100%;
+}
+

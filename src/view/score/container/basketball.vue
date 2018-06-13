@@ -33,7 +33,7 @@
   .organ-item-li{
     background-color: white;
   }
-  .organ-item-li::before {
+  .organ-item-li:before {
     content: ' ';
     display: block;
     width: 90%;
@@ -44,54 +44,50 @@
 </style>
 <template>
   <div>
-    <div class="organ-item"
-         v-for="(groups,index) in propsData"
-         :key="groups.date||index">
-      <div class="bg-white organ-item-title"
-           @click="show(groups.date_timestamp)">
+    <div class="organ-item" v-for="(groups,index) in propsData" :key="groups.date+index">
+      <div v-if="groups.name||groups.date" class="bg-white organ-item-title" @click="show(groups.date_timestamp)">
         <span class="left">{{ groups.name||groups.date }}</span>
         <span class="right" :class="{bgPlay:switchItem(groups.date_timestamp)}"> </span>
       </div>
-      <ul v-show="switchItem(groups.date_timestamp)"
-          style="padding: 0.14rem;"
-          v-for="(list,ind) in groups.list"
-          :key="list.id||ind">
-        <mine-bet-title
-          theme="football"
-          :propsImg="list.lottery_image"
-          :propsData="[list.lottery_id,list.total_amount,list.jc_info.length,list.seriesText , list.issue_no]"
-          :propsBonus="[list.status,`${list.oddsMin}~${list.oddsMax}`,list.winnings_bonus]"
-          :prizeNum="list.prize_num||list.ectypePrizeNum"
-          :jcInfo="list.jc_info"
-        />
-        <li class="organ-item-li"
-            v-for="(item,index) in list.jc_info"
-            :key="item.id||index">
-          <mine-football
-            :props-data="item.AMatch"
-            :jc-info="item"
+      <div>
+        <ul v-show="switchItem(groups.date_timestamp)"
+            style="padding: 0.14rem;"
+            v-for="list in groups.list"
+            :key="list.id">
+          <mine-bet-title
+            theme="basketball"
+            :propsImg="list.lottery_image"
+            :propsData="[list.lottery_id,list.total_amount,list.jc_info.length,list.seriesText ]"
+            :propsBonus="[list.status,`${list.oddsMin}~${list.oddsMax}`,list.winnings_bonus]"
           />
-        </li>
-      </ul>
+          <li class="organ-item-li"
+              v-for="(item) in list.jc_info"
+              :key="item.id">
+            <basketball-mine
+              :props-data="item.AMatch"
+              :jc-info="item"
+            />
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-  import organList from '../ListContainer/organList'
-  import mineFootball from '../template/mineFootball.vue'
+  import organList from './universal'
+  import basketballMine from '../template/basketballMine.vue'
   import mineBetTitle from '../components/mineBetTitle.vue'
 
   export default {
-    name: 'mine',
+    name: 'BasketballContainer',
     props: {
       propsData: {type: Array}
     },
     data () {
       return {
+        ItemName: '置顶比赛', // 标题名字
         ShowItem: {}, // 是否显示
-        rotate: false, // 旋转
-        propsDispose: [],
         groupsList: []
       }
     },
@@ -116,9 +112,8 @@
     },
     components: {
       organList,
-      mineFootball,
+      basketballMine,
       mineBetTitle
     }
   }
 </script>
-

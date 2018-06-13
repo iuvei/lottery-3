@@ -10,7 +10,7 @@
   }
 </style>
 <template>
-  <div @click="$emit('tap')"   v-if="propsData[`701`]" class="match-odds"
+  <div @click="$emit('tap')"   v-if="propsData&&propsData[`701`]" class="match-odds"
        style="position: relative;height: 1.76rem">
     <div class="item">
       {{ propsData[`701`].v0 }}

@@ -12,7 +12,9 @@
       <div class="lottery-box" v-if="lotteries.length > 0">
         <template v-for="(lottery, index) in lotteries">
           <lottery-item :lottery="lottery"></lottery-item>
-          <template v-if="(index+1)%3 === 0"><hr></template>
+          <template v-if="(index+1)%3 === 0">
+            <hr>
+          </template>
         </template>
         <lottery-item :lottery="moreLottery"></lottery-item>
       </div>
@@ -26,18 +28,12 @@
 
 <script>
   import BottomNav from '../../components/BottomNav.vue';
-  import LotteryItem from '../../components/HomeLotteryItem.vue';
-  import InformationItem from '../../components/HomeInformationItem.vue';
-  import RecommendLottery from '../../components/HomeRecommendLottery.vue';
-  import { Swipe, SwipeItem } from 'mint-ui';
-  import Vue from 'vue';
   import { mapActions } from 'vuex';
   import Lottery from '../../model/common/Lottery';
-  import { GET_BANNER, GET_LOTTERY_LIST, GET_INFORMATION_LIST,
-    GET_RECOMMEND_ISSUE, RECOMMEND_ISSUE_REFRESH } from '../../store/home/types';
-
-  Vue.component(Swipe.name, Swipe);
-  Vue.component(SwipeItem.name, SwipeItem);
+  import {
+    GET_BANNER, GET_LOTTERY_LIST, GET_INFORMATION_LIST,
+    GET_RECOMMEND_ISSUE, RECOMMEND_ISSUE_REFRESH
+  } from '../../store/home/types';
 
   export default {
     name: 'home',
@@ -56,12 +52,16 @@
         return this.$store.state.home;
       },
       lotteries () {
-        return this.home.lotteries.filter(value => {
+        let lotteries = this.home.lotteries.filter(value => {
           return Lottery.isSYXW(value.lottery_id) || Lottery.isDLT(value.lottery_id) ||
             Lottery.isSSQ(value.lottery_id) || (value.lottery_id === 6) ||
             (value.lottery_id === 7) || (value.lottery_id === 5) ||
             Lottery.isFC3D(value.lottery_id) || Lottery.isSFCOrRXJ(value.lottery_id);
         });
+        if (lotteries.length > 8) {
+          lotteries.length = 8
+        }
+        return lotteries
       }
     },
     methods: {
@@ -81,7 +81,10 @@
         switch (item2.type) {
           case '0':
             // -打开新页面
-            router = {name: 'WebPage', query: {title: item2.title, url: item2.target}};
+            item2.target && (function () {
+              if (item2.target.indexOf('http://') !== -1) item2.target = item2.target.replace('http:', '');
+              router = {name: 'WebPage', query: {title: item2.title, url: item2.target}};
+            })();
             break;
           case '1':
             // -购买红包
@@ -98,20 +101,13 @@
             // -充值
             router = {name: 'Payment'};
             break;
-          case '4':
-            // -合买大厅
-            break;
-          case '5':
-            // -合买详情
-            break;
-          case '7':
-            // -签到页面
-            break;
-          case '8':
-            // -vip详情
+          case '4':// -合买大厅
+          case '5':// -合买详情
+          case '7':// -签到页面
+          case '8':// -vip详情
             break;
           default:
-            // -不做处理
+          // -不做处理
         }
         router && this.$router.push(router);
       }
@@ -122,7 +118,18 @@
       this.getRecommendIssue();
       this.getInformation()
     },
-    components: {BottomNav, Swipe, SwipeItem, LotteryItem, InformationItem, RecommendLottery}
+    components: {
+      BottomNav,
+      LotteryItem: () => import('../../components/HomeLotteryItem.vue'),
+      InformationItem: () => {
+        return new Promise((resolve) => {
+          setTimeout(function () {
+            resolve(import('../../components/HomeInformationItem.vue'))
+          }, 10)
+        })
+      },
+      RecommendLottery: () => import('../../components/HomeRecommendLottery.vue')
+    }
   }
 </script>
 
@@ -130,22 +137,29 @@
   .home .mint-swipe {
     height: 110px;
   }
+
   .home .mint-swipe .banner {
-    width: 100%; height: 100%;
+    width: 100%;
+    height: 100%;
   }
+
   .home .mint-swipe-indicators {
     bottom: 5px;
   }
+
   .home .mint-swipe-indicator {
     background: white;
     opacity: 0.3;
   }
+
   .home .mint-swipe-indicator.is-active {
     opacity: 1;
   }
+
   .home .container {
     padding: 10px;
   }
+
   .home .container .lottery-box {
     border: 1px solid #dddddd;
     background: white;
@@ -153,6 +167,7 @@
     overflow: hidden;
     margin-top: 10px;
   }
+
   .home .container .lottery-box hr {
     border-top: 0;
     border-bottom: 1px solid #ddd;

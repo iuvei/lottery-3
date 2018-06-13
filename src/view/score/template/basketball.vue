@@ -123,7 +123,7 @@
   import BrealScore from '../components/BrealScore.vue'
 
   export default {
-    name: 'mine',
+    name: 'basketball',
     props: {
       propsData: {type: Object},
       index: {type: Array}

@@ -31,7 +31,3 @@
     props: ['team']
   }
 </script>
-
-<style>
-
-</style>

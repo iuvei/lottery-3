@@ -15,7 +15,7 @@
 
 <script>
   export default {
-    name: 'dialog',
+    name: 'ddialog',
     props: ['title'],
     methods: {
       onClose () {

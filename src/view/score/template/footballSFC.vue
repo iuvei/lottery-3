@@ -37,7 +37,7 @@
             :propsGuest="['-',propsData.guest,'','']"
           />
         </div>
-        <is-top :index="index" :toTop="propsData.toTop"/>
+        <!--<is-top :index="index" :toTop="propsData.toTop"/>-->
       </div>
     </template>
     <template v-else-if="propsData.match_status===2">
@@ -66,7 +66,7 @@
             :propsGuest="propsData.guest_info"
           />
         </div>
-        <is-top :index="index" :toTop="propsData.toTop"/>
+        <!--<is-top :index="index" :toTop="propsData.toTop"/>-->
       </div>
     </template>
     <template v-else>
@@ -89,7 +89,7 @@
             :propsGuest="filtration(1)"
           />
         </div>
-        <is-top :index="index" :toTop="propsData.toTop"/>
+        <!--<is-top :index="index" :toTop="propsData.toTop"/>-->
       </div>
     </template>
   </div>
@@ -104,7 +104,7 @@
   import matchOdds from '../components/FmatchOdds.vue'
 
   export default {
-    name: 'mine',
+    name: 'footballSFC',
     props: {
       propsData: {type: Object},
       index: {type: Array}

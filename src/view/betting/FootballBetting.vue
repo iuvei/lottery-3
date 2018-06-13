@@ -9,9 +9,7 @@
 <script>
   import SportLotteryHeader from './child/LotteryHeader.vue';
   import SportLotteryContainer from './child/SportLotteryContainer.vue';
-  import {CURRENT_SPORT_PLAY_TYPE_SELECT} from '../../store/betting/types';
-  import Lottery from '../../model/common/Lottery';
-
+  import { CURRENT_SPORT_PLAY_TYPE_SELECT } from '../../store/betting/types';
   const FootballLotteryIdList = [
     {id: 601, value: '胜平负'},
     {id: 602, value: '让球胜平负'},
@@ -20,7 +18,6 @@
     {id: 605, value: '半全场'},
     {id: 606, value: '混合投注'}
   ];
-
   export default {
     name: 'footballBetting',
     data () {
@@ -29,10 +26,16 @@
       }
     },
     created () {
-      if (!Lottery.isFootBall(this.$store.state.betting.lottery)) {
-        this.$store.dispatch(CURRENT_SPORT_PLAY_TYPE_SELECT, FootballLotteryIdList[0]);
+      let id = 0;
+      if (this.$route.params && this.$route.params.id) {
+        id = FootballLotteryIdList.findIndex(i => (this.$route.params.id === i.id));
+        if (id < 0) id = 0;
       }
+      this.$store.dispatch(CURRENT_SPORT_PLAY_TYPE_SELECT, {
+        ...FootballLotteryIdList[id],
+        mode: this.$route.params.mode
+      });
     },
-    components: { SportLotteryHeader, SportLotteryContainer }
+    components: {SportLotteryHeader, SportLotteryContainer}
   }
 </script>
