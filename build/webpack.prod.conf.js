@@ -95,7 +95,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     new PrerenderSPAPlugin({
       // 首页预渲染插件
       staticDir: path.join(__dirname, '../dist2'),
-      routes: ['/','/Score'],
+      routes: ['/'],
       renderer: new Renderer({
         headless: false,
         renderAfterDocumentEvent: 'render-event'
