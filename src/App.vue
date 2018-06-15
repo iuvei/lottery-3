@@ -5,24 +5,30 @@
 </template>
 
 <script>
-  import 'babel-polyfill';
-
   export default {
     name: 'app',
     mounted () {
+      document.dispatchEvent(new Event('render-event'));
       this.$nextTick(function () {
         setTimeout(function () {
-          import('fastclick').then(FastClick => {
-            FastClick.attach(document.body);
-            if (!window['_hmt']) {
-              window['_hmt'] = window['_hmt'] || [];
-              const hm = document.createElement('script');
-              hm.src = 'https://hm.baidu.com/hm.js?3799f003b800273aa2d0071bf8065917';
-              hm.async = 'async';
-              document.body.appendChild(hm)
+          let hm;
+          if (!window['_hmt']) {
+            hm = document.createElement('script');
+            hm.async = 'async';
+            hm.src = `https://hm.baidu.com/hm.js?3799f003b800273aa2d0071bf8065917`;
+            window['_hmt'] = window['_hmt'] || [];
+            document.body.appendChild(hm)
+          }
+          if (!window.FastClick) {
+            !hm && (hm = document.createElement('script'));
+            const hm2 = hm.cloneNode(false);
+            hm2.src = `https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js`;
+            hm2.onload = function () {
+              window.FastClick && window.FastClick.attach(document.body);
             }
-          });
-        }, 2000)
+            document.body.appendChild(hm2)
+          }
+        }, 500)
       });
     }
   }

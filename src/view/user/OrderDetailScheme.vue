@@ -33,20 +33,24 @@
               <td width="20%" class="text-center" v-if="i === 0" v-rowspan="detail.tickets.length">投注内容</td>
               <td width="15%" class="text-center" v-if="i === 0" v-rowspan="detail.tickets.length">{{ticket.playTypeText}}</td>
               <td width="45%" class="text-sm">
-                <template v-if="ticket.result[0].pre">
+                <template v-if="ticket.result[0]&&ticket.result[0].pre">
                   <span>(</span>
                   <span :class="{'margin-left-3': t > 0, 'text-primary': p.checked}" v-for="(p, t) in ticket.result[0].pre">{{p.text}}</span>
                   <span>)</span>
                 </template>
-                <span v-for="i in ticket.result[0].next" class="margin-right-3" :class="{'text-primary': i.checked}">{{i.text}}</span>
+                <template v-else-if="ticket.result[0]&&ticket.result[0].next">
+                  <span v-for="i in ticket.result[0].next" class="margin-right-3" :class="{'text-primary': i.checked}">{{i.text}}</span>
+                </template>
               </td>
               <td width="20%" class="text-sm">
-                <template v-if="ticket.result[1].pre">
+                <template v-if="ticket.result[1]&&ticket.result[1].pre">
                   <span>(</span>
                   <span :class="{'margin-left-3': t > 0, 'text-primary': p.checked}" v-for="(p, t) in ticket.result[1].pre">{{p.text}}</span>
                   <span>)</span>
                 </template>
+                <template v-else-if="ticket.result[1]&&ticket.result[1].next">
                 <span v-for="i in ticket.result[1].next" class="margin-right-3" :class="{'text-primary': i.checked}">{{i.text}}</span>
+                </template>
               </td>
             </template>
           </tr>

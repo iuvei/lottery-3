@@ -63,4 +63,10 @@
   .home-lottery-item .img {
     font-size: 0;
   }
+
+  .home-lottery-item .img > img {
+    border: 0;
+    border-radius: 100%;
+    box-shadow: 0 0 5px #c2c2c2 inset;
+  }
 </style>

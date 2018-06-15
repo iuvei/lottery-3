@@ -1,13 +1,13 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store/index';
+import Vue from 'vue';
+import App from './App.vue';
+import 'babel-polyfill';
 import './common/infiniteScroll'; // 无限滚动指令
 import './common/directive'; // 自定义的指令
 import './common/filter'; // 自定义的过滤器
-
+import router from './router';
+import store from './store/index';
 // const VConsole = require('../node_modules/vconsole/dist/vconsole.min')
 // new VConsole() // 移动测试
 
@@ -21,7 +21,11 @@ Vue.config.productionTip = false;
 //   forwardAnim: 'fadeInRight',
 //   duration: 0.2
 // });
-const VM = new Vue({router, store, render: h => h(App)});
+const VM = new Vue({
+  router,
+  store,
+  render: h => h(App)
+});
 setTimeout(function () {
   VM.$mount('#app');
 }, 0);

@@ -54,14 +54,14 @@
         lottery: state => state.betting.lottery,
         mine: state => state.user.mine
       }),
-      ...mapActions({
-        getMineInfo: MINE_INFO
-      }),
       title () {
         return parseInt(this.$store.state.betting.lottery) === 20 ? '十四场胜负' : '任选九';
       }
     },
     methods: {
+      ...mapActions({
+        getMineInfo: MINE_INFO
+      }),
       onOptionSelected () {
         this.$store.commit(SFC_CALCULATOR_STACK);
       },

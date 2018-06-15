@@ -1,6 +1,6 @@
 import * as types from './types';
 import Http from '../Http';
-import loading from '../../common/loading';
+// import loading from '../../common/loading';
 import HomeLotteryItem from '../../model/HomeLotteryItem';
 import HomeLotteryIssue from '../../model/HomeLotteryIssue';
 
@@ -21,10 +21,8 @@ const actions = {
   },
   [types.GET_LOTTERY_LIST] (context) {
     if (state.lotteries.length === 0) {
-      loading.show();
       return Http.get('/Lottery/getLotteryList').then(data => {
         context.commit(types.GET_LOTTERY_LIST, data);
-        loading.hide();
       })
     }
   },

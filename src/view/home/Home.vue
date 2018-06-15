@@ -1,22 +1,26 @@
 <template>
   <div class="home padding-bottom-50">
-    <mt-swipe :auto="4000" v-show="home.banners.length > 0">
-      <mt-swipe-item :key="key" v-for="(banner, key) in home.banners">
-        <img class="banner" :src="banner.image" alt="banner" @click="goBannerUrl(banner)">
-      </mt-swipe-item>
-    </mt-swipe>
+    <div class="home-top">
+      <mt-swipe :auto="4000" v-if="home.banners.length > 0">
+        <mt-swipe-item :key="key" v-for="(banner, key) in home.banners">
+          <img class="banner" :src="banner.image" alt="banner" @click="goBannerUrl(banner)">
+        </mt-swipe-item>
+      </mt-swipe>
+    </div>
     <div class="container">
       <div class="recommend-box">
         <recommend-lottery :issue="home.issue" @refresh="refresh"></recommend-lottery>
       </div>
-      <div class="lottery-box" v-if="lotteries.length > 0">
-        <template v-for="(lottery, index) in lotteries">
-          <lottery-item :lottery="lottery"></lottery-item>
-          <template v-if="(index+1)%3 === 0">
-            <hr>
+      <div class="lottery-box">
+        <div v-if="lotteries.length > 0">
+          <template v-for="(lottery, index) in lotteries">
+            <lottery-item :lottery="lottery"></lottery-item>
+            <template v-if="(index+1)%3 === 0">
+              <hr>
+            </template>
           </template>
-        </template>
-        <lottery-item :lottery="moreLottery"></lottery-item>
+          <lottery-item :lottery="moreLottery"></lottery-item>
+        </div>
       </div>
       <div class="information-list">
         <information-item :key="key" :information="item" v-for="(item, key) in home.information"></information-item>
@@ -34,7 +38,9 @@
     GET_BANNER, GET_LOTTERY_LIST, GET_INFORMATION_LIST,
     GET_RECOMMEND_ISSUE, RECOMMEND_ISSUE_REFRESH
   } from '../../store/home/types';
-
+  import LotteryItem from '../../components/HomeLotteryItem.vue';
+  import InformationItem from '../../components/HomeInformationItem.vue';
+  import RecommendLottery from '../../components/HomeRecommendLottery.vue';
   export default {
     name: 'home',
     data () {
@@ -118,24 +124,20 @@
       this.getRecommendIssue();
       this.getInformation()
     },
-    components: {
-      BottomNav,
-      LotteryItem: () => import('../../components/HomeLotteryItem.vue'),
-      InformationItem: () => {
-        return new Promise((resolve) => {
-          setTimeout(function () {
-            resolve(import('../../components/HomeInformationItem.vue'))
-          }, 10)
-        })
-      },
-      RecommendLottery: () => import('../../components/HomeRecommendLottery.vue')
-    }
+    components: {BottomNav, LotteryItem, InformationItem, RecommendLottery}
   }
 </script>
 
 <style>
-  .home .mint-swipe {
+  .home .home-top {
     height: 110px;
+    background-color: white;
+  }
+
+  .home .container .recommend-box {
+    min-height: 80px;
+    background-color: white;
+    border-radius: 5px;
   }
 
   .home .mint-swipe .banner {
@@ -161,6 +163,7 @@
   }
 
   .home .container .lottery-box {
+    min-height: 346px;
     border: 1px solid #dddddd;
     background: white;
     border-radius: 5px;

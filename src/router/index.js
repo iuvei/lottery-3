@@ -48,7 +48,9 @@ const PromotionTest = () => import('../view/promotion/Test.vue'); // 00
 import PrizeList from '../view/prize/List.vue';// 开奖列表
 const PrizeDetail = () => import('../view/prize/Detail.vue');// 开奖详情
 const PrizeSportsDetail = () => import('../view/prize/SportsDetail.vue'); // 体育开奖详情
-const Score = () => import('../view/score/score.vue');// 比分模块end
+// const Score = () => import('../view/score/score.vue');// 比分模块end
+import Score from '../view/score/score.vue';// -我的
+
 const redManage = () => import('../view/user/redPacket/redManage.vue');// 红包管理st
 const redPurchase = () => import('../view/user/redPacket/redPurchase.vue');// 红包购买
 const exchangeRed = () => import('../view/user/redPacket/exchangeRed.vue');// 红包兑换end

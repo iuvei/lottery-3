@@ -1,8 +1,8 @@
 <template>
   <div class="home-recommend-lottery"
        @click="goCurrentLottery"
-       :class="classify? 'home-recommend-lottery-image1':'home-recommend-lottery-image2'">
-    <template v-if="classify">
+       :class="classify">
+    <template v-if="classify==='home-lottery-image1'">
       <div class="lottery-balls sports-balls">
         <img :src=" issue.HomeGuestLogo[0]" alt="">
         <span class="left">{{ issue.HomeGuestName[0] }}</span>
@@ -36,7 +36,7 @@
         <span class="refresh" @click.stop="refresh"></span>
       </div>
     </template>
-    <template v-else>
+    <template v-if="classify==='home-lottery-image2'">
       <div class="lottery-balls">
         <span class="bg-red-ball" v-for="ball in redBalls">{{ball}}</span>
         <span class="bg-blue-ball" v-for="ball in blueBalls">{{ball}}</span>
@@ -69,7 +69,12 @@
         return this.issue.betNum && this.issue.betNum[1];
       },
       classify () {
-        return IS_SPORTS[this.issue.lottery_id]
+        if (IS_SPORTS[this.issue.lottery_id]) {
+          return 'home-lottery-image1'
+        } else if (this.issue.lottery_id) {
+          return 'home-lottery-image2'
+        }
+        return ''
       },
       classify2 () {
         return IS_FOOTBALL[this.issue.lottery_id]
@@ -105,18 +110,16 @@
     min-height: 80px;
     padding: 10px 10px 10px 90px;
     position: relative;
-    border-radius: 5px;
     background-repeat: no-repeat;
     background-size: 70px 60px;
     background-position: 10px center;
-    background-color: white;
   }
 
-  .home-recommend-lottery-image1 {
+  .home-lottery-image1 {
     background-image: url("../assets/home/Today_S_Popular.png");
   }
 
-  .home-recommend-lottery-image2 {
+  .home-lottery-image2 {
     background-image: url("../assets/home/lucky_digital.png");
   }
 

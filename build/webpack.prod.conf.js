@@ -8,7 +8,8 @@ var CopyWebpackPlugin = require('copy-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
-
+var PrerenderSPAPlugin = require('prerender-spa-plugin')
+var Renderer = PrerenderSPAPlugin.PuppeteerRenderer
 var env = config.build.env
 
 var webpackConfig = merge(baseWebpackConfig, {
@@ -90,7 +91,16 @@ var webpackConfig = merge(baseWebpackConfig, {
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
-    ])
+    ]),
+    new PrerenderSPAPlugin({
+      // 首页预渲染插件
+      staticDir: path.join(__dirname, '../dist2'),
+      routes: ['/','/Score'],
+      renderer: new Renderer({
+        headless: false,
+        renderAfterDocumentEvent: 'render-event'
+      })
+    })
   ]
 })
 
