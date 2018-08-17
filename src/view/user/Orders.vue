@@ -1,6 +1,6 @@
 <template>
   <div class="orders">
-    <v-head title="我的投注" :hide-back="true"></v-head>
+    <!--<v-head title="我的投注" :hide-back="true"></v-head>-->
     <nav class="row text-center bg-white text-sm">
       <div class="col col-25" :class="{active: orders.status === 0}" @click="changeStatus(0)"><span>全部</span></div>
       <div class="col col-25" :class="{active: orders.status === -1}" @click="changeStatus(-1)"><span>待开奖</span></div>
@@ -30,13 +30,13 @@
     <div v-else-if="orders.list && orders.list.length === 0">
       <no-order></no-order>
     </div>
-    <bottom-nav active="Orders"></bottom-nav>
+    <!--<bottom-nav active="Orders"></bottom-nav>-->
   </div>
 </template>
 
 <script>
-  import VHead from '../../components/VHead';
-  import BottomNav from '../../components/BottomNav.vue';
+  // import VHead from '../../components/VHead';
+  // import BottomNav from '../../components/BottomNav.vue';
   import NoOrder from '../../components/NoOrders';
   import { GET_ORDERS_LIST, ORDERS_LIST_MORE_REQUEST } from '../../store/user/types';
   import { mapState, mapActions } from 'vuex';
@@ -76,7 +76,7 @@
     computed: mapState({
       orders: state => state.user.orders
     }),
-    components: { VHead, NoOrder, InfiniteScrollLoading, BottomNav },
+    components: {NoOrder, InfiniteScrollLoading},
     created () {
       this.getOrdersList(this.orders.status);
     }

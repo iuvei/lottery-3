@@ -1,6 +1,6 @@
 <template>
   <div class="sports-confirm">
-    <v-head :title="title"></v-head>
+    <higher-order-head :title="title" :lottery="lotteryId" ></higher-order-head>
     <div class="sports-confirm-container">
       <div class="operate-wrap">
         <a href="javascript:;" @click="addBetting"><span class="plus-icon"></span>编辑/添加投注</a>
@@ -66,16 +66,17 @@
             预计奖金:{{confirm.bonus.min * confirm.multiple | currency}} ~ {{confirm.bonus.max * confirm.multiple | currency}}元
           </div>
         </div>
-        <div class="row">
+        <div>
           <!--<div class="col col-40">-->
             <!--<a href="javascript:;" class="btn btn-out-line text-center" @click="confirmOptimize">奖金优化</a>-->
           <!--</div>-->
           <!--<div class="col padding-left-10">-->
             <!--<a href="javascript:;" class="btn text-center" @click="confirmPayment">付款</a>-->
           <!--</div>-->
-          <div class="col">
-            <a href="javascript:;" class="btn text-center" @click="confirmPayment">付款</a>
-          </div>
+          <!--<div class="col">-->
+             <!--<a href="javascript:;"  class="btn text-center" @click="confirmPayment">付款</a>-->
+          <!--</div>-->
+          <higher-order-payment-button :lottery="lotteryId" @Payment="confirmPayment"></higher-order-payment-button>
         </div>
       </div>
     </div>
@@ -111,7 +112,8 @@
 </template>
 
 <script>
-  import VHead from '../../components/VHead.vue';
+  import HigherOrderHead from './higherOrderComponents/higherOrderHead.vue';
+  import HigherOrderPaymentButton from './higherOrderComponents/higherOrderPaymentButton.vue';
   import SchemeBox from '../../components/SchemeBox.vue';
   import ServiceAgreement from '../../components/ServiceAgreement.vue';
   import CustomSelectBox from '../../components/CustomSelectBox.vue';
@@ -408,7 +410,7 @@
       }
     },
     components: {
-      VHead,
+      HigherOrderHead,
       SchemeBox,
       ServiceAgreement,
       CustomSelectBox,
@@ -422,7 +424,8 @@
       BasketballRFSFLottery,
       BasketballSFCLottery,
       BasketballDXFLottery,
-      BasketballHHLottery
+      BasketballHHLottery,
+      HigherOrderPaymentButton
     }
   }
 </script>

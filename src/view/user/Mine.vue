@@ -49,11 +49,18 @@
       <span>提现</span>
       <span class="arrow-right"></span>
     </router-link>
-    <!--<router-link tag="div" to="orders" class="item margin-top-10">-->
-    <!--<span class="mine-order-icon icon"></span>-->
-    <!--<span>我的订单</span>-->
-    <!--<span class="arrow-right"></span>-->
-    <!--</router-link>-->
+
+    <router-link tag="div" to="/" class="item margin-top-10">
+      <span class="mine-awesome-icon icon"></span>
+      <span>关注的大神</span>
+      <span class="arrow-right"></span>
+    </router-link>
+    <router-link tag="div" to="/" class="item border-top">
+      <span class="mine-recommended-icon icon"></span>
+      <span>我的推荐</span>
+      <span class="arrow-right"></span>
+    </router-link>
+
     <router-link tag="div" to="redManage" class="item border-top">
       <span class="mine-envelope-management-icon icon"></span>
       <span>红包管理</span>

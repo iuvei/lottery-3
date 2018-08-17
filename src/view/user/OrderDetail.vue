@@ -1,15 +1,11 @@
 <template>
   <div class="order-detail">
-
-    <div class="head">
-      <span class="back-icon" @click="goOrders"></span>
-      <div>投注详情</div>
-      <span class="right">
-        <slot name="right"></slot>
-      </span>
-    </div>
-    <!--<v-head title="投注详情"></v-head>-->
-
+    <v-head title="投注详情">
+      <div slot="right">
+        <slot name="RightNav"/>
+      </div>
+    </v-head>
+    <!--to="/Orders"-->
     <div class="top" v-cloak>
       <img :src="detail.lottery_image">
       <div class="text-md">
@@ -26,9 +22,12 @@
       </div>
       <span :class="detail.statusIcon">{{detail.statusIconText}}</span>
     </div>
+
     <div class="margin-top-10 padding text-sm bg-white">
       订单状态： <span class="text-primary">{{detail.statusText}}</span>
+      <slot name="TogetherState"/>
     </div>
+    <slot name="TogetherToBuy"/>
     <!--竞彩-->
     <div class="margin-top-10" v-if="detail.jc_info">
       <div class="padding bg-white text-default text-xn">{{detail.contextTitle}}</div>
@@ -44,7 +43,7 @@
         <p class="text-normal follow-times" v-if="detail.follow_times">
           追号订单，当前第<span class="text-primary">{{detail.current_follow_times}}/{{detail.follow_times}}</span>期
         </p>
-        <p class="text-normal" style="line-height: 34px" v-if="detail.prizeResult" >
+        <p class="text-normal" style="line-height: 34px" v-if="detail.prizeResult">
           开奖号码：
           <template v-if="isK3(detail.lottery_id)">
             <span class="k3-item" v-for="ball in detail.prizeResult[0]" :class="'k3-' + ball + '-icon'"></span>
@@ -58,7 +57,8 @@
         <p v-else class="text-normal">
           开奖号码：等待开奖中
         </p>
-        <p class="text-normal margin-top-5">投注内容：<span class="text-muted">{{detail.stackCount}}注,{{detail.multiple}}倍</span></p>
+        <p class="text-normal margin-top-5">投注内容：<span
+          class="text-muted">{{detail.stackCount}}注,{{detail.multiple}}倍</span></p>
         <p class="text-normal margin-top-5" v-for="item in detail.tickets">{{item.playTypeText}}：
           <!--十一选五-->
           <span class="text-muted" v-if="item.lotteryType == 'syxw' || item.lotteryType == 'fc3d'">
@@ -66,7 +66,8 @@
               <span v-if="k > 0">|</span>
               <template v-if="r.pre">
                 <span>(</span>
-                <span :class="{'margin-left-3': t > 0, 'text-primary': p.checked}" v-for="(p, t) in r.pre">{{p.text}}</span>
+                <span :class="{'margin-left-3': t > 0, 'text-primary': p.checked}"
+                      v-for="(p, t) in r.pre">{{p.text}}</span>
                 <span>)</span>
               </template>
               <span v-for="i in r.next" class="margin-right-3" :class="{'text-primary': i.checked}">{{i.text}}</span>
@@ -78,7 +79,8 @@
               <span v-if="k > 0">:</span>
               <span v-if="r.pre">
                 <span>(</span>
-                <span :class="{'margin-left-3': t > 0, 'text-primary': p.checked}" v-for="(p, t) in r.pre">{{p.text}}</span>
+                <span :class="{'margin-left-3': t > 0, 'text-primary': p.checked}"
+                      v-for="(p, t) in r.pre">{{p.text}}</span>
                 <span>)</span>
               </span>
               <span v-for="i in r.next" class="margin-right-3" :class="{'text-primary': i.checked}">{{i.text}}</span>
@@ -91,25 +93,24 @@
         <p class="margin-top-5">方案编号：{{detail.sku}}</p>
       </div>
     </div>
-    <router-link to="scheme" tag="div" append class="padding relative bg-white margin-top-10">
-      <span cspas="text-normal text-default">方案明细</span>
-      <span class="arrow-right"></span>
-    </router-link>
-    <div class="bottom-logo margin-top-20 text-center">
-      <img src="../../assets/bottom_logo.png" alt="">
-    </div>
+
+    <detail-footer/>
   </div>
 </template>
 
 <script>
-//  import VHead from '../../components/VHead.vue';
+  import VHead from '../../components/VHead.vue';
   import OrderTable from '../../components/OrderTable';
+  import DetailFooter from './Component/DetailFooter';
   import { ORDER_DETAIL_REQUEST } from '../../store/user/types';
   import { mapActions, mapState } from 'vuex';
   import Lottery from '../../model/common/Lottery';
 
   export default {
     name: 'orderDetail',
+    props: {
+      Together: {type: Boolean}
+    },
     computed: {
       ...mapState({
         detail: state => state.user.orders.detail
@@ -126,68 +127,76 @@
         return ball.reduce((a, b) => {
           return parseInt(a) + parseInt(b);
         })
-      },
-      goOrders () {
-        this.$router.push({ name: 'Orders', query: {} });
       }
     },
     created () {
       this.getOrderDetail(this.$route.params.id);
     },
     components: {
-      OrderTable
+      OrderTable, VHead, DetailFooter
     }
   }
 </script>
 
 <style>
-  .order-detail .top{
+  .order-detail .top {
     background: url("../../assets/icon/order_top_bg.png") no-repeat;
     background-size: 100% 100%;
     padding: 20px 10px 20px 75px;
     position: relative;
   }
+
   .order-detail .top img {
     position: absolute;
-    left: 10px; top: 23px;
-    width: 55px; height: 55px;
+    left: 10px;
+    top: 23px;
+    width: 55px;
+    height: 55px;
   }
+
   .order-detail .win-icon,
   .order-detail .no-win-icon,
   .order-detail .refund-icon {
     position: absolute;
-    right: 0; top: 35px;
+    right: 0;
+    top: 35px;
   }
+
   .order-detail .refund-icon {
     top: 20px;
   }
+
   .order-detail .prize-time-icon {
     position: absolute;
     right: 20px;
     top: 20px;
   }
-  .order-detail .arrow-right {
-    position: absolute;
-    right: 10px;
-    top: 15px;
-  }
-  .order-detail .bottom-logo img{
+
+  .order-detail .bottom-logo img {
     width: 100px;
   }
+
   .order-detail .follow-times {
     padding-left: 10px;
     padding-bottom: 10px;
   }
+
   .order-detail .k3-item {
-    display: inline-block; margin-right: 10px; vertical-align: middle;
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
   }
+
   .order-detail .k3-item-hz {
-    vertical-align: top; margin-top: 5px;
+    vertical-align: top;
+    margin-top: 5px;
     color: #333333;
   }
+
   .margin-right-3 {
     margin-right: 3px;
   }
+
   .margin-left-3 {
     margin-left: 5px;
   }

@@ -60,6 +60,9 @@ export default class Lottery {
     return [LOTTERYIDS.BASKETBALL_DXF, LOTTERYIDS.BASKETBALL_HH, LOTTERYIDS.BASKETBALL_SFC,
       LOTTERYIDS.BASKETBALL_RFSF, LOTTERYIDS.BASKETBALL_SF].indexOf(parseInt(lotteryId)) !== -1;
   }
+  static isRecommend (lotteryId) {
+    return this.isFootBall(lotteryId) || this.isBasketBall(lotteryId);
+  }
   static isSFCOrRXJ (lotteryId) {
     return [LOTTERYIDS.SFC, LOTTERYIDS.RXJ].indexOf(parseInt(lotteryId)) !== -1;
   }
@@ -71,6 +74,26 @@ export default class Lottery {
   }
   static isRXJ (lotteryId) {
     return LOTTERYIDS.RXJ === parseInt(lotteryId);
+  }
+  static isJointPurchase (lotteryId) {
+    return [LOTTERYIDS.FOOTBALL_SPF,
+      LOTTERYIDS.FOOTBALL_RQSPF,
+      LOTTERYIDS.FOOTBALL_BF,
+      LOTTERYIDS.FOOTBALL_ZJQ,
+      LOTTERYIDS.FOOTBALL_BQC,
+      LOTTERYIDS.FOOTBALL_HH,
+      LOTTERYIDS.BASKETBALL_SF,
+      LOTTERYIDS.BASKETBALL_RFSF,
+      LOTTERYIDS.BASKETBALL_SFC,
+      LOTTERYIDS.BASKETBALL_DXF,
+      LOTTERYIDS.BASKETBALL_HH,
+      LOTTERYIDS.SFC,
+      LOTTERYIDS.RXJ,
+      LOTTERYIDS.SSQ,
+      LOTTERYIDS.DLT,
+      LOTTERYIDS.FOOTBALL,
+      LOTTERYIDS.BASKETBALL
+    ].indexOf(lotteryId) !== -1;
   }
   static getHelpUrl (lotteryId) {
     switch (parseInt(lotteryId)) {

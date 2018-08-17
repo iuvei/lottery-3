@@ -1,14 +1,19 @@
 <template>
   <div class="home padding-bottom-50">
     <div class="home-top">
-      <mt-swipe :auto="4000" v-if="home.banners.length > 0">
+      <mt-swipe :prevent="true" :stopPropagation="true" v-if="home.banners.length > 0">
         <mt-swipe-item :key="key" v-for="(banner, key) in home.banners">
-          <img class="banner" :src="banner.image" alt="banner" @click="goBannerUrl(banner)">
+          <img class="banner"
+               :src="banner.image"
+               alt="banner"
+               @touchmove="touchChange"
+               @touchend="goBannerUrl(banner)"
+          />
         </mt-swipe-item>
       </mt-swipe>
     </div>
     <div class="container">
-      <div class="recommend-box">
+      <div class="recommend-box" v-if="home.issue!==null">
         <recommend-lottery :issue="home.issue" @refresh="refresh"></recommend-lottery>
       </div>
       <div class="lottery-box">
@@ -22,8 +27,11 @@
           <lottery-item :lottery="moreLottery"></lottery-item>
         </div>
       </div>
+      <div style="overflow: hidden;margin-top: 10px">
+        <home-recommended></home-recommended>
+      </div>
       <div class="information-list">
-        <information-item :key="key" :information="item" v-for="(item, key) in home.information"></information-item>
+        <information-item :key="item.id||key+1" :information="item" v-for="(item, key) in home.information"></information-item>
       </div>
     </div>
     <bottom-nav active="Home"></bottom-nav>
@@ -32,6 +40,7 @@
 
 <script>
   import BottomNav from '../../components/BottomNav.vue';
+  import HomeRecommended from './components/homeRecommended';
   import { mapActions } from 'vuex';
   import Lottery from '../../model/common/Lottery';
   import {
@@ -41,10 +50,12 @@
   import LotteryItem from '../../components/HomeLotteryItem.vue';
   import InformationItem from '../../components/HomeInformationItem.vue';
   import RecommendLottery from '../../components/HomeRecommendLottery.vue';
+
   export default {
     name: 'home',
     data () {
       return {
+        touchTig: false,
         moreLottery: {
           component: 'More',
           tipText: '发现更多彩种',
@@ -82,6 +93,10 @@
         this.recommendIssueRefresh();
       },
       goBannerUrl (item) {
+        if (this.touchTig) {
+          this.touchTig = false;
+          return null
+        }
         let router;
         const item2 = JSON.parse(JSON.stringify(item));
         switch (item2.type) {
@@ -116,6 +131,10 @@
           // -不做处理
         }
         router && this.$router.push(router);
+      },
+      touchChange () {
+        // IOS默认事件禁用处理
+        this.touchTig = true;
       }
     },
     created () {
@@ -124,7 +143,7 @@
       this.getRecommendIssue();
       this.getInformation()
     },
-    components: {BottomNav, LotteryItem, InformationItem, RecommendLottery}
+    components: {BottomNav, HomeRecommended, LotteryItem, InformationItem, RecommendLottery}
   }
 </script>
 

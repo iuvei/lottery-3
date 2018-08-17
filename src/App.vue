@@ -14,7 +14,7 @@
           let hm;
           if (!window['_hmt']) {
             hm = document.createElement('script');
-            hm.async = 'async';
+            hm.async = 'defer';
             hm.src = `https://hm.baidu.com/hm.js?3799f003b800273aa2d0071bf8065917`;
             window['_hmt'] = window['_hmt'] || [];
             document.body.appendChild(hm)
@@ -28,7 +28,7 @@
             }
             document.body.appendChild(hm2)
           }
-        }, 500)
+        }, 1000)
       });
     }
   }

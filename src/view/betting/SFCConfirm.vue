@@ -1,6 +1,6 @@
 <template>
   <div class="sfc-confirm sports-confirm">
-    <v-head :title="title"></v-head>
+    <higher-order-head :title="title" :lottery="lottery"></higher-order-head>
     <div class="sports-confirm-container">
       <div class="operate-wrap">
         <a href="javascript:;" @click="addBetting"><span class="plus-icon"></span>编辑/添加投注</a>
@@ -27,13 +27,15 @@
       </div>
       <div class="summary">
         <a href="javascript:;" class="btn text-center" @click="confirmPayment">付款</a>
+        <!--<higher-order-payment-button @Payment="confirmPayment"></higher-order-payment-button>-->
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import VHead from '../../components/VHead.vue';
+  import HigherOrderHead from './higherOrderComponents/higherOrderHead.vue';
+  // import HigherOrderPaymentButton from './higherOrderComponents/higherOrderPaymentButton.vue';
   import SchemeBox from '../../components/SchemeBox.vue';
   import ServiceAgreement from '../../components/ServiceAgreement.vue';
   import CustomSelectBox from '../../components/CustomSelectBox.vue';
@@ -152,7 +154,7 @@
       this.getMineInfo();
     },
     components: {
-      VHead, SchemeBox, ServiceAgreement, CustomSelectBox, SfcSPFLottery
+      HigherOrderHead, SchemeBox, ServiceAgreement, CustomSelectBox, SfcSPFLottery
     }
   }
 </script>

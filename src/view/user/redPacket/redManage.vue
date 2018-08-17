@@ -5,11 +5,6 @@
     padding-bottom: 65px;
   }
 
-  .is-selected {
-    color: #e73f40 !important;
-    border-color: #e73f40 !important;
-  }
-
   .red-manage-bottom {
     position: fixed;
     width: 100%;

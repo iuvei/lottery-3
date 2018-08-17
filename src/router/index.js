@@ -24,7 +24,8 @@ const BankCard = () => import('../view/user/BankCard.vue'); // 银行卡
 const Cash = () => import('../view/user/Cash.vue');// 现金
 const CashDetail = () => import('../view/user/CashDetail.vue');// 现金详情
 // const Orders = () => import('../view/user/Orders');// 订单
-import Orders from '../view/user/Orders';
+// import Orders from '../view/user/Orders';
+import Orders from '../view/user/newContainer/HighOrder';
 
 const OrderDetail = () => import('../view/user/OrderDetail');// 订单详情
 const OrderDetailScheme = () => import('../view/user/OrderDetailScheme');// 订单方案
@@ -57,8 +58,31 @@ const exchangeRed = () => import('../view/user/redPacket/exchangeRed.vue');// �
 const integralStore = () => import('../view/user/redPacket/integralStore.vue');// 积分兑换st
 const integralDetails = () => import('../view/user/redPacket/integralDetails.vue');// 积分详情
 const SingInLaTombola = () => import('../view/user/SingInLaTombola.vue');// 签到刮奖
+// 合买与跟单
+const BuyTogether = () => import('../view/buyTogether/BuyTogether.vue');// 开始合买
+const buyTogetherLobby = () => import('../view/buyTogether/buyTogetherLobby.vue');// 合买大厅
+const HighOrderDetail = () => import('../view/buyTogether/HighOrderDetail.vue');// 合买大厅
 
 Vue.use(Router)
+const BuyTogetherAnMerchandiser = [
+  {
+    path: '/startBuyTogether',
+    name: 'startBuyTogether',
+    component: BuyTogether
+  },
+  {
+    path: '/buyTogetherLobby',
+    name: 'buyTogetherLobby',
+    component: buyTogetherLobby
+  },
+  {
+    path: '/HighOrderDetail/:id',
+    name: 'HighOrderDetail',
+    component: HighOrderDetail,
+    meta: {requireAuth: true}
+  }
+]
+
 const ScoreRouter = [
   {
     path: '/Score',
@@ -279,7 +303,8 @@ const router = new Router({
       path: '/promotion/test',
       name: 'PromotionTest',
       component: PromotionTest
-    }, ...ScoreRouter
+    }, ...ScoreRouter,
+    ...BuyTogetherAnMerchandiser
   ]
 });
 

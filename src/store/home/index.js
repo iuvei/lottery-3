@@ -32,14 +32,16 @@ const actions = {
     })
   },
   [types.GET_RECOMMEND_ISSUE] (context) {
-    if (!state.issue.lottery_id) {
+    if (state.issue && !state.issue.lottery_id) {
       Http.get('/Home/getRecommentIssue').then(data => {
         context.commit(types.GET_RECOMMEND_ISSUE, data);
+      }).catch(() => {
+        context.commit(types.GET_RECOMMEND_ISSUE, null);
       })
     }
   },
   [types.GET_INFORMATION_LIST] (context) {
-    if (state.information.length === 0) {
+    if (Object.prototype.toString.call(state.information) === '[object Array]' && state.information.length === 0) {
       Http.get('/News/getRecommendList').then(data => {
         context.commit(types.GET_INFORMATION_LIST, data);
       })
@@ -66,7 +68,7 @@ const mutations = {
     });
   },
   [types.GET_RECOMMEND_ISSUE] (state, issue) {
-    state.issue = new HomeLotteryIssue(issue);
+    state.issue = issue && new HomeLotteryIssue(issue);
   },
   [types.GET_INFORMATION_LIST] (state, data) {
     state.information = data.list;

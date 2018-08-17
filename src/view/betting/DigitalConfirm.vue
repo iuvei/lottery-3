@@ -1,6 +1,6 @@
 <template>
   <div class="digital-confirm" :class="{'k3': isK3()}">
-    <v-head :title="current.lottery_name"></v-head>
+    <higher-order-head :title="current.lottery_name" :lottery="lottery"></higher-order-head>
     <div class="digital-confirm-container">
       <div class="operate-wrap">
         <a href="javascript:;" @click="increaseNum"><span class="plus-icon"></span>自选号码</a>
@@ -32,6 +32,7 @@
         </div>
         <div>
           <a href="javascript:;" class="btn text-center" @click="confirmPayment">付款</a>
+          <!--<higher-order-payment-button @Payment="confirmPayment"></higher-order-payment-button>-->
         </div>
       </div>
     </div>
@@ -39,7 +40,8 @@
 </template>
 
 <script>
-  import VHead from '../../components/VHead.vue';
+  import HigherOrderHead from './higherOrderComponents/higherOrderHead.vue';
+  // import HigherOrderPaymentButton from './higherOrderComponents/higherOrderPaymentButton.vue';
   import SchemeBox from '../../components/SchemeBox.vue';
   import ServiceAgreement from '../../components/ServiceAgreement.vue';
   import CustomSelectBox from '../../components/CustomSelectBox.vue';
@@ -170,7 +172,7 @@
       }
       this.getMineInfo();
     },
-    components: {SchemeBox, ServiceAgreement, VHead, CustomSelectBox, DigitalSchemeItem}
+    components: {SchemeBox, ServiceAgreement, HigherOrderHead, CustomSelectBox, DigitalSchemeItem}
   }
 </script>
 
