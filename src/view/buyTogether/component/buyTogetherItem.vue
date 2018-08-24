@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/HighOrderDetail/101143">
+  <router-link to="/HighOrderDetail/101050">
     <div class="buyTogetherItem">
       <div class="item-top">
         <div>已参与</div>

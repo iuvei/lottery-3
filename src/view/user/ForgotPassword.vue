@@ -27,7 +27,6 @@
 </template>
 
 <script>
-  import VHead from '../../components/VHead.vue';
   import CaptchaButton from '../../components/CaptchaButton';
   import Util from '../../common/util';
   import Toast from '../../common/toast';
@@ -71,7 +70,7 @@
       })
     },
     components: {
-      VHead, CaptchaButton
+      CaptchaButton
     }
   }
 </script>

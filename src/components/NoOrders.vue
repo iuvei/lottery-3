@@ -13,6 +13,7 @@
 
 <style scoped>
   .no-order {
+    overflow: hidden;
     color: #666666;
     text-align: center;
   }

@@ -50,7 +50,6 @@
 </template>
 
 <script>
-  import VHead from '../../components/VHead.vue';
   import { mapActions, mapState, mapMutations } from 'vuex';
   import { PAYMENT, SELECT_CURRENT_RED_PACK } from '../../store/payment/types';
 
@@ -96,8 +95,7 @@
       if (!this.schemeConfirm.id) {
         history.back();
       }
-    },
-    components: { VHead }
+    }
   }
 </script>
 

@@ -24,7 +24,6 @@
 </template>
 
 <script>
-  import VHead from '../../components/VHead.vue';
   import ArticlePurchaseHeat from '../../components/ArticlePurchaseHeat.vue';
   import loading from '../../common/loading';
   import { mapState, mapActions } from 'vuex';
@@ -108,7 +107,6 @@
       }
     },
     components: {
-      VHead,
       ArticlePurchaseHeat
     }
   }

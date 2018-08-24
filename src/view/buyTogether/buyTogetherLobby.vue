@@ -1,5 +1,6 @@
 <template>
   <div class="buyTogetherLobby">
+    <!--合买大厅-->
     <v-head>
       <div slot="center">
         <span class="nav-button" @click="NavPopup(true)"><span>全部玩法</span></span>
@@ -85,9 +86,7 @@
 </template>
 
 <script>
-  import VHead from '../../components/VHead.vue';
   import BuyTogetherItem from './component/buyTogetherItem.vue';
-  import { Popup } from 'mint-ui';
 
   export default {
     name: 'buyTogetherLobby',
@@ -128,8 +127,6 @@
       }
     },
     components: {
-      VHead,
-      [Popup.name]: Popup,
       BuyTogetherItem
     }
   }

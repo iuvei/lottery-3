@@ -1,6 +1,6 @@
 <template>
   <div class="prize-list">
-    <v-head title="开奖结果" hideBack="true"></v-head>
+    <v-head title="开奖结果" :hideBack="false"></v-head>
     <div class="prize-list-container">
       <template v-if="football">
         <div class="list-item" @click="goSportsDetail(football)">
@@ -58,7 +58,6 @@
 </template>
 
 <script>
-  import VHead from '../../components/VHead.vue';
   import BottomNav from '../../components/BottomNav.vue';
   import {GET_PRIZE_LIST} from '../../store/prize/types';
   import Lottery from '../../model/common/Lottery';
@@ -105,7 +104,7 @@
     created () {
       this.$store.dispatch(GET_PRIZE_LIST);
     },
-    components: {VHead, BottomNav}
+    components: {BottomNav}
   }
 </script>
 

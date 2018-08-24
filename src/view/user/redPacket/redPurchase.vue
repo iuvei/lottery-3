@@ -78,7 +78,6 @@
 </style>
 
 <script>
-  import VHead from '../../../components/VHead.vue';
   import VDialog from '../../../components/VDialog.vue';
   import redItem from './component/redItem.vue';
   import Http from '../../../store/Http.js';
@@ -140,6 +139,6 @@
         this.hied = true
       }
     },
-    components: {VHead, redItem, VDialog}
+    components: {redItem, VDialog}
   }
 </script>

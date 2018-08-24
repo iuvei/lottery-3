@@ -1,12 +1,11 @@
 <template>
   <div class="web-page">
     <v-head :title="title"></v-head>
-    <iframe :src="url" ref="frame" @load="OnLoad" @error="hide" height="600"></iframe>
+    <iframe :src="url" ref="frame" @load="OnLoad" @error="hide" height="600" scrolling="no"></iframe>
   </div>
 </template>
 
 <script>
-  import VHead from '../components/VHead.vue';
   import loading from '../common/loading';
   import Toast from '../common/toast';
   import Lottery from '../model/common/Lottery';
@@ -222,8 +221,7 @@
     },
     beforeDestroy () {
       window.removeEventListener('message', this.receiveMessage, false);
-    },
-    components: {VHead}
+    }
   }
 </script>
 

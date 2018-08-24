@@ -46,7 +46,6 @@
 </template>
 
 <script>
-  import VHead from '../../components/VHead.vue';
   import CaptchaButton from '../../components/CaptchaButton';
   import VDialog from '../../components/VDialog.vue';
   import Util from '../../common/util';
@@ -95,7 +94,7 @@
       })
     },
     components: {
-      VHead, CaptchaButton, VDialog
+      CaptchaButton, VDialog
     },
     created () {
       this.getMineInfo();

@@ -50,7 +50,6 @@
 </template>
 
 <script>
-  import VHead from '../../components/VHead.vue';
   import Util from '../../common/util';
   import { mapActions, mapState, mapMutations } from 'vuex';
   import { PAYMENT_ORDER_COMPLETE, SELECT_ORDER_RED_PACK, PAYMENT_ORDER } from '../../store/payment/types';
@@ -134,8 +133,7 @@
     },
     mounted () {
       this.init()
-    },
-    components: { VHead }
+    }
   }
 </script>
 

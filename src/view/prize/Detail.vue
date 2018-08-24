@@ -97,7 +97,6 @@
 </template>
 
 <script>
-  import VHead from '../../components/VHead.vue';
   import DigitalListItem from './child/DigitalListItem.vue';
   import {GET_PRIZE_DETAIL_LIST, PRIZE_DETAIL_LIST_MORE} from '../../store/prize/types';
   import InfiniteScrollLoading from '../../components/InfiniteScrollLoading.vue';
@@ -148,7 +147,7 @@
         this.$router.back();
       }
     },
-    components: {VHead, DigitalListItem, InfiniteScrollLoading}
+    components: {DigitalListItem, InfiniteScrollLoading}
   }
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="mine">
-    <v-head title="个人中心" :hide-back="true"></v-head>
+    <v-head title="个人中心" :hide-back="false"></v-head>
     <div class="mine-top-i">
       <div class="mine-top">
         <img class="portrait" v-avatar="this.mine.avatar" alt="">
@@ -98,11 +98,10 @@
 </template>
 
 <script>
-  import VHead from '../../components/VHead.vue';
   import BottomNav from '../../components/BottomNav.vue';
   import DownloadPanel from '../../components/DownloadPanel.vue';
   import VDialog from '../../components/VDialog.vue';
-  import PProgress from './privateComponent/progress.vue';
+  import PProgress from './Component/progress.vue';
   import { mapActions, mapState } from 'vuex';
   import { MINE_INFO, LOGOUT, MINE_SIGN_IN } from '../../store/user/types';
 
@@ -136,7 +135,6 @@
       })
     },
     components: {
-      VHead,
       DownloadPanel,
       VDialog,
       BottomNav,

@@ -24,11 +24,13 @@ const BankCard = () => import('../view/user/BankCard.vue'); // 银行卡
 const Cash = () => import('../view/user/Cash.vue');// 现金
 const CashDetail = () => import('../view/user/CashDetail.vue');// 现金详情
 // const Orders = () => import('../view/user/Orders');// 订单
-// import Orders from '../view/user/Orders';
-import Orders from '../view/user/newContainer/HighOrder';
+import OrdersAll from '../view/user/Order/page/OrdersAll';// 订单列表
+import ChasingList from '../view/user/Order/page/ChasingList';// 追号列表
+import BuyUpList from '../view/user/Order/page/BuyUpList';// 合买列表
+import OrderContainer from '../view/user/Order/OrderContainer';// 订单容器
 
-const OrderDetail = () => import('../view/user/OrderDetail');// 订单详情
-const OrderDetailScheme = () => import('../view/user/OrderDetailScheme');// 订单方案
+const OrderDetail = () => import('../view/user/Order/OrderDetail/OrderDetail');// 订单详情
+const OrderDetailScheme = () => import('../view/user/Order/OrderDetail/OrderDetailScheme');// 订单方案
 const ForgotPassword = () => import('../view/user/ForgotPassword.vue');// 忘记密码
 const NewRegister = () => import('../view/user/NewRegister.vue');// 新彩票
 const Football = () => import('../view/scheme/Football.vue');// 足球空
@@ -61,8 +63,13 @@ const SingInLaTombola = () => import('../view/user/SingInLaTombola.vue');// 签�
 // 合买与跟单
 const BuyTogether = () => import('../view/buyTogether/BuyTogether.vue');// 开始合买
 const buyTogetherLobby = () => import('../view/buyTogether/buyTogetherLobby.vue');// 合买大厅
-const HighOrderDetail = () => import('../view/buyTogether/HighOrderDetail.vue');// 合买大厅
-
+const BuyTogetherOrderDetail = () => import('../view/user/Order/OrderDetail/BuyTogetherOrderDetail.vue');// 合买订单详情
+const Standings = () => import('../view/buyTogether/Standings.vue');// 合买战绩
+const SubscribeList = () => import('../view/buyTogether/SubscribeList.vue');// 已购列表
+const MerchandiserLobby = () => import('../view/merchandiser/MerchandiserLobby.vue');// 跟单大厅
+const Crunchies = () => import('../view/merchandiser/Crunchies.vue');// 榜单
+const RecommendDetails = () => import('../view/merchandiser/RecommendDetails.vue');// 榜单
+const ChaseNumberDetail = () => import('../view/user/Order/OrderDetail/ChaseNumberDetail.vue');// 榜单
 Vue.use(Router)
 const BuyTogetherAnMerchandiser = [
   {
@@ -76,10 +83,42 @@ const BuyTogetherAnMerchandiser = [
     component: buyTogetherLobby
   },
   {
-    path: '/HighOrderDetail/:id',
-    name: 'HighOrderDetail',
-    component: HighOrderDetail,
+    path: '/BuyTogetherOrderDetail/:id',
+    name: 'BuyTogetherOrderDetail',
+    component: BuyTogetherOrderDetail,
     meta: {requireAuth: true}
+  },
+  {
+    path: '/Standings/:id',
+    name: 'Standings',
+    component: Standings,
+    meta: {requireAuth: true}
+  },
+  {
+    path: '/SubscribeList/:id',
+    name: 'SubscribeList',
+    component: SubscribeList,
+    meta: {requireAuth: true}
+  },
+  {
+    path: '/MerchandiserLobby',
+    name: 'MerchandiserLobby',
+    component: MerchandiserLobby
+  },
+  {
+    path: '/Crunchies/:target',
+    name: 'Crunchies',
+    component: Crunchies
+  },
+  {
+    path: '/RecommendDetails/:target',
+    name: 'RecommendDetails',
+    component: RecommendDetails
+  },
+  {
+    path: '/ChaseNumberDetail/:id',
+    name: 'ChaseNumberDetail',
+    component: ChaseNumberDetail
   }
 ]
 
@@ -177,16 +216,20 @@ const router = new Router({
       meta: {requireAuth: true}
     }, {
       path: '/orders',
-      name: 'Orders',
-      component: Orders,
-      meta: {requireAuth: true}
+      component: OrderContainer,
+      meta: {requireAuth: true},
+      children: [
+        {path: '', component: OrdersAll},
+        {path: 'ChasingList', component: ChasingList},
+        {path: 'BuyUpList', component: BuyUpList}
+      ]
     }, {
-      path: '/orders/:id',
+      path: '/OrderDetail/:id',
       name: 'OrderDetail',
       component: OrderDetail,
       meta: {requireAuth: true}
     }, {
-      path: '/orders/:id/scheme',
+      path: '/OrderDetail/:id/scheme',
       name: 'OrderScheme',
       component: OrderDetailScheme,
       meta: {requireAuth: true}

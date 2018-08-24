@@ -22,7 +22,6 @@
 </template>
 
 <script>
-  import VHead from '../../components/VHead.vue';
   import {GET_PRIZE_SPORTS_DETAIL, PRIZE_SPORT_DATE_SELECT, PRIZE_SPORT_RESET} from '../../store/prize/types';
   import Lottery from '../../model/common/Lottery';
   import SportsPrizePanel from './child/SportsPrizePanel.vue';
@@ -74,7 +73,7 @@
         this.$router.back();
       }
     },
-    components: {VHead, SportsPrizePanel}
+    components: {SportsPrizePanel}
   }
 </script>
 

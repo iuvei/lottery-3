@@ -139,7 +139,7 @@
       </tbody>
     </table>
     <div class="line">
-      <img src="../../assets/scheme_line.png" alt="line">
+      <img src="../../../../assets/scheme_line.png" alt="line">
     </div>
     <div class="row text-center bg-white text-xn padding">
       <div class="col">{{scheme.success_amount | currency}}元<br/>出票成功</div>
@@ -150,10 +150,9 @@
 </template>
 
 <script>
-  import OrderTable from '../../components/OrderTable';
-  import VHead from '../../components/VHead';
+  import OrderTable from '../../../../components/OrderTable';
   import { mapState, mapActions } from 'vuex';
-  import { ORDER_SCHEME_REQUEST } from '../../store/user/types';
+  import { ORDER_SCHEME_REQUEST } from '../../../../store/user/types';
 
   export default {
     name: 'orderScheme',
@@ -172,7 +171,7 @@
       this.getOrderScheme(this.$route.params.id);
     },
     components: {
-      OrderTable, VHead
+      OrderTable
     }
   }
 </script>

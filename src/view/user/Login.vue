@@ -22,7 +22,6 @@
 </template>
 
 <script>
-  import VHead from '../../components/VHead';
   import Util from '../../common/util';
   import Toast from '../../common/toast';
   import router from '../../router/index';
@@ -67,8 +66,7 @@
       if (user.getToken()) {
         this.reLogin({user_token: user.getToken()});
       }
-    },
-    components: { VHead }
+    }
   }
 </script>
 

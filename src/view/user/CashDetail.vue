@@ -22,7 +22,6 @@
 </template>
 
 <script>
-  import VHead from '../../components/VHead.vue';
   import CaptchaButton from '../../components/CaptchaButton';
   import { mapState } from 'vuex';
 
@@ -35,7 +34,7 @@
       })
     },
     components: {
-      VHead, CaptchaButton
+      CaptchaButton
     }
   }
 </script>

@@ -33,7 +33,6 @@
 </template>
 
 <script>
-  import { Popup } from 'mint-ui';
   import Lottery from '../../../model/common/Lottery';
 
   export default {
@@ -55,9 +54,6 @@
         if (this.optFor[index] === checked) return;
         this.$set(this.optFor, index, checked);
       }
-    },
-    components: {
-      [Popup.name]: Popup
     }
   }
 </script>

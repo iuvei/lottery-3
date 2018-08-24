@@ -62,7 +62,6 @@
 </template>
 
 <script>
-  import VHead from '../../components/VHead.vue';
   import SchemeBox from '../../components/SchemeBox';
   import CountDown from '../../components/CountDown';
   import OrderExpired from '../../components/OrderExpired';
@@ -111,7 +110,7 @@
       })
     },
     components: {
-      VHead, SchemeBox, ServiceAgreement, CountDown, OrderExpired
+      SchemeBox, ServiceAgreement, CountDown, OrderExpired
     },
     created () {
       this.getSchemeConfirm()

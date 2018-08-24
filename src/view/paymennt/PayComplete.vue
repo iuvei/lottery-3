@@ -13,7 +13,6 @@
 </template>
 
 <script>
-  import VHead from '../../components/VHead.vue';
   import { mapState } from 'vuex';
 
   export default {
@@ -27,8 +26,7 @@
           name: 'OrderDetail', params: {id: this.orderId}
         }
       }
-    },
-    components: { VHead }
+    }
   }
 </script>
 

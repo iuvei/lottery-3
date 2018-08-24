@@ -1,7 +1,10 @@
 <template>
-  <div class="head">
-    <span class="back-icon" :class="selfAdaption||''" @click="goBack" v-if="!hideBack"></span>
-    <div v-show="title">{{title}}</div>
+  <div class="head" :class="selfAdaption">
+    <span class="back-icon"
+          :class="selfAdaption"
+          @click="goBack"
+          v-show="hideBack"></span>
+    <div v-if="title">{{title}}</div>
     <slot name="center"></slot>
     <span class="right">
       <slot name="right"></slot>
@@ -14,7 +17,12 @@
 
   export default {
     name: 'vHead',
-    props: ['title', 'hideBack', 'to', 'selfAdaption'],
+    props: {
+      title: {type: String},
+      hideBack: {type: Boolean, default: true},
+      to: {type: String},
+      selfAdaption: {type: String}
+    },
     methods: {
       goBack () {
         if (this.to) {
@@ -30,11 +38,15 @@
 <style>
   @import "../style/icon.css";
 
+  .head.SingInLaTombola {
+    background-color: transparent;
+  }
+
   .head {
     position: relative;
     padding: 0 20px;
     height: 40px;
-    background: white;
+    background-color: white;
     font-size: 18px;
     color: #333333;
     text-align: center;
@@ -60,10 +72,7 @@
     top: 0;
   }
 
-  .head .SingInLaTombola {
-    background: url("../assets/icon/white_back_icon.png") no-repeat center;
-    background-size: 40% 40%;
-    height: 35px;
-    width: 25px;
+  .head > .SingInLaTombola {
+    background-image: url("../assets/icon/white_back_icon.png");
   }
 </style>

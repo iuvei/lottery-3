@@ -91,13 +91,12 @@
   }
 
   .fixation-BuyTogether {
+    width: 100%;
+    max-width: 640px;
     position: fixed;
-    width: 10rem;
     bottom: 0;
-    max-width: 100%;
     left: 50%;
     transform: translate(-50%);
-    -webkit-transform: translate(-50%);
     background-color: white;
     padding: 10px;
     font-size: 15px;
@@ -202,7 +201,6 @@
 </template>
 
 <script>
-  import VHead from '../../components/VHead.vue';
   import InputNumber from '../../components/InputNumber.vue';
 
   export default {
@@ -217,7 +215,6 @@
       }
     },
     components: {
-      VHead,
       InputNumber
     }
   }

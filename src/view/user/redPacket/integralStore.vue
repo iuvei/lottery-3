@@ -165,7 +165,6 @@
 </template>
 
 <script>
-  import VHead from '../../../components/VHead.vue';
   import redItem from './component/redItem';
   import entityExchange from './component/entityExchange';
   import Http from '../../../store/Http.js';
@@ -264,6 +263,6 @@
     mounted () {
       this.getUserIntegralGoodsList()
     },
-    components: {VHead, redItem, entityExchange, VDialog}
+    components: {redItem, entityExchange, VDialog}
   }
 </script>

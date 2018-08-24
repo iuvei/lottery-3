@@ -1,17 +1,18 @@
 <style scoped>
   .score {
-    padding-top: 81px;
+    padding-top: 94px;
     max-width: 640px;
   }
 
   .switchover {
     box-sizing: border-box;
     width: 33.3%;
-    height: 28px;
-    line-height: 28px;
+    padding: 8px 0;
+    line-height: 1;
     font-size: 14px;
+    font-weight: bold;
     text-align: center;
-    margin: 8px 0;
+    margin: 10px 0;
     border: 1px solid #e73f40;
     color: #e73f40;
   }
@@ -47,24 +48,12 @@
     top: 0;
   }
 
-  .two-title > div {
-    width: 50%;
-    flex: 1 1 100%;
-    height: 34.5px;
-    line-height: 34.5px;
-    font-size: 13px;
-    color: #5f5d50;
-    border-bottom: 3px solid #dddddd;
-  }
-
-  .four-title > div {
-    width: 25%;
-    flex: 1 1 100%;
-    height: 34.5px;
-    line-height: 34.5px;
-    font-size: 13px;
-    color: #5f5d50;
-    border-bottom: 3px solid #dddddd;
+  .two-title > div, .four-title > div {
+    flex: 1;
+    height: 37px;
+    line-height: 35px;
+    color: #666;
+    border-bottom: 2px solid #dddddd;
   }
 
   .back-icons {
@@ -125,19 +114,12 @@
 
   .score-top {
     position: fixed;
-    width: 100%;
     top: 0;
-    left: 0;
+    left: auto;
+    width: 100%;
+    max-width: 640px;
     background: white;
-    z-index: 100;
-  }
-
-  @media screen and (min-width: 640px) {
-    .score-top {
-      width: 640px;
-      left: 50%;
-      margin-left: -320px;
-    }
+    z-index: 2;
   }
 
   .paddingBottom1 {
@@ -215,7 +197,6 @@
     TO_THE_TOP_INIT
   } from '../../store/score/types';
   import BottomNav from '../../components/BottomNav.vue';
-  import { Popup } from 'mint-ui';
   import container from './container.vue'
   import loading from '../../common/loading';
   import Compute from './components/compute.js'
@@ -433,7 +414,6 @@
       this.switchShow([this.lotteryType, this.lotteryState])
     },
     components: {
-      [Popup.name]: Popup,
       container,
       BottomNav
     }

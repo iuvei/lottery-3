@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-bottom: 100px">
+  <div style="margin-bottom: 150px">
     <router-link to="scheme" tag="div" append class="padding relative bg-white margin-top-10">
       <span class="text-normal text-default">方案明细</span>
       <span class="arrow-right"></span>
@@ -21,5 +21,8 @@
     position: absolute;
     right: 10px;
     top: 15px;
+  }
+  .bottom-logo img {
+    width: 100px;
   }
 </style>

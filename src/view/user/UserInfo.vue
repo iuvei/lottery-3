@@ -15,12 +15,11 @@
 </template>
 
 <script>
-  import VHead from '../../components/VHead.vue';
   import CaptchaButton from '../../components/CaptchaButton';
   export default {
     name: 'userInfo',
     components: {
-      VHead, CaptchaButton
+      CaptchaButton
     }
   }
 </script>

@@ -6,7 +6,6 @@
   </v-head>
 </template>
 <script>
-  import VHead from '../../../components/VHead.vue';
   import Lottery from '../../../model/common/Lottery';
 
   export default {
@@ -19,9 +18,6 @@
       return {
         showRight: Lottery.isJointPurchase(this.lottery)
       }
-    },
-    components: {
-      VHead
     }
   }
 </script>

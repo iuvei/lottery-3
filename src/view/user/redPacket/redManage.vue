@@ -130,7 +130,6 @@
 </template>
 
 <script>
-  import VHead from '../../../components/VHead.vue';
   import redPacket from './component/redPacket.vue';
   import noRedPacket from './component/noRedPacket.vue';
   import Http from '../../../store/Http.js';
@@ -253,7 +252,6 @@
       }
     },
     components: {
-      VHead,
       redPacket,
       noRedPacket,
       [Navbar.name]: Navbar,

@@ -1,7 +1,7 @@
 <template>
   <div class="homeRecommended-container">
     <div class="top">
-      <router-link tag="div" to="/" class="item" style="border-right: 1px solid #ddd">
+      <router-link tag="div" to="/MerchandiserLobby" class="item" style="border-right: 1px solid #ddd">
         <img src="../../../assets/home-Recommended.jpg" alt="大神推荐">
         <div>
           <h2 class="ellipsis">大神推荐</h2>

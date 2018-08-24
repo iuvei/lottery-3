@@ -21,6 +21,7 @@ const state = {
     lottery_id: 0, // 彩种ID(0不区分彩种)
     scheme: {} // 方案详情
   },
+  ordersList: [],
   token: user.getToken(),
   mine: {}, // 个人信息页,
   userBank: {}, // 个人银行信息
@@ -101,17 +102,12 @@ const actions = {
       state.withDrawCashMoney = params.money;
     });
   },
-  [types.GET_ORDERS_LIST] (context, status) {
+  [types.GET_ORDERS_LIST] (context, data) {
     loading.show();
-    context.commit(types.ORDER_LIST_FILTER, status);
-    context.commit(types.RESET_ORDERS);
-    Http.get('/Order', {
-      lottery_id: state.orders.lottery_id,
-      order_type: state.orders.status,
-      offset: state.orders.offset,
-      limit: state.orders.limit
-    }).then(data => {
-      context.commit(types.GET_ORDERS_LIST, data);
+    const cbk = data.cbk;
+    delete data.cbk;
+    Http.get('/Order', data).then(data => {
+      cbk(data);
       loading.hide();
     })
   },
@@ -237,24 +233,29 @@ const mutations = {
     });
   },
   [types.GET_ORDERS_LIST] (state, orders) {
-    orders.map(value => {
+    orders.forEach(value => {
       value.statusText = OrderStatus[value.status];
     })
     state.orders.list = orders;
+    // 设置数据
   },
   [types.ORDER_LIST_FILTER] (state, status) {
     state.orders.status = status;
+    // 中奖/开奖状态修改
   },
   [types.RESET_ORDERS] (state) {
+    // 重置
     state.orders.list = null;
     state.orders.offset = 0;
     state.orders.end = false;
   },
   [types.ORDERS_LIST_MORE_REQUEST] (state) {
+    // 加载状态和偏移量修改
     state.orders.loading = true;
     state.orders.offset += state.orders.limit;
   },
   [types.ORDERS_LIST_MORE_SUCCESS] (state, list) {
+    // 再次加载后处理
     if (list && list.length > 0) {
       list.map(value => {
         value.statusText = OrderStatus[value.status];

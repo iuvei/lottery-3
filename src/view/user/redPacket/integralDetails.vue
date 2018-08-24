@@ -105,7 +105,6 @@
 </template>
 
 <script>
-  import VHead from '../../../components/VHead.vue';
   import Http from '../../../store/Http.js';
   import loading from '../../../common/loading';
 
@@ -139,9 +138,8 @@
         })
       }
     },
-    mounted () {
+    created () {
       this.getIntegralList()
-    },
-    components: {VHead}
+    }
   }
 </script>

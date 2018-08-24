@@ -41,7 +41,6 @@
 </template>
 
 <script>
-  import VHead from '../../components/VHead';
   import Checkbox from '../../components/Checkbox';
   import { mapActions, mapState, mapMutations } from 'vuex';
   import { RECHARGE_LIST, RECHARGE, RECHARGE_INFO, CHANGE_RECHARGE_TYPE } from '../../store/payment/types';
@@ -102,7 +101,7 @@
         this.rechargeInfo({ recharge_sku: Search.recharge_sku });
       }
     },
-    components: { VHead, Checkbox }
+    components: { Checkbox }
   }
 </script>
 

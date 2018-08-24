@@ -48,7 +48,6 @@
 </template>
 
 <script>
-  import VHead from '../../../components/VHead.vue';
   import { Field, Button } from 'mint-ui';
   import Http from '../../../store/Http.js';
   import Toast from '../../../common/toast';
@@ -97,7 +96,6 @@
       }
     },
     components: {
-      VHead,
       [Field.name]: Field,
       [Button.name]: Button
     }
